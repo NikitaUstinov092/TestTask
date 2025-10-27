@@ -349,6 +349,7 @@ Transform:
   - {fileID: 1980920535}
   - {fileID: 752066668}
   - {fileID: 1375819248}
+  - {fileID: 2027535402}
   m_Father: {fileID: 1884984980332954258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &752066667
@@ -362,7 +363,7 @@ GameObject:
   - component: {fileID: 752066668}
   - component: {fileID: 752066669}
   m_Layer: 0
-  m_Name: SourceConnection
+  m_Name: OutgoingConnections
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,7 +472,7 @@ GameObject:
   - component: {fileID: 1375819248}
   - component: {fileID: 1375819249}
   m_Layer: 0
-  m_Name: TargetConnection
+  m_Name: IncomingConnections
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -752,6 +753,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 7839293993186316979}
+--- !u!1 &2027535401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027535402}
+  - component: {fileID: 2027535403}
+  m_Layer: 0
+  m_Name: ConnectionBuffer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2027535402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027535401}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 567046130}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2027535403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027535401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb89e6ab407f4d4d874b607705372d26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConnectionBufferEntity: {fileID: 0}
 --- !u!1 &194085880095097219
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,6 +2124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: 1980920536}
+  - {fileID: 752066669}
+  - {fileID: 1375819249}
+  - {fileID: 2027535403}
 --- !u!114 &7839293993186316979
 MonoBehaviour:
   m_ObjectHideFlags: 0

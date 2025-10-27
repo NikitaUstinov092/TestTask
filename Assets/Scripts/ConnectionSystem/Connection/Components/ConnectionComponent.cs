@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class ConnectionComponent : MonoBehaviour
+namespace ConnectionSystem.Connection.Components
 {
-   public LineRenderer LineRenderer;
-   public Transform StartPoint;
-   public Transform EndPoint;
+   public class ConnectionComponent : MonoBehaviour
+   {
+      public LineRenderer LineRenderer;
+      public Transform StartPoint;
+      public Transform EndPoint;
+   }
 }

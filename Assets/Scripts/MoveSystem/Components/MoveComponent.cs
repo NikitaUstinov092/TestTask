@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class MoveComponent : MonoBehaviour
+namespace MoveSystem.Components
 {
-   public Transform TransformToMove;
+   public class MoveComponent : MonoBehaviour
+   {
+      public Transform TransformToMove;
+   }
 }

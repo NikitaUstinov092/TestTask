@@ -1,10 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Entity.Entity))]
-public class EntityInputInstaller : MouseInputBase<Entity.Entity>
+namespace InputSystem
 {
-    private void Awake()
+    [RequireComponent(typeof(Entity.Entity))]
+    public class EntityInputInstaller : MouseInputBase<Entity.Entity>
     {
-        SetUp(GetComponent<Entity.Entity>());
+        private void Awake()
+        {
+            SetUp(GetComponent<Entity.Entity>());
+        }
     }
 }

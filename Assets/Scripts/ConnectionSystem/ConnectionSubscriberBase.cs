@@ -1,52 +1,51 @@
 ﻿using System;
+using ConnectionSystem.Connection.Components;
+using Entity;
+using InputSystem;
+using InputSystem.Components;
 using Zenject;
 
-namespace MousePoint
+namespace ConnectionSystem
 {
-    public class MousePointSubscriber: IInitializable, IDisposable
+    public abstract class ConnectionInputSubscriberBase : IInitializable, IDisposable
     {
+        [Inject] 
         private readonly EntityStorage _storage;
-        private readonly MousePointSpawner _mousePointSpawner;
-        
-        [Inject]
-        public MousePointSubscriber(EntityStorage storage, MousePointSpawner mousePointSpawner)
-        {
-            _storage = storage;
-            _mousePointSpawner = mousePointSpawner;
-        }
-        void IInitializable.Initialize()
+
+        public void Initialize()
         {
             _storage.OnEntityAdded += OnEntityAdded;
             _storage.OnEntityRemoved += OnEntityRemoved;
         }
-        void IDisposable.Dispose()
+
+        public void Dispose()
         {
             _storage.OnEntityAdded -= OnEntityAdded;
             _storage.OnEntityRemoved -= OnEntityRemoved;
         }
-        
+
         private void OnEntityAdded(Entity.Entity entity)
         {
             if (!entity.TryGet(out InputComponent inputComponent)
                 || !entity.HasComponent<IncomingConnectionComponent>()) return;
-        
+
             var input = inputComponent.GetInput();
-     
-            input.OnBeginDragData += _mousePointSpawner.OnBeginDrag;
-            input.OnDragEvent += _mousePointSpawner.OnDrag;
-            input.OnPointerUpData += _mousePointSpawner.OnMouseUp;
+
+            Subscribe(input);
         }
 
         private void OnEntityRemoved(Entity.Entity entity)
         {
             if (!entity.TryGet(out InputComponent inputComponent)
                 || !entity.HasComponent<IncomingConnectionComponent>()) return;
-        
+
             var input = inputComponent.GetInput();
-       
-            input.OnBeginDragData -= _mousePointSpawner.OnBeginDrag;
-            input.OnDragEvent -= _mousePointSpawner.OnDrag;
-            input.OnPointerUpData -= _mousePointSpawner.OnMouseUp;
+
+            Unsubsribe(input);
         }
+
+        protected abstract void Subscribe(IMouseInput<Entity.Entity> input);
+        protected abstract void Unsubsribe(IMouseInput<Entity.Entity> input);
+
     }
 }

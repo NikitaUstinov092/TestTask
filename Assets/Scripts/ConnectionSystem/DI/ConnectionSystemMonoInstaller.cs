@@ -1,14 +1,17 @@
+using ConnectionSystem.Connection;
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "ConnectionSystemMonoInstaller", menuName = "Installers/ConnectionSystemMonoInstaller")]
-public class ConnectionSystemMonoInstaller : ScriptableObjectInstaller<ConnectionSystemMonoInstaller>
+namespace ConnectionSystem.DI
 {
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "ConnectionSystemMonoInstaller", menuName = "Installers/ConnectionSystemMonoInstaller")]
+    public class ConnectionSystemMonoInstaller : ScriptableObjectInstaller<ConnectionSystemMonoInstaller>
     {
-        Container.BindInterfacesAndSelfTo<ConnectionSpawner>().AsSingle();
-        Container.BindInitializableExecutionOrder<ConnectionInputAdapter>(10);
-        Container.BindDisposableExecutionOrder<ConnectionInputAdapter>(10);
-        Container.BindInterfacesTo<ConnectionSpawnedHandler>().AsCached();
+        public override void InstallBindings()
+        {
+            Container.BindInterfacesAndSelfTo<ConnectionSpawner>().AsSingle();
+            Container.BindInitializableExecutionOrder<ConnectionInputInputSubscriber>(10);
+            Container.BindDisposableExecutionOrder<ConnectionInputInputSubscriber>(10);
+        }
     }
 }

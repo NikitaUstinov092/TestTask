@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
 
+namespace Entity
+{
     public class EntityStorage 
     {
-        public event Action<Entity.Entity> OnEntityAdded;
-        public event Action<Entity.Entity> OnEntityRemoved;
-        public event Action<List<Entity.Entity>> OnListChanged;
-        public List<Entity.Entity> Entities { get; } = new List<Entity.Entity>();
+        public event Action<global::Entity.Entity> OnEntityAdded;
+        public event Action<global::Entity.Entity> OnEntityRemoved;
+        public event Action<List<global::Entity.Entity>> OnListChanged;
+        public List<global::Entity.Entity> Entities { get; } = new List<global::Entity.Entity>();
        
-        public bool HasEntity(Entity.Entity entity) => Entities.Contains(entity);
+        public bool HasEntity(global::Entity.Entity entity) => Entities.Contains(entity);
         
-        public void AddEntity(Entity.Entity entity)
+        public void AddEntity(global::Entity.Entity entity)
         {
             if (Entities.Contains(entity))
                 return;
@@ -18,7 +20,7 @@ using System.Collections.Generic;
             OnEntityAdded?.Invoke(entity);
             OnListChanged?.Invoke(Entities);
         }
-        public void RemoveEntity(Entity.Entity entity)
+        public void RemoveEntity(global::Entity.Entity entity)
         {
             if (!Entities.Contains(entity)) 
                 return;
@@ -32,4 +34,5 @@ using System.Collections.Generic;
             OnListChanged?.Invoke(Entities);
         }
     }
+}
 

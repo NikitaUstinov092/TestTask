@@ -1,80 +1,67 @@
+using ConnectionSystem.Connection.Components;
+using ConnectionSystem.MousePoint;
+using Custom;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 
-public class ConnectionSpawner: IInitializable
+namespace ConnectionSystem.Connection
 {
-    public event System.Action<Entity.Entity, Entity.Entity> OnCreateConnection;
-    public event System.Action<Entity.Entity, Entity.Entity> OnReleaseConnection;
-    public event System.Action<Entity.Entity> OnDragConnection;
-    
-    private EntitySpawnFactory _connectionFactory;
-    
-    [Inject(Id = "Connection")]
-    private IEntityPrefab _entityPrefab;
-    
-    private Entity.Entity _connection;
-    
-    void IInitializable.Initialize()
+    public class ConnectionSpawner : IInitializable
     {
-        _connectionFactory = new EntitySpawnFactory(_entityPrefab, "Connection");
-    }
-    public void OnBeginDrag(Entity.Entity source)
-    {
-        _connection = _connectionFactory.CreateEntityWithParent(Vector3.zero);
-         OnCreateConnection?.Invoke(source, _connection);
-    }
-    
-    public void OnDrag()
-    {
-        if(!_connection)
-            return;
-        OnDragConnection?.Invoke(_connection);
-    }
-    
-    public void OnMouseUp(Entity.Entity source)
-    {
-        if(!_connection)
-            return;
-        OnReleaseConnection?.Invoke(source, _connection);
-        _connection = null;
-    }
-    
-}
+        public event System.Action<Entity.Entity> OnCreateConnection;
 
-public class EntitySpawnFactory
-{
-    private readonly IEntityPrefab _prefabStorage;
-    private readonly GameObject _parent;
-    
-    public EntitySpawnFactory(IEntityPrefab prefabStorage, string parentName = null)
-    {
-        _prefabStorage = prefabStorage;
-        
-        if(!string.IsNullOrEmpty(parentName)) 
-            _parent = new GameObject(parentName);
-    }
-    public Entity.Entity CreateEntityWithParent(Vector3 position)
-    {
-        var result = 
-            Object.Instantiate(_prefabStorage.GetPrefab(),
-                position, Quaternion.identity, _parent.transform);
-        
-        return result.GetComponent<Entity.Entity>();
-    }
-    
-    public Entity.Entity CreateEntity(Vector3 position)
-    {
-        var result = 
-            Object.Instantiate(_prefabStorage.GetPrefab(),
-                position, Quaternion.identity, _parent.transform);
-        
-        return result.GetComponent<Entity.Entity>();
-    }
-    
-}
+        private const int LinePositionsCount = 2;
+        private const string ConnectionPrefabId = "Connection";
 
-public interface IEntityPrefab
-{
-    GameObject GetPrefab();
+        private readonly IMousePointService _mousePointService;
+        private readonly IEntityPrefab _entityPrefab;
+
+        private EntitySpawnFactory _connectionFactory;
+
+        [Inject]
+        public ConnectionSpawner(IMousePointService mousePointService,
+            [Inject(Id = ConnectionPrefabId)] IEntityPrefab entityPrefab)
+        {
+            _mousePointService = mousePointService;
+            _entityPrefab = entityPrefab;
+        }
+
+        void IInitializable.Initialize()
+        {
+            _connectionFactory = new EntitySpawnFactory(_entityPrefab, ConnectionPrefabId);
+        }
+        
+        public void CreateAndInstallConnection(Entity.Entity sourceEntity)
+        {
+            var connection = _connectionFactory.CreateEntityWithParent(Vector3.zero);
+
+            var sourceTransform = sourceEntity.transform;
+
+            ConfigureConnectionComponent(connection, sourceTransform);
+            SetSpawnerEntitySelf(sourceEntity);
+            SetConnectionBuffer(sourceEntity, connection);
+
+            OnCreateConnection?.Invoke(connection);
+        }
+
+        private void SetConnectionBuffer(Entity.Entity sourceEntity, Entity.Entity connection)
+        {
+            var incomingConnectionComponent = sourceEntity.Get<ConnectionBufferComponent>();
+            incomingConnectionComponent.ConnectionBufferEntity = connection;
+        }
+
+        private void SetSpawnerEntitySelf(Entity.Entity sourceEntity)
+        {
+            var spawnerEntityComponent = sourceEntity.Get<SpawnerEntityComponent>();
+            spawnerEntityComponent.SpawnerEntity = sourceEntity;
+        }
+
+        private void ConfigureConnectionComponent(Entity.Entity connection, Transform sourceTransform)
+        {
+            var connectionComponent = connection.Get<ConnectionComponent>();
+            connectionComponent.LineRenderer.positionCount = LinePositionsCount;
+            connectionComponent.StartPoint = sourceTransform;
+            connectionComponent.EndPoint = _mousePointService.GetPoint();
+        }
+    }
 }

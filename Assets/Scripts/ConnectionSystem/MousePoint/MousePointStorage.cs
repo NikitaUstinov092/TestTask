@@ -4,21 +4,26 @@ namespace ConnectionSystem.MousePoint
 {
     public class MousePointStorage: IMousePointService
     {
-        private Transform _point;
+        private GameObject _point;
         
-        public void SetPoint(Transform point)
+        public void SetPoint(GameObject point)
         {
             _point = point;
         }
 
-        public void RemovePoint()
-        {
-            _point = null;
-        }
-        
-        Transform IMousePointService.GetPoint()
+        public GameObject GetPointGo()
         {
             return _point;
+        }
+        
+        public Transform GetPoint()
+        {
+            return _point.transform;
+        }
+        
+        public bool PointExists()
+        {
+            return _point != null;
         }
     }
 
