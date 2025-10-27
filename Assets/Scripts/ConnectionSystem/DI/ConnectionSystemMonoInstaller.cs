@@ -10,8 +10,8 @@ namespace ConnectionSystem.DI
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<ConnectionSpawner>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ConnectionInputInputSubscriber>().AsCached();
             Container.BindInitializableExecutionOrder<ConnectionInputInputSubscriber>(10);
-            Container.BindDisposableExecutionOrder<ConnectionInputInputSubscriber>(10);
         }
     }
 }

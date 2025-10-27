@@ -33,7 +33,7 @@ namespace ConnectionSystem.Connection
         
         public void CreateAndInstallConnection(Entity.Entity sourceEntity)
         {
-            var connection = _connectionFactory.CreateEntityWithParent(Vector3.zero);
+            var connection = _connectionFactory.CreateEntity(Vector3.zero);
 
             var sourceTransform = sourceEntity.transform;
 
