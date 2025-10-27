@@ -5,20 +5,16 @@ namespace Custom
    public class EntitySpawnFactory
    {
        private readonly IEntityPrefab _prefabStorage;
-       private readonly GameObject _parent;
        
-       public EntitySpawnFactory(IEntityPrefab prefabStorage, string parentName = null)
+       public EntitySpawnFactory(IEntityPrefab prefabStorage)
        {
            _prefabStorage = prefabStorage;
-           
-           if(!string.IsNullOrEmpty(parentName)) 
-               _parent = new GameObject(parentName);
        }
        public Entity.Entity CreateEntity(Vector3 position)
        {
            var result = 
                Object.Instantiate(_prefabStorage.GetPrefab(),
-                   position, Quaternion.identity, _parent.transform);
+                   position, Quaternion.identity);
            
            return result.GetComponent<Entity.Entity>();
        }

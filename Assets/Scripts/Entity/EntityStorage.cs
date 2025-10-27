@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace Entity
 {
-    public class EntityStorage 
+    public class EntityStorage: IEntityStorage, IEntityStorageObserver
     {
-        public event Action<global::Entity.Entity> OnEntityAdded;
-        public event Action<global::Entity.Entity> OnEntityRemoved;
-        public event Action<List<global::Entity.Entity>> OnListChanged;
-        public List<global::Entity.Entity> Entities { get; } = new List<global::Entity.Entity>();
+        public event Action<Entity> OnEntityAdded;
+        public event Action<Entity> OnEntityRemoved;
+        public event Action<List<Entity>> OnListChanged;
+        public List<Entity> Entities { get; } = new ();
        
-        public bool HasEntity(global::Entity.Entity entity) => Entities.Contains(entity);
+        public bool HasEntity(Entity entity) => Entities.Contains(entity);
         
-        public void AddEntity(global::Entity.Entity entity)
+        public void AddEntity(Entity entity)
         {
             if (Entities.Contains(entity))
                 return;
@@ -20,7 +20,7 @@ namespace Entity
             OnEntityAdded?.Invoke(entity);
             OnListChanged?.Invoke(Entities);
         }
-        public void RemoveEntity(global::Entity.Entity entity)
+        public void RemoveEntity(Entity entity)
         {
             if (!Entities.Contains(entity)) 
                 return;
@@ -28,11 +28,20 @@ namespace Entity
             OnEntityRemoved?.Invoke(entity);
             OnListChanged?.Invoke(Entities);
         }
-        public void ClearList()
-        {
-            Entities.Clear();
-            OnListChanged?.Invoke(Entities);
-        }
+    }
+
+    public interface IEntityStorage
+    {
+        void AddEntity(Entity entity);
+        void RemoveEntity(Entity entity);
+        bool HasEntity(Entity entity);
+    }
+    
+    public interface IEntityStorageObserver
+    {
+        public event Action<Entity> OnEntityAdded;
+        public event Action<Entity> OnEntityRemoved;
+        public event Action<List<Entity>> OnListChanged;
     }
 }
 

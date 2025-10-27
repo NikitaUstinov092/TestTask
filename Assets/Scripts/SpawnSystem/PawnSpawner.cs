@@ -9,9 +9,6 @@ public class PawnSpawner : MonoBehaviour, IInitializable
     public event Action<Entity.Entity> OnSpawned;
     
     [SerializeField] 
-    private string _parentName;
-    
-    [SerializeField] 
     private MonoBehaviour _prefabContainer;
     
     [SerializeField] 
@@ -27,7 +24,7 @@ public class PawnSpawner : MonoBehaviour, IInitializable
     private void Spawn()
     {
         var prefab = _prefabContainer.GetComponent<IEntityPrefab>();
-        _factory = new EntitySpawnFactory(prefab, _parentName);
+        _factory = new EntitySpawnFactory(prefab);
         var pawn = _factory.CreateEntity(GetPosition());
         OnSpawned?.Invoke(pawn);
     }

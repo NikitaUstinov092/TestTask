@@ -11,7 +11,6 @@ namespace ConnectionSystem.Connection
         public event System.Action<Entity.Entity> OnCreateConnection;
 
         private const int LinePositionsCount = 2;
-        private const string ConnectionPrefabId = "Connection";
 
         private readonly IMousePointService _mousePointService;
         private readonly IEntityPrefab _entityPrefab;
@@ -20,7 +19,7 @@ namespace ConnectionSystem.Connection
 
         [Inject]
         public ConnectionSpawner(IMousePointService mousePointService,
-            [Inject(Id = ConnectionPrefabId)] IEntityPrefab entityPrefab)
+            IEntityPrefab entityPrefab)
         {
             _mousePointService = mousePointService;
             _entityPrefab = entityPrefab;
@@ -28,7 +27,7 @@ namespace ConnectionSystem.Connection
 
         void IInitializable.Initialize()
         {
-            _connectionFactory = new EntitySpawnFactory(_entityPrefab, ConnectionPrefabId);
+            _connectionFactory = new EntitySpawnFactory(_entityPrefab);
         }
         
         public void CreateAndInstallConnection(Entity.Entity sourceEntity)
