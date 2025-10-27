@@ -1,0 +1,10 @@
+﻿namespace ConnectionSystem.Connection
+{
+    public class ConnectionAttachOrDiscardHandler
+    {
+        public void AttachOrDiscard(Entity.Entity entity)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+}

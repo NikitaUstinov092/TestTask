@@ -1,0 +1,21 @@
+﻿using InputSystem;
+using Zenject;
+
+namespace ConnectionSystem.ConnectionLineView
+{
+    public class ConnectionInputLineViewInputSubscriber: ConnectionInputSubscriberBase
+    {
+        [Inject]
+        private ConnectionLinePointsUpdater _connectionLinePointsUpdater;
+        protected override void Subscribe(IMouseInput<Entity.Entity> input)
+        {
+            input.OnBeginDragData += _connectionLinePointsUpdater.UpdateLineEndPoint;
+            input.OnPointerUpData += _connectionLinePointsUpdater.UpdateLineEndPoint;
+        }
+        protected override void Unsubsribe(IMouseInput<Entity.Entity> input)
+        {
+            input.OnBeginDragData -= _connectionLinePointsUpdater.UpdateLineEndPoint;
+            input.OnPointerUpData -= _connectionLinePointsUpdater.UpdateLineEndPoint;
+        }
+    }
+}
