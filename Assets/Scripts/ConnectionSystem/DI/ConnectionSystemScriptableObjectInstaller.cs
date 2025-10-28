@@ -1,5 +1,6 @@
 using ConnectionSystem.Connection;
 using ConnectionSystem.ConnectionLineView;
+using ConnectionSystem.EntityFilter;
 using ConnectionSystem.MousePoint;
 using UnityEngine;
 using Zenject;
@@ -13,6 +14,8 @@ namespace ConnectionSystem.DI
         {
             BindConnectioninstallers();
             BindMousePointInstallers();
+            BindJoinableFilterInstallers();
+            BindInitializableExecutionOrders();
         }
         private void BindConnectioninstallers()
         {
@@ -20,16 +23,29 @@ namespace ConnectionSystem.DI
             Container.BindInterfacesAndSelfTo<ConnectionSpawner>().AsSingle();
             Container.BindInterfacesTo<ConnectionInputInputSubscriber>().AsCached();
             Container.BindInterfacesTo<ConnectionInputLineViewInputSubscriber>().AsCached();
-            Container.BindInitializableExecutionOrder<ConnectionInputInputSubscriber>(10);
-            Container.BindInitializableExecutionOrder<ConnectionInputLineViewInputSubscriber>(20);
             Container.Bind<ConnectionLinePointsUpdater>().AsSingle();
         }
+        
         private void BindMousePointInstallers()
         {
             Container.BindInterfacesAndSelfTo<MousePointStorage>().AsSingle();
             Container.BindInterfacesTo<MousePointInputSubscriber>().AsCached();
             Container.Bind<MousePointLifecycle>().AsSingle();
             Container.Bind<MousePointMover>().AsSingle();
+        }
+        
+        private void BindJoinableFilterInstallers()
+        {
+            Container.BindInterfacesAndSelfTo<JoinableStorage>().AsSingle();
+            Container.BindInterfacesTo<JoinableFilterSubscriber>().AsCached();
+            Container.Bind<JoinableStorageManager>().AsSingle();
+        }
+        
+        private void BindInitializableExecutionOrders()
+        {
+            Container.BindInitializableExecutionOrder<ConnectionInputInputSubscriber>(10);
+            Container.BindInitializableExecutionOrder<ConnectionInputLineViewInputSubscriber>(20);
+            Container.BindInitializableExecutionOrder<JoinableFilterSubscriber>(30);
         }
         
     }

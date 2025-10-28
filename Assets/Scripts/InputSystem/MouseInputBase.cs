@@ -49,7 +49,9 @@ namespace InputSystem
         {
             if (eventData.button != PointerEventData.InputButton.Left)
                 return;
-        
+            
+            EventSystem.current.SetSelectedGameObject(gameObject);
+            
             OnPointerClickData?.Invoke(_type);
             OnPointerClickEvent?.Invoke();
         }
@@ -97,17 +99,14 @@ namespace InputSystem
         {
             OnSelectData?.Invoke(_type);
             OnSelectEvent?.Invoke();
+            Debug.Log("S");
         }
 
         public virtual void OnDeselect(BaseEventData eventData)
         {
-            if (Input.GetMouseButton(1))
-            {
-                return;
-            }
-     
             OnDeselectData?.Invoke(_type);
             OnDeselectEvent?.Invoke();
+            Debug.Log("D");
         }
 
         public virtual void OnEndDrag(PointerEventData eventData)

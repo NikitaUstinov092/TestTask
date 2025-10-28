@@ -1,4 +1,6 @@
-﻿namespace ConnectionSystem.Connection
+﻿using UnityEngine;
+
+namespace ConnectionSystem.Connection
 {
     public class ConnectionAttachOrDiscardHandler
     {
@@ -6,5 +8,11 @@
         {
             
         }
+
+        public void OnDeselectTest(Entity.Entity obj)
+        {
+            
+        }
     }
 }
+

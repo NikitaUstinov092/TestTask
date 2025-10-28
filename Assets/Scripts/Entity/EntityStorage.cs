@@ -8,25 +8,28 @@ namespace Entity
         public event Action<Entity> OnEntityAdded;
         public event Action<Entity> OnEntityRemoved;
         public event Action<List<Entity>> OnListChanged;
-        public List<Entity> Entities { get; } = new ();
-       
-        public bool HasEntity(Entity entity) => Entities.Contains(entity);
-        
+      
+        private readonly List<Entity> _entities = new ();
+        public bool HasEntity(Entity entity) => _entities.Contains(entity);
+        IEnumerable<Entity> IEntityStorage.GetAllEntities() => _entities;
+
         public void AddEntity(Entity entity)
         {
-            if (Entities.Contains(entity))
+            if (_entities.Contains(entity))
                 return;
-            Entities.Add(entity);
+            
+            _entities.Add(entity);
             OnEntityAdded?.Invoke(entity);
-            OnListChanged?.Invoke(Entities);
+            OnListChanged?.Invoke(_entities);
         }
         public void RemoveEntity(Entity entity)
         {
-            if (!Entities.Contains(entity)) 
+            if (!_entities.Contains(entity)) 
                 return;
-            Entities.Remove(entity);
+            
+            _entities.Remove(entity);
             OnEntityRemoved?.Invoke(entity);
-            OnListChanged?.Invoke(Entities);
+            OnListChanged?.Invoke(_entities);
         }
     }
 
@@ -35,6 +38,7 @@ namespace Entity
         void AddEntity(Entity entity);
         void RemoveEntity(Entity entity);
         bool HasEntity(Entity entity);
+        IEnumerable<Entity> GetAllEntities();
     }
     
     public interface IEntityStorageObserver
