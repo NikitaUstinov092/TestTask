@@ -8,17 +8,32 @@ namespace ConnectionSystem.MousePoint
     {
         [Inject]
         private MousePointStorage _mousePointStorage;
-        
-        private const string MousePointName = "MousePoint";
+
+        private MousePointFactory _mousePointFactory = new();
+       
         public void CreatePoint(Entity.Entity entity)
         {
-            var go = new GameObject(MousePointName);
+           
             _mousePointStorage.SetPoint(go);
         }
 
         public void DestroyPoint()
         {
             Object.Destroy(_mousePointStorage.GetPointGo());
+        }
+    }
+
+    public class MousePointFactory
+    {
+        private const string MousePointName = "MousePoint";
+        public GameObject CreatePoint(Transform )
+        {
+            var mousePoint = new GameObject(MousePointName);
+            var transform = mousePoint.transform;
+            var position = new Vector3(transform.position.x, entity.transform.position.y,
+                transform.position.z);
+            transform.position = position;
+            return mousePoint;
         }
     }
 }

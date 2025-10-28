@@ -1,4 +1,5 @@
 using ConnectionSystem.Connection;
+using ConnectionSystem.ConnectionLineView;
 using ConnectionSystem.MousePoint;
 using UnityEngine;
 using Zenject;
@@ -17,8 +18,11 @@ namespace ConnectionSystem.DI
         {
             Container.Bind<ConnectionAttachOrDiscardHandler>().AsSingle();
             Container.BindInterfacesAndSelfTo<ConnectionSpawner>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ConnectionInputInputSubscriber>().AsCached();
+            Container.BindInterfacesTo<ConnectionInputInputSubscriber>().AsCached();
+            Container.BindInterfacesTo<ConnectionInputLineViewInputSubscriber>().AsCached();
             Container.BindInitializableExecutionOrder<ConnectionInputInputSubscriber>(10);
+            Container.BindInitializableExecutionOrder<ConnectionInputLineViewInputSubscriber>(20);
+            Container.Bind<ConnectionLinePointsUpdater>().AsSingle();
         }
         private void BindMousePointInstallers()
         {

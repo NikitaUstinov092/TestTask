@@ -9,12 +9,14 @@ namespace ConnectionSystem.ConnectionLineView
         private ConnectionLinePointsUpdater _connectionLinePointsUpdater;
         protected override void Subscribe(IMouseInput<Entity.Entity> input)
         {
-            input.OnBeginDragData += _connectionLinePointsUpdater.UpdateLineEndPoint;
+            input.OnBeginDragData += _connectionLinePointsUpdater.UpdateLineStartPoint;
+            input.OnDragData += _connectionLinePointsUpdater.UpdateLineEndPoint;
             input.OnPointerUpData += _connectionLinePointsUpdater.UpdateLineEndPoint;
         }
         protected override void Unsubsribe(IMouseInput<Entity.Entity> input)
         {
-            input.OnBeginDragData -= _connectionLinePointsUpdater.UpdateLineEndPoint;
+            input.OnBeginDragData -= _connectionLinePointsUpdater.UpdateLineStartPoint;
+            input.OnDragData -= _connectionLinePointsUpdater.UpdateLineEndPoint;
             input.OnPointerUpData -= _connectionLinePointsUpdater.UpdateLineEndPoint;
         }
     }

@@ -11,6 +11,14 @@ namespace ConnectionSystem.ConnectionLineView
 
             UpdateLineEndPoint(connectionComponent);
         }
+        
+        public void UpdateLineStartPoint(Entity.Entity entity)
+        {
+            if (!TryGetComponent(entity, out var connectionComponent)) 
+                return;
+
+            UpdateStartLinePoint(connectionComponent);
+        }
 
         private bool TryGetComponent(Entity.Entity entity, out ConnectionComponent connectionComponent)
         {
@@ -27,7 +35,7 @@ namespace ConnectionSystem.ConnectionLineView
             return true;
         }
 
-        public void UpdateStartLinePoint(ConnectionComponent connectionComponent)
+        private void UpdateStartLinePoint(ConnectionComponent connectionComponent)
         {
             connectionComponent.LineRenderer.SetPosition(0, connectionComponent.StartPoint.position);
         }

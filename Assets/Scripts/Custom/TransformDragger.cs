@@ -23,7 +23,7 @@ namespace Custom
                 throw new System.Exception("Камера не найдена");
 
             var pointerWorldPosition = _camera.ScreenToWorldPoint(UnityEngine.Input.mousePosition - _dragOffsetScreen);
-            transformToDrag.position = new Vector3(transformToDrag.position.x, pointerWorldPosition.y, pointerWorldPosition.z);
+            transformToDrag.position = new Vector3(pointerWorldPosition.x, transformToDrag.position.y, pointerWorldPosition.z);
         }
 
         private Vector3 WorldToScreen(Vector3 worldPosition)
