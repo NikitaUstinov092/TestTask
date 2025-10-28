@@ -49,7 +49,6 @@ namespace InputSystem
         {
             if (eventData.button != PointerEventData.InputButton.Left)
                 return;
-            EventSystem.current.SetSelectedGameObject(gameObject);
         
             OnPointerClickData?.Invoke(_type);
             OnPointerClickEvent?.Invoke();

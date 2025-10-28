@@ -4,7 +4,7 @@
     {
         public void AttachOrDiscard(Entity.Entity entity)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

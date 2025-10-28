@@ -16,21 +16,21 @@ public class PawnSpawner : MonoBehaviour, IInitializable
     
     private EntitySpawnFactory _factory;
 
+    public Transform point1, point2;
+
     void IInitializable.Initialize()
     {
-        Spawn();
+        Spawn(point1.position);
+        Spawn(point2.position);
     }
 
-    private void Spawn()
+    private void Spawn(Vector3 spawnPosition)
     {
         var prefab = _prefabContainer.GetComponent<IEntityPrefab>();
         _factory = new EntitySpawnFactory(prefab);
-        var pawn = _factory.CreateEntity(GetPosition());
+        var pawn = _factory.CreateEntity(spawnPosition);
         OnSpawned?.Invoke(pawn);
     }
 
-    private Vector3 GetPosition()
-    {
-        return Vector3.zero;
-    }
+   
 }
