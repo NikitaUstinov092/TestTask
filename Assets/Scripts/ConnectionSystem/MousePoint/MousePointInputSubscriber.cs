@@ -16,14 +16,14 @@ namespace ConnectionSystem.MousePoint
         }
         protected override void Subscribe(IMouseInput<Entity.Entity> input)
         {
-            input.OnBeginDragData += _mousePointLifecycle.CreatePoint;
+            input.OnBeginDragData += _mousePointLifecycle.CreateAndInstallPoint;
             input.OnBeginDragEvent += _mousePointMover.SetStartPoint;
             input.OnDragEvent += _mousePointMover.MovePoint;
             input.OnPointerUpEvent += _mousePointLifecycle.DestroyPoint;
         }
         protected override void Unsubsribe(IMouseInput<Entity.Entity> input)
         {
-            input.OnBeginDragData -= _mousePointLifecycle.CreatePoint;
+            input.OnBeginDragData -= _mousePointLifecycle.CreateAndInstallPoint;
             input.OnBeginDragEvent -= _mousePointMover.SetStartPoint;
             input.OnDragEvent -= _mousePointMover.MovePoint;
             input.OnPointerUpEvent -= _mousePointLifecycle.DestroyPoint;
