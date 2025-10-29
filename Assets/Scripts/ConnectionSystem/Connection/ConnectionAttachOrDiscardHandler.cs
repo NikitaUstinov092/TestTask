@@ -9,7 +9,7 @@ using Zenject;
 
 namespace ConnectionSystem.Connection
 {
-    public class ConnectionAttachOrDiscardHandler
+    public class ConnectionResolver
     {
         public event Action<Entity.Entity, Entity.Entity, Entity.Entity> OnAttached;
         public event Action<Entity.Entity> OnDiscard;
@@ -18,22 +18,22 @@ namespace ConnectionSystem.Connection
         private readonly NearestEntityFilter _entityFilter;
        
         [Inject]
-        public ConnectionAttachOrDiscardHandler(IEntityStorage entityStorage, IJoinableEntitiesService joinableEntitiesService)
+        public ConnectionResolver(IEntityStorage entityStorage, IJoinableEntitiesService joinableEntitiesService)
         {
             _entityFilter = new NearestEntityFilter(entityStorage);
             _joinableEntitiesService = joinableEntitiesService;
         }
-        public void AttachOrDiscard(Entity.Entity entity)
+        public void ResolveConnection(Entity.Entity entity)
         {
-            var bufferConnection = entity.Get<ConnectionBufferComponent>().ConnectionBufferEntity;
+            var connectionBuffer  = entity.Get<ConnectionBufferComponent>().ConnectionBufferEntity;
 
-            if (!_entityFilter.TryFindNearest(bufferConnection, out var nearest) 
-                || !_joinableEntitiesService.HasEntity(nearest))
+            if (!_entityFilter.TryFindNearest(connectionBuffer , out var nearestEntity) 
+                || !_joinableEntitiesService.HasEntity(nearestEntity))
             {
-                OnDiscard?.Invoke(bufferConnection);
+                OnDiscard?.Invoke(connectionBuffer);
                 return;
             }
-            OnAttached?.Invoke(entity, nearest, bufferConnection);
+            OnAttached?.Invoke(entity, nearestEntity, connectionBuffer );
         }
     }
     

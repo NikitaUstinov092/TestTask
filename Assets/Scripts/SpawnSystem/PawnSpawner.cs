@@ -16,7 +16,7 @@ public class PawnSpawner : MonoBehaviour, IInitializable
     
     private EntitySpawnFactory _factory;
 
-    public Transform point1, point2;
+    public Transform point1, point2, point3;
     
     private EntityIdInstaller _entityIdInstaller = new();
 
@@ -24,6 +24,7 @@ public class PawnSpawner : MonoBehaviour, IInitializable
     {
         Spawn(point1.position);
         Spawn(point2.position);
+        Spawn(point3.position);
     }
 
     private void Spawn(Vector3 spawnPosition)

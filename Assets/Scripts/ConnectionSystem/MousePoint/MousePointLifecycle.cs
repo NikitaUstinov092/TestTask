@@ -9,7 +9,7 @@ namespace ConnectionSystem.MousePoint
         [Inject]
         private MousePointStorage _mousePointStorage;
 
-        private MousePointFactory _mousePointFactory = new();
+        private readonly MousePointFactory _mousePointFactory = new();
        
         public void CreateAndInstallPoint(Entity.Entity entity)
         {
@@ -19,7 +19,6 @@ namespace ConnectionSystem.MousePoint
 
         public void DestroyPoint()
         {
-            return;
             Object.Destroy(_mousePointStorage.GetPointGo());
         }
     }

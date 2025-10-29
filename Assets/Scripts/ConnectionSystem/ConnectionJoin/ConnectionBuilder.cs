@@ -3,7 +3,7 @@ using ConnectionSystem.Connection.Components;
 
 namespace ConnectionSystem.ConnectionJoin
 {
-    public class ConnectionBuilder
+    public class ConnectionBuilder: IConnectionBuilder
     {
         public event Action<Entity.Entity> OnConnectionSuccess;
         
@@ -23,5 +23,12 @@ namespace ConnectionSystem.ConnectionJoin
             
             OnConnectionSuccess?.Invoke(connectionEntity);
         }
+    }
+
+    public interface IConnectionBuilder
+    {
+        void BuildConnection(Entity.Entity fromEntity,
+            Entity.Entity toEntity,
+            Entity.Entity connectionEntity);
     }
 }

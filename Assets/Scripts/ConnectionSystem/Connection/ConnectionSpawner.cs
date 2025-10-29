@@ -37,7 +37,7 @@ namespace ConnectionSystem.Connection
             var sourceTransform = sourceEntity.transform;
 
             ConfigureConnectionComponent(connection, sourceTransform);
-            SetSpawnerEntitySelf(connection);
+            SetSpawnerEntitySelf(sourceEntity,connection);
             SetConnectionBuffer(sourceEntity, connection);
 
             OnCreateConnection?.Invoke(connection);
@@ -49,9 +49,9 @@ namespace ConnectionSystem.Connection
             incomingConnectionComponent.ConnectionBufferEntity = connection;
         }
 
-        private void SetSpawnerEntitySelf(Entity.Entity sourceEntity)
+        private void SetSpawnerEntitySelf(Entity.Entity sourceEntity, Entity.Entity connection)
         {
-            var entityRelationsComponent = sourceEntity.Get<EntityRelationsComponent>();
+            var entityRelationsComponent = connection.Get<EntityRelationsComponent>();
             entityRelationsComponent.CreatorEntity = sourceEntity;
         }
 

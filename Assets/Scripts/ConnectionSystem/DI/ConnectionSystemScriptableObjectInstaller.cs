@@ -1,4 +1,5 @@
 using ConnectionSystem.Connection;
+using ConnectionSystem.ConnectionJoin;
 using ConnectionSystem.ConnectionLineView;
 using ConnectionSystem.EntityFilter;
 using ConnectionSystem.MousePoint;
@@ -19,11 +20,13 @@ namespace ConnectionSystem.DI
         }
         private void BindConnectioninstallers()
         {
-            Container.Bind<ConnectionAttachOrDiscardHandler>().AsSingle();
+            Container.Bind<ConnectionResolver>().AsSingle();
             Container.BindInterfacesAndSelfTo<ConnectionSpawner>().AsSingle();
             Container.BindInterfacesTo<ConnectionInputInputSubscriber>().AsCached();
             Container.BindInterfacesTo<ConnectionInputLineViewInputSubscriber>().AsCached();
             Container.Bind<ConnectionLinePointsUpdater>().AsSingle();
+            Container.BindInterfacesTo<AttachmentSystemAdapter>().AsCached();
+            Container.BindInterfacesTo<ConnectionBuilder>().AsCached();
         }
         
         private void BindMousePointInstallers()
