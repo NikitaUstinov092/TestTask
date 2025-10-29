@@ -31,4 +31,11 @@ namespace ConnectionSystem.ConnectionJoin
             Entity.Entity toEntity,
             Entity.Entity connectionEntity);
     }
+    
+    public interface IConnectionBuilderObserver
+    {
+        void BuildConnection(Entity.Entity fromEntity,
+            Entity.Entity toEntity,
+            Entity.Entity connectionEntity);
+    }
 }

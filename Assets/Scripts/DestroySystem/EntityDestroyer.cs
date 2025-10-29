@@ -14,7 +14,7 @@ public class EntityDestroyer : IEntityDestroyer
 
     public void DestroyEntity(Entity.Entity entity)
     {
-        if (entity == null)
+        if (!entity)
             return;
 
         var entitiesToDestroy = CollectEntitiesForDestruction(entity);
@@ -47,14 +47,13 @@ public class EntityDestroyer : IEntityDestroyer
 
     private void AddChildrenToQueue(Entity.Entity entity, Queue<Entity.Entity> queue, HashSet<Entity.Entity> visited)
     {
-        if (entity.TryGet<ChildEntitiesComponent>(out var childComponent))
+        if (!entity.TryGet<ChildEntitiesComponent>(out var childComponent))
+            return;
+        foreach (var child in childComponent.ChildEntities)
         {
-            foreach (var child in childComponent.ChildEntities)
+            if (child && visited.Add(child))
             {
-                if (child && visited.Add(child))
-                {
-                    queue.Enqueue(child);
-                }
+                queue.Enqueue(child);
             }
         }
     }

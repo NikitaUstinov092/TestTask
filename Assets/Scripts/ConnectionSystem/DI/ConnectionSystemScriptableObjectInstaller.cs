@@ -23,7 +23,7 @@ namespace ConnectionSystem.DI
             Container.Bind<ConnectionResolver>().AsSingle();
             Container.BindInterfacesAndSelfTo<ConnectionSpawner>().AsSingle();
             Container.BindInterfacesTo<ConnectionInputInputSubscriber>().AsCached();
-            Container.BindInterfacesTo<ConnectionInputLineViewInputSubscriber>().AsCached();
+            Container.BindInterfacesTo<ConnectionLineViewSubscriber>().AsCached();
             Container.Bind<ConnectionLinePointsUpdater>().AsSingle();
             Container.BindInterfacesTo<AttachmentSystemAdapter>().AsCached();
             Container.BindInterfacesTo<ConnectionBuilder>().AsCached();
@@ -49,7 +49,7 @@ namespace ConnectionSystem.DI
         {
             Container.BindInitializableExecutionOrder<ConnectionInputInputSubscriber>(10);
             Container.BindInitializableExecutionOrder<MouseMovePointInputSubscriber>(15);
-            Container.BindInitializableExecutionOrder<ConnectionInputLineViewInputSubscriber>(20);
+            Container.BindInitializableExecutionOrder<ConnectionLineViewSubscriber>(20);
             Container.BindInitializableExecutionOrder<JoinableFilterSubscriber>(30);
         }
         
