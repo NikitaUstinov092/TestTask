@@ -16,8 +16,7 @@ namespace ConnectionSystem.EntityFilter
         public IEnumerable<Entity.Entity> GetFilteredEntities(Entity.Entity entity)
         {
             return _entityStorage.GetAllEntities().Where(e => 
-                e.HasComponent<JoinComponent>() 
-                && e.TryGet(out IdComponent idComponent) 
+                e.TryGet(out IdComponent idComponent) 
                 && idComponent.Id != entity.Get<IdComponent>().Id
                 && e.TryGet(out IncomingConnectionComponent incomingConnectionComponent)
                 && !incomingConnectionComponent.IncomingConnections.Contains(entity));

@@ -116,6 +116,7 @@ namespace InputSystem
         
             OnEndDragData?.Invoke(_type);
             OnEndDragEvent?.Invoke();
+            Debug.Log("OnEndDrag");
         }
 
         public virtual void OnPointerEnter(PointerEventData eventData)

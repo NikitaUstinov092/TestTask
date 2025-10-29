@@ -17,6 +17,8 @@ public class PawnSpawner : MonoBehaviour, IInitializable
     private EntitySpawnFactory _factory;
 
     public Transform point1, point2;
+    
+    private EntityIdInstaller _entityIdInstaller = new();
 
     void IInitializable.Initialize()
     {
@@ -29,8 +31,31 @@ public class PawnSpawner : MonoBehaviour, IInitializable
         var prefab = _prefabContainer.GetComponent<IEntityPrefab>();
         _factory = new EntitySpawnFactory(prefab);
         var pawn = _factory.CreateEntity(spawnPosition);
+        _entityIdInstaller.InstallId(pawn);
         OnSpawned?.Invoke(pawn);
     }
+    
+}
 
-   
+public class EntityIdInstaller
+{
+    private int _currentId;
+    public void InstallId(Entity.Entity entity)
+    {
+        ++_currentId;
+        SetEntityId(entity);
+        if (entity.TryGet(out ChildEntitiesComponent childEntitiesComponent))
+        {
+            var children = childEntitiesComponent.ChildEntities;
+            foreach (var child in children)
+            {
+                SetEntityId(child);
+            }
+        }
+    }
+
+    private void SetEntityId(Entity.Entity entity)
+    {
+        entity.Get<IdComponent>().Id = _currentId;
+    }
 }

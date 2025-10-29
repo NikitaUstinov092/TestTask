@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ConnectionSystem.EntityFilter
 {
@@ -22,6 +23,7 @@ namespace ConnectionSystem.EntityFilter
         }
 
         Entity.Entity[] IJoinableEntitiesService.GetEntities() => _entities;
+        bool IJoinableEntitiesService.HasEntity(Entity.Entity entity) => _entities.Contains(entity);
     }
 
     public interface IJoinableEntitiesObserver
@@ -33,5 +35,6 @@ namespace ConnectionSystem.EntityFilter
     public interface IJoinableEntitiesService
     {
         Entity.Entity[] GetEntities();
+        bool HasEntity(Entity.Entity entity);
     }
 }

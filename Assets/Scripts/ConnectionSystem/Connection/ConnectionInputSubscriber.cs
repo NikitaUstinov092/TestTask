@@ -18,12 +18,12 @@ namespace ConnectionSystem.Connection
         protected override void Subscribe(IMouseInput<Entity.Entity> input)
         {
             input.OnBeginDragData += _connectionSpawner.CreateAndInstallConnection;
-            input.OnPointerUpData += _connectionAttachOrDiscardHandler.AttachOrDiscard;
+            input.OnEndDragData += _connectionAttachOrDiscardHandler.AttachOrDiscard;
         }
         protected override void Unsubsribe(IMouseInput<Entity.Entity> input)
         {
             input.OnBeginDragData -= _connectionSpawner.CreateAndInstallConnection;
-            input.OnPointerUpData -= _connectionAttachOrDiscardHandler.AttachOrDiscard;
+            input.OnEndDragData -= _connectionAttachOrDiscardHandler.AttachOrDiscard;
         }
     }
 }

@@ -29,7 +29,8 @@ namespace ConnectionSystem.DI
         private void BindMousePointInstallers()
         {
             Container.BindInterfacesAndSelfTo<MousePointStorage>().AsSingle();
-            Container.BindInterfacesTo<MousePointInputSubscriber>().AsCached();
+            Container.BindInterfacesTo<MouseCreatePointInputSubscriber>().AsCached();
+            Container.BindInterfacesTo<MouseMovePointInputSubscriber>().AsCached();
             Container.Bind<MousePointLifecycle>().AsSingle();
             Container.Bind<MousePointMover>().AsSingle();
         }
@@ -44,6 +45,7 @@ namespace ConnectionSystem.DI
         private void BindInitializableExecutionOrders()
         {
             Container.BindInitializableExecutionOrder<ConnectionInputInputSubscriber>(10);
+            Container.BindInitializableExecutionOrder<MouseMovePointInputSubscriber>(15);
             Container.BindInitializableExecutionOrder<ConnectionInputLineViewInputSubscriber>(20);
             Container.BindInitializableExecutionOrder<JoinableFilterSubscriber>(30);
         }

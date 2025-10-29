@@ -27,7 +27,8 @@ namespace ConnectionSystem
         private void OnEntityAdded(Entity.Entity entity)
         {
             if (!entity.TryGet(out InputComponent inputComponent)
-                || !entity.HasComponent<IncomingConnectionComponent>()) return;
+                || !entity.HasComponent<IncomingConnectionComponent>()) 
+                return;
 
             var input = inputComponent.GetInput();
 
@@ -37,7 +38,8 @@ namespace ConnectionSystem
         private void OnEntityRemoved(Entity.Entity entity)
         {
             if (!entity.TryGet(out InputComponent inputComponent)
-                || !entity.HasComponent<IncomingConnectionComponent>()) return;
+                || !entity.HasComponent<IncomingConnectionComponent>())
+                return;
 
             var input = inputComponent.GetInput();
 

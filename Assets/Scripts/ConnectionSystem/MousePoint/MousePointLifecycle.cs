@@ -19,6 +19,7 @@ namespace ConnectionSystem.MousePoint
 
         public void DestroyPoint()
         {
+            return;
             Object.Destroy(_mousePointStorage.GetPointGo());
         }
     }
@@ -26,22 +27,12 @@ namespace ConnectionSystem.MousePoint
     public class MousePointFactory
     {
         private const string MousePointName = "MousePoint";
-        public GameObject CreatePoint(Transform heightTransform)
+        public GameObject CreatePoint(Transform parentTransform)
         {
             var mousePoint = new GameObject(MousePointName);
             var transform = mousePoint.transform;
-            var position = SetPosition(heightTransform, transform);
-            transform.position = position;
+            transform.position = parentTransform.position;
             return mousePoint;
-        }
-
-        private Vector3 SetPosition(Transform heightTransform, Transform transform)
-        {
-            var position = new Vector3(
-                transform.position.x,
-                heightTransform.position.y,
-                transform.position.z);
-            return position;
         }
     }
 }
