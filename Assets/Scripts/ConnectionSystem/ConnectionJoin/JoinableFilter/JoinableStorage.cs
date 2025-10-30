@@ -8,7 +8,7 @@ namespace ConnectionSystem.EntityFilter
         public event Action<Entity.Entity[]> OnUpdated;
         public event Action<Entity.Entity[]> OnCleared;
         
-        private Entity.Entity[] _entities;
+        private Entity.Entity[] _entities = Array.Empty<Entity.Entity>(); 
 
         public void UpdateEntities(Entity.Entity[] entities)
         {
@@ -19,7 +19,7 @@ namespace ConnectionSystem.EntityFilter
         public void Clear()
         {
             OnCleared?.Invoke(_entities);
-            _entities = null;
+            _entities = Array.Empty<Entity.Entity>();
         }
 
         Entity.Entity[] IJoinableEntitiesService.GetEntities() => _entities;
