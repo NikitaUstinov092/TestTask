@@ -24,7 +24,6 @@ public class ConnectionSystemsScriptableObjectInstaller : ScriptableObjectInstal
         Container.BindInterfacesAndSelfTo<JoinableStorage>().AsSingle();
         Container.BindInterfacesTo<JoinableFilterDragSubscriber>().AsCached();
         Container.Bind<JoinableStorageManager>().AsSingle();
-        Container.BindInterfacesTo<JoinableFilterSelectSubscriber>().AsCached();
     }
     
     private void BindInitializableExecutionOrders()

@@ -1,5 +1,4 @@
 ﻿using ConnectionSystem.Connection.Components;
-using UnityEngine;
 
 namespace ConnectionSystem.ConnectionLineView
 {
@@ -7,23 +6,19 @@ namespace ConnectionSystem.ConnectionLineView
     {
         public void UpdateLineEndPoint(Entity.Entity entity)
         {
-            Debug.Log("UpdateLineEndPoint");
             var bufferedEntity = GetBufferedEntity(entity);
 
             if (!bufferedEntity)
             {
-                Debug.Log("bufferedEntity NULL");
                 return;
             } 
-            Debug.Log("bufferedEntity");
             
             if(!bufferedEntity.TryGet(out LineRenderComponent lineRenderComponent))
                 return; 
-            Debug.Log("LineRenderComponent");
             
             if(!bufferedEntity.TryGet(out ConnectionPointsComponent connectionPointsComponent))
                 return;
-            Debug.Log("ConnectionPointsComponent");
+            
             UpdateLineEndPoint(lineRenderComponent, connectionPointsComponent); 
         }
         
@@ -31,11 +26,10 @@ namespace ConnectionSystem.ConnectionLineView
         {
             if(!entity.TryGet(out LineRenderComponent lineRenderComponent))
                 return; 
-            Debug.Log("LineRenderComponent");
             
             if(!entity.TryGet(out ConnectionPointsComponent connectionPointsComponent))
                 return;
-            Debug.Log("ConnectionPointsComponent");
+            
             UpdateLineEndPoint(lineRenderComponent, connectionPointsComponent); 
         }
         
@@ -43,11 +37,10 @@ namespace ConnectionSystem.ConnectionLineView
         {
             if(!entity.TryGet(out LineRenderComponent lineRenderComponent))
                 return; 
-            Debug.Log("LineRenderComponent");
             
             if(!entity.TryGet(out ConnectionPointsComponent connectionPointsComponent))
                 return;
-            Debug.Log("ConnectionPointsComponent");
+            
             UpdateStartLinePoint(lineRenderComponent, connectionPointsComponent); 
         }
         

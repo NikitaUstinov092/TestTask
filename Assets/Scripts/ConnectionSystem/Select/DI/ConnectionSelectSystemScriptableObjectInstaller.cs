@@ -16,10 +16,10 @@ public class ConnectionSelectSystemScriptableObjectInstaller : ScriptableObjectI
         Container.BindInterfacesTo<ConnectionSelectInputSubscriber>().AsCached();
         Container.BindInterfacesTo<ConnectionResolveAdapter>().AsCached();
         Container.BindInterfacesTo<ConnectionSelectResolverAdapter>().AsCached();
-        Container.BindInterfacesTo<SelectionObserver>().AsCached();
         Container.Bind<ConnectionMediator>().AsCached();
         Container.Bind<ConnectionSelectResolver>().AsSingle();
         Container.BindInterfacesTo<ConnectionLineViewAdapter>().AsCached();
+        Container.BindInterfacesTo<JoinableFilterSelectSubscriber>().AsCached();
     }
     
     private void BindInitializableExecutionOrders()
