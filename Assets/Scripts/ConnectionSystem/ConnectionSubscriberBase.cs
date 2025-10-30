@@ -43,10 +43,10 @@ namespace ConnectionSystem
 
             var input = inputComponent.GetInput();
 
-            Unsubsribe(input);
+            Unsubscribe(input);
         }
 
         protected abstract void Subscribe(IMouseInput<Entity.Entity> input);
-        protected abstract void Unsubsribe(IMouseInput<Entity.Entity> input);
+        protected abstract void Unsubscribe(IMouseInput<Entity.Entity> input);
     }
 }

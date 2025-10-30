@@ -8,6 +8,7 @@ namespace InputSystem
         IPointerUpHandler, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, ISelectHandler, IDeselectHandler,
         IPointerEnterHandler, IPointerExitHandler
     {
+        
         #region События передащию данные
         public event Action<T> OnPointerClickData;
         public event Action<T> OnPointerUpData;
@@ -83,7 +84,7 @@ namespace InputSystem
         {
             if (eventData.button != PointerEventData.InputButton.Left)
                 return;
-        
+            
             OnBeginDragData?.Invoke(_type);
             OnBeginDragEvent?.Invoke();
         }
@@ -95,20 +96,7 @@ namespace InputSystem
             OnDragData?.Invoke(_type);
             OnDragEvent?.Invoke();
         }
-        public virtual void OnSelect(BaseEventData eventData)
-        {
-            OnSelectData?.Invoke(_type);
-            OnSelectEvent?.Invoke();
-            Debug.Log("S");
-        }
-
-        public virtual void OnDeselect(BaseEventData eventData)
-        {
-            OnDeselectData?.Invoke(_type);
-            OnDeselectEvent?.Invoke();
-            Debug.Log("D");
-        }
-
+        
         public virtual void OnEndDrag(PointerEventData eventData)
         { 
             if (eventData.button != PointerEventData.InputButton.Left)
@@ -116,9 +104,19 @@ namespace InputSystem
         
             OnEndDragData?.Invoke(_type);
             OnEndDragEvent?.Invoke();
-            Debug.Log("OnEndDrag");
+        }
+        public virtual void OnSelect(BaseEventData eventData)
+        {
+            OnSelectData?.Invoke(_type);
+            OnSelectEvent?.Invoke();
         }
 
+        public virtual void OnDeselect(BaseEventData eventData)
+        {
+            OnDeselectData?.Invoke(_type);
+            OnDeselectEvent?.Invoke();
+        }
+        
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
             OnMouseEnterData?.Invoke(_type);

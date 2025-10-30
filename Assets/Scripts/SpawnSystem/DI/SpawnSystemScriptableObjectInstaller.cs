@@ -7,9 +7,9 @@ public class SpawnSystemScriptableObjectInstaller : ScriptableObjectInstaller<Sp
 {
     public override void InstallBindings()
     {
-        Container.BindInterfacesTo<PawnLifeCycleAdapter>().AsCached();
+        Container.BindInterfacesTo<PawnSpawnAdapter>().AsCached();
         Container.BindInterfacesAndSelfTo<PawnSpawner>().FromComponentsInHierarchy().AsCached();
-        Container.BindInterfacesTo<ConnectionPrebConfig>().FromComponentsInHierarchy().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionPrefabService>().FromComponentsInHierarchy().AsSingle();
         Container.BindInitializableExecutionOrder<PawnSpawner>(100);
     }
 }

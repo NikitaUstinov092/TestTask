@@ -1,4 +1,5 @@
 ﻿using ConnectionSystem.Connection.Components;
+using UnityEngine;
 
 namespace ConnectionSystem.ConnectionLineView
 {
@@ -6,43 +7,85 @@ namespace ConnectionSystem.ConnectionLineView
     {
         public void UpdateLineEndPoint(Entity.Entity entity)
         {
-            if (!TryGetComponent(entity, out var connectionComponent)) 
-                return;
+            Debug.Log("UpdateLineEndPoint");
+            var bufferedEntity = GetBufferedEntity(entity);
 
-            UpdateLineEndPoint(connectionComponent);
+            if (!bufferedEntity)
+            {
+                Debug.Log("bufferedEntity NULL");
+                return;
+            } 
+            Debug.Log("bufferedEntity");
+            
+            if(!bufferedEntity.TryGet(out LineRenderComponent lineRenderComponent))
+                return; 
+            Debug.Log("LineRenderComponent");
+            
+            if(!bufferedEntity.TryGet(out ConnectionPointsComponent connectionPointsComponent))
+                return;
+            Debug.Log("ConnectionPointsComponent");
+            UpdateLineEndPoint(lineRenderComponent, connectionPointsComponent); 
+        }
+        
+        public void UpdateLineEndPointSelected(Entity.Entity entity)
+        {
+            if(!entity.TryGet(out LineRenderComponent lineRenderComponent))
+                return; 
+            Debug.Log("LineRenderComponent");
+            
+            if(!entity.TryGet(out ConnectionPointsComponent connectionPointsComponent))
+                return;
+            Debug.Log("ConnectionPointsComponent");
+            UpdateLineEndPoint(lineRenderComponent, connectionPointsComponent); 
+        }
+        
+        public void UpdateLineStartPointSelected(Entity.Entity entity)
+        {
+            if(!entity.TryGet(out LineRenderComponent lineRenderComponent))
+                return; 
+            Debug.Log("LineRenderComponent");
+            
+            if(!entity.TryGet(out ConnectionPointsComponent connectionPointsComponent))
+                return;
+            Debug.Log("ConnectionPointsComponent");
+            UpdateStartLinePoint(lineRenderComponent, connectionPointsComponent); 
         }
         
         public void UpdateLineStartPoint(Entity.Entity entity)
         {
-            if (!TryGetComponent(entity, out var connectionComponent)) 
-                return;
-
-            UpdateStartLinePoint(connectionComponent);
-        }
-
-        private bool TryGetComponent(Entity.Entity entity, out ConnectionComponent connectionComponent)
-        {
-            var bufferConnectionComponent = entity.Get<ConnectionBufferComponent>();
+            var bufferedEntity = GetBufferedEntity(entity);
            
-            if(!bufferConnectionComponent.ConnectionBufferEntity)
-            {
-                connectionComponent = null;
-                return false;
-            }
+            if (!bufferedEntity) 
+                return;
             
-            var bufferConnection = bufferConnectionComponent.ConnectionBufferEntity;
-            connectionComponent = bufferConnection.Get<ConnectionComponent>();
-            return true;
+            if(!bufferedEntity.TryGet(out LineRenderComponent lineRenderComponent))
+                return;
+            
+            if(!bufferedEntity.TryGet(out ConnectionPointsComponent connectionPointsComponent))
+                return; 
+            
+            UpdateStartLinePoint(lineRenderComponent, connectionPointsComponent);
         }
 
-        private void UpdateStartLinePoint(ConnectionComponent connectionComponent)
+        private Entity.Entity GetBufferedEntity(Entity.Entity entity)
         {
-            connectionComponent.LineRenderer.SetPosition(0, connectionComponent.StartPoint.position);
+            if(!entity.TryGet(out ConnectionBufferComponent bufferConnectionComponent) 
+               || !bufferConnectionComponent.ConnectionBufferEntity)
+            {
+                return null;
+            }; 
+            
+            return bufferConnectionComponent.ConnectionBufferEntity;
+        } 
+        
+        private void UpdateStartLinePoint(LineRenderComponent lineRenderComponent, ConnectionPointsComponent connectionPointsComponent)
+        {
+            lineRenderComponent.LineRenderer.SetPosition(0, connectionPointsComponent.StartPoint.position);
         }
         
-        private void UpdateLineEndPoint(ConnectionComponent connectionComponent)
+        private void UpdateLineEndPoint(LineRenderComponent lineRenderComponent, ConnectionPointsComponent connectionPointsComponent)
         {
-            connectionComponent.LineRenderer.SetPosition(1, connectionComponent.EndPoint.position);
+            lineRenderComponent.LineRenderer.SetPosition(1, connectionPointsComponent.EndPoint.position);
         }
     }
 }
