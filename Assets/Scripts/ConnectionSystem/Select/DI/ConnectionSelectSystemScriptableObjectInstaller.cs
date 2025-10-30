@@ -25,5 +25,6 @@ public class ConnectionSelectSystemScriptableObjectInstaller : ScriptableObjectI
     private void BindInitializableExecutionOrders()
     {
         Container.BindInitializableExecutionOrder<ConnectionSelectInputSubscriber>(10);
+        Container.BindInitializableExecutionOrder<ConnectionResolveAdapter>(10);
     }
 }

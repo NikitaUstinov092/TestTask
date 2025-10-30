@@ -12,6 +12,12 @@ namespace ConnectionSystem.Select.Adapters
         
         public void SetSelected(Entity.Entity entity)
         {
+            if (_selectedEntity)
+            {
+                ClearSelection(entity);
+                return;
+            }
+            
             _selectedEntity = entity;
             OnEntitySelected?.Invoke(entity);
         }

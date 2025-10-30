@@ -1,4 +1,5 @@
 ﻿using InputSystem;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace ConnectionSystem.Select.Adapters
@@ -10,22 +11,21 @@ namespace ConnectionSystem.Select.Adapters
       
         void IInputSubscriber<Entity.Entity>.SubscribeInput(IMouseInput<Entity.Entity> input)
         {
+            return;
             Subscribe(input);
         }
-
         void IInputSubscriber<Entity.Entity>.UnsubscribeInput(IMouseInput<Entity.Entity> input)
         {
+            return;
             Unsubscribe(input);
         }
         protected override void Subscribe(IMouseInput<Entity.Entity> input)
         {
-            input.OnSelectData += _selectedEntityStorage.SetSelected;
-            input.OnDeselectData += _selectedEntityStorage.ClearSelection;
+            input.OnPointerClickData += _selectedEntityStorage.SetSelected;
         }
         protected override void Unsubscribe(IMouseInput<Entity.Entity> input)
         {
-            input.OnSelectData -= _selectedEntityStorage.SetSelected;
-            input.OnDeselectData -= _selectedEntityStorage.ClearSelection;
+            input.OnPointerClickData -= _selectedEntityStorage.SetSelected;
         }
     }
     public interface IInputSubscriber<Entity>

@@ -22,6 +22,10 @@ namespace ConnectionSystem.Select.Adapters
                 {
                     OnConnectionResolved?.Invoke(entity, hitEntity);
                 }
+                else
+                {
+                    Debug.Log(_joinableEntitiesService.GetEntities().Length);
+                }
             }
         }
     }

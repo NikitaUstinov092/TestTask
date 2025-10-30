@@ -37,11 +37,8 @@ namespace ConnectionSystem.Select.Services
             var entity = hit.collider.GetComponent<Entity.Entity>();
             if (entity != null)
             {
-                Debug.Log($"Raycast hit: {entity.name}");
                 return entity;
             }
-                
-            Debug.Log($"Raycast hit object without Entity component: {hit.collider.name}");
 
             return null;
         }

@@ -22,15 +22,15 @@ public class ConnectionSystemsScriptableObjectInstaller : ScriptableObjectInstal
     private void BindJoinableFilterInstallers()
     {
         Container.BindInterfacesAndSelfTo<JoinableStorage>().AsSingle();
-        Container.BindInterfacesTo<JoinableFilterSubscriber>().AsCached();
+        Container.BindInterfacesTo<JoinableFilterDragSubscriber>().AsCached();
         Container.Bind<JoinableStorageManager>().AsSingle();
+        Container.BindInterfacesTo<JoinableFilterSelectSubscriber>().AsCached();
     }
     
     private void BindInitializableExecutionOrders()
     {
         Container.BindInitializableExecutionOrder<ConnectionLineViewDragSubscriber>(20);
-        Container.BindInitializableExecutionOrder<ConnectionLineViewSelectSubscriber>(20);
-        Container.BindInitializableExecutionOrder<JoinableFilterSubscriber>(30);
+        Container.BindInitializableExecutionOrder<JoinableFilterDragSubscriber>(30);
     }
 
 }

@@ -51,10 +51,9 @@ namespace InputSystem
             if (eventData.button != PointerEventData.InputButton.Left)
                 return;
             
-            EventSystem.current.SetSelectedGameObject(gameObject);
-            
             OnPointerClickData?.Invoke(_type);
             OnPointerClickEvent?.Invoke();
+            Debug.Log("OnPointerClick");
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
@@ -64,6 +63,7 @@ namespace InputSystem
         
             OnPointerUpData?.Invoke(_type);
             OnPointerUpEvent?.Invoke();
+            Debug.Log("OnPointerUp");
         }
         public virtual void OnPointerDown(PointerEventData eventData)
         {
