@@ -14,21 +14,21 @@ namespace ConnectionSystem.Connection
         public event Action<Entity.Entity, Entity.Entity, Entity.Entity> OnConnectionResolved;
         public event Action<Entity.Entity> OnDiscard;
 
-        private readonly IJoinableEntitiesService _joinableEntitiesService;
+        private readonly IJoinableEntityChecker _joinableEntityChecker;
         private readonly NearestEntityFilter _entityFilter;
        
         [Inject]
-        public ConnectionDragResolver(IEntityStorage entityStorage, IJoinableEntitiesService joinableEntitiesService)
+        public ConnectionDragResolver(IEntityStorage entityStorage, IJoinableEntityChecker joinableEntityChecker)
         {
             _entityFilter = new NearestEntityFilter(entityStorage);
-            _joinableEntitiesService = joinableEntitiesService;
+            _joinableEntityChecker = joinableEntityChecker;
         }
         public void ResolveConnection(Entity.Entity entity)
         {
             var connectionBuffer  = entity.Get<ConnectionBufferComponent>().ConnectionBufferEntity;
 
             if (!_entityFilter.TryFindNearest(connectionBuffer , out var nearestEntity) 
-                || !_joinableEntitiesService.HasEntity(nearestEntity))
+                || !_joinableEntityChecker.HasEntity(nearestEntity))
             {
                 OnDiscard?.Invoke(connectionBuffer);
                 return;

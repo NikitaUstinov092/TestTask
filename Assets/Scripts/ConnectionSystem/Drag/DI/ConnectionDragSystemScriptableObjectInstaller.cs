@@ -22,7 +22,7 @@ namespace ConnectionSystem.DI
         private void BindDragConnectioninstallers()
         {
             Container.Bind<ConnectionDragResolver>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ConnectionSpawnWrapper>().AsSingle();
+            Container.Bind<ConnectionSpawnWrapper>().AsSingle();
             Container.BindInterfacesTo<ConnectionDragInputSubscriber>().AsCached();
             Container.BindInterfacesTo<DragAttachmentSystemAdapter>().AsCached();
             Container.BindInterfacesTo<ConnectionLineViewDragSubscriber>().AsCached();

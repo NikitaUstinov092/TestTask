@@ -1,8 +1,8 @@
 ﻿using System;
 using ConnectionSystem.Connection;
-using ConnectionSystem.Connection.Components;
 using ConnectionSystem.ConnectionJoin;
 using Entity;
+using UnityEngine;
 using Zenject;
 
 namespace ConnectionSystem.Select.Adapters

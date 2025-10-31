@@ -2,42 +2,38 @@
 
 namespace ConnectionSystem.Select.Adapters
 {
-    public class SelectedEntityStorage: ISelectionHandler, ISelectionCleanupRequestHandler
+    public class SelectedEntityStorage: ISelectionHandler, ISelectionService
     {
         public event Action<Entity.Entity> OnEntitySelected;
         public event Action<Entity.Entity> OnSelectionClearRequest;
         public event Action OnEntityDeSelected;
         
         private Entity.Entity _selectedEntity;
-        
+        public Entity.Entity GetSelected() => _selectedEntity;
+        public bool HasSelected() => _selectedEntity != null;
         public void SetSelected(Entity.Entity entity)
         {
-            if (_selectedEntity)
-            {
-                ClearSelection(entity);
-                return;
-            }
-            
             _selectedEntity = entity;
             OnEntitySelected?.Invoke(entity);
         }
-        
-        public void ClearSelection(Entity.Entity _)
+
+        public void ClearSelection()
         {
-            OnSelectionClearRequest?.Invoke(_selectedEntity);
+            if(!_selectedEntity)
+                return;
+            
             _selectedEntity = null;
             OnEntityDeSelected?.Invoke();
         }
     }
-    
-    public interface ISelectionCleanupRequestHandler
-    {
-        event Action<Entity.Entity> OnSelectionClearRequest;
-    }
-    
     public interface ISelectionHandler  
     {
         event Action<Entity.Entity> OnEntitySelected;
         event Action OnEntityDeSelected;
     }
+
+    public interface ISelectionService
+    {
+        Entity.Entity GetSelected();
+    }  
 }

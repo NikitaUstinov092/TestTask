@@ -1,3 +1,4 @@
+using ConnectionSystem.Select;
 using ConnectionSystem.Select.Adapters;
 using UnityEngine;
 using Zenject;
@@ -8,23 +9,17 @@ public class ConnectionSelectSystemScriptableObjectInstaller : ScriptableObjectI
     public override void InstallBindings()
     {
         BindSelectConnectionInstallers();
-        BindInitializableExecutionOrders();
     }
     private void BindSelectConnectionInstallers()
     {
         Container.BindInterfacesAndSelfTo<SelectedEntityStorage>().AsSingle();
-        Container.BindInterfacesTo<ConnectionSelectInputSubscriber>().AsCached();
-        Container.BindInterfacesTo<ConnectionResolveAdapter>().AsCached();
+       
         Container.BindInterfacesTo<ConnectionSelectResolverAdapter>().AsCached();
         Container.Bind<ConnectionMediator>().AsCached();
-        Container.Bind<ConnectionSelectResolver>().AsSingle();
         Container.BindInterfacesTo<ConnectionLineViewAdapter>().AsCached();
         Container.BindInterfacesTo<JoinableFilterSelectSubscriber>().AsCached();
+        Container.BindInterfacesAndSelfTo<RayCastInput>().AsCached();
+        Container.BindInterfacesAndSelfTo<RayCastInputMediator>().AsCached();
     }
     
-    private void BindInitializableExecutionOrders()
-    {
-        Container.BindInitializableExecutionOrder<ConnectionSelectInputSubscriber>(10);
-        Container.BindInitializableExecutionOrder<ConnectionResolveAdapter>(10);
-    }
 }

@@ -8,7 +8,7 @@ namespace ConnectionSystem
         private const int LinePositionsCount = 2;
         
         private readonly IEntityPrefab _entityPrefab;
-        private EntitySpawnFactory _connectionFactory;
+        private readonly EntitySpawnFactory _connectionFactory;
         
         public ConnectionSpawner(IEntityPrefab entityPrefab)
         {

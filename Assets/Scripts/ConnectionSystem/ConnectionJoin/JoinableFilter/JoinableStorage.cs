@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace ConnectionSystem.EntityFilter
 {
-    public class JoinableStorage: IJoinableEntitiesObserver, IJoinableEntitiesService
+    public class JoinableStorage: IJoinableEntitiesObserver, IJoinableEntityChecker
     {
         public event Action<Entity.Entity[]> OnUpdated;
-        public event Action<Entity.Entity[]> OnCleared;
+        public event Action<Entity.Entity[]> OnClearRequest;
         
         private Entity.Entity[] _entities = Array.Empty<Entity.Entity>(); 
 
@@ -18,23 +18,21 @@ namespace ConnectionSystem.EntityFilter
         
         public void Clear()
         {
-            OnCleared?.Invoke(_entities);
+            OnClearRequest?.Invoke(_entities);
             _entities = Array.Empty<Entity.Entity>();
         }
-
-        Entity.Entity[] IJoinableEntitiesService.GetEntities() => _entities;
-        bool IJoinableEntitiesService.HasEntity(Entity.Entity entity) => _entities.Contains(entity);
+        
+        bool IJoinableEntityChecker.HasEntity(Entity.Entity entity) => _entities.Contains(entity);
     }
 
     public interface IJoinableEntitiesObserver
     {
         event Action<Entity.Entity[]> OnUpdated;
-        event Action<Entity.Entity[]> OnCleared;
+        event Action<Entity.Entity[]> OnClearRequest;
     }
 
-    public interface IJoinableEntitiesService
+    public interface IJoinableEntityChecker
     {
-        Entity.Entity[] GetEntities();
         bool HasEntity(Entity.Entity entity);
     }
 }

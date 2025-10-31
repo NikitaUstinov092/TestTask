@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ConnectionSystem.Connection.Components;
-using ConnectionSystem.EntityFilter.Components;
 using Entity;
 
 namespace ConnectionSystem.EntityFilter
@@ -23,17 +22,14 @@ namespace ConnectionSystem.EntityFilter
                 && !HasCreatorEntityRelation(e, entity));
         }
 
-        private bool HasCreatorEntityRelation(Entity.Entity сonnected, Entity.Entity сreator)
+        private bool HasCreatorEntityRelation(Entity.Entity connected, Entity.Entity creator)
         { 
-            foreach (var connectedEntity in сonnected.Get<IncomingConnectionComponent>().IncomingConnections)
+            foreach (var connectedEntity in connected.Get<IncomingConnectionComponent>().IncomingConnections)
             {
-                if (connectedEntity.TryGet(out EntityRelationsComponent relationsComponent))
-                {
-                    if (relationsComponent.CreatorEntity == сreator && relationsComponent.ConnectedEntity == сonnected)
-                    {
-                        return true;
-                    }
-                }
+                if (!connectedEntity.TryGet(out EntityRelationsComponent relationsComponent)) 
+                    continue;
+                if (relationsComponent.CreatorEntity == creator && relationsComponent.ConnectedEntity == connected)
+                    return true;
             }
             return false;
         }

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace ConnectionSystem.Connection
 {
-    public class ConnectionSpawnWrapper : IInitializable
+    public class ConnectionSpawnWrapper
     {
         private readonly IMousePointService _mousePointService;
         private readonly IEntityPrefab _entityPrefab;
@@ -21,10 +21,6 @@ namespace ConnectionSystem.Connection
             _mousePointService = mousePointService;
             _entityPrefab = entityPrefab;
             _entityStorage = entityStorage;
-        }
-
-        void IInitializable.Initialize()
-        {
             _connectionSpawner = new ConnectionSpawner(_entityPrefab);
         }
         

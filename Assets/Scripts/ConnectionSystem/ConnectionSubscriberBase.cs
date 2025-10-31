@@ -1,30 +1,13 @@
-﻿using System;
-using ConnectionSystem.Connection.Components;
-using Entity;
+﻿using ConnectionSystem.Connection.Components;
 using InputSystem;
 using InputSystem.Components;
-using Zenject;
+
 
 namespace ConnectionSystem
 {
-    public abstract class ConnectionInputSubscriberBase : IInitializable, IDisposable
+    public class ConnectionInputSubscriber : InputSubscriberBase
     {
-        [Inject] 
-        private readonly IEntityStorageObserver _storage;
-
-        public void Initialize()
-        {
-            _storage.OnEntityAdded += OnEntityAdded;
-            _storage.OnEntityRemoved += OnEntityRemoved;
-        }
-
-        public void Dispose()
-        {
-            _storage.OnEntityAdded -= OnEntityAdded;
-            _storage.OnEntityRemoved -= OnEntityRemoved;
-        }
-
-        private void OnEntityAdded(Entity.Entity entity)
+        protected override void OnEntityAdded(Entity.Entity entity)
         {
             if (!entity.TryGet(out InputComponent inputComponent)
                 || !entity.HasComponent<IncomingConnectionComponent>()) 
@@ -35,7 +18,7 @@ namespace ConnectionSystem
             Subscribe(input);
         }
 
-        private void OnEntityRemoved(Entity.Entity entity)
+        protected override void OnEntityRemoved(Entity.Entity entity)
         {
             if (!entity.TryGet(out InputComponent inputComponent)
                 || !entity.HasComponent<IncomingConnectionComponent>())
@@ -45,8 +28,6 @@ namespace ConnectionSystem
 
             Unsubscribe(input);
         }
-
-        protected abstract void Subscribe(IMouseInput<Entity.Entity> input);
-        protected abstract void Unsubscribe(IMouseInput<Entity.Entity> input);
+       
     }
 }
