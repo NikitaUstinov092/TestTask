@@ -12,7 +12,8 @@ namespace ConnectionSystem.Connection
         private readonly IMousePointService _mousePointService;
         private readonly IEntityPrefab _entityPrefab;
         private readonly IEntityStorage _entityStorage;
-        private ConnectionSpawner _connectionSpawner;
+        private readonly ConnectionSpawner _connectionSpawner;
+        private readonly ConnectionPointSetuper _connectionPointSetuper;
 
         [Inject]
         public ConnectionSpawnWrapper(IMousePointService mousePointService,
@@ -22,6 +23,7 @@ namespace ConnectionSystem.Connection
             _entityPrefab = entityPrefab;
             _entityStorage = entityStorage;
             _connectionSpawner = new ConnectionSpawner(_entityPrefab);
+            _connectionPointSetuper = new();
         }
         
         public void CreateAndInstallConnection(Entity.Entity sourceEntity)
@@ -30,7 +32,8 @@ namespace ConnectionSystem.Connection
 
             var sourceTransform = sourceEntity.transform;
 
-            ConfigureConnectionComponent(connection, sourceTransform);
+            _connectionPointSetuper.SetUpStartPoint(connection, sourceTransform);
+            
             SetSpawnerEntitySelf(sourceEntity,connection);
             SetConnectionBuffer(sourceEntity, connection);
             _entityStorage.AddEntity(connection);
@@ -46,13 +49,6 @@ namespace ConnectionSystem.Connection
         {
             var entityRelationsComponent = connection.Get<EntityRelationsComponent>();
             entityRelationsComponent.CreatorEntity = sourceEntity;
-        }
-
-        private void ConfigureConnectionComponent(Entity.Entity connection, Transform sourceTransform)
-        {
-            var connectionComponent = connection.Get<ConnectionPointsComponent>();
-            connectionComponent.StartPoint = sourceTransform;
-            connectionComponent.EndPoint = _mousePointService.GetPoint();
         }
     }
 }

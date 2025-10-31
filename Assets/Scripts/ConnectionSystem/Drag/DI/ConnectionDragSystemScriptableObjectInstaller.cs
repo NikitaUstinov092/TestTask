@@ -1,6 +1,7 @@
 using ConnectionSystem.Connection;
 using ConnectionSystem.ConnectionJoin;
 using ConnectionSystem.ConnectionLineView;
+using ConnectionSystem.Drag.Adapters;
 using ConnectionSystem.EntityFilter;
 using ConnectionSystem.MousePoint;
 using ConnectionSystem.Select.Adapters;
@@ -32,6 +33,7 @@ namespace ConnectionSystem.DI
             Container.BindInterfacesAndSelfTo<MousePointStorage>().AsSingle();
             Container.BindInterfacesTo<MouseCreatePointInputSubscriber>().AsCached();
             Container.BindInterfacesTo<MouseMovePointInputSubscriber>().AsCached();
+            Container.BindInterfacesTo<ConnectionPointFollower>().AsCached();
             Container.Bind<MousePointLifecycle>().AsSingle();
             Container.Bind<MousePointMover>().AsSingle();
         }

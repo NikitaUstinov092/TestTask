@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 
@@ -6,6 +7,7 @@ namespace ConnectionSystem.MousePoint
 {
     public class MousePointLifecycle
     {
+       
         [Inject]
         private MousePointStorage _mousePointStorage;
 
