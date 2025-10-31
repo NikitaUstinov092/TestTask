@@ -6,16 +6,15 @@ namespace ConnectionSystem.Select.Adapters
 {
     public class ConnectionLineViewAdapter: IInitializable, IDisposable
     {
-        private readonly ConnectionLinePointsUpdater _connectionLinePointsUpdater;
+        private readonly IPointPositionUpdater _connectionLinePointsUpdater;
         private readonly ConnectionMediator _connectionMediator;
         
         [Inject]
-        public ConnectionLineViewAdapter(ConnectionLinePointsUpdater connectionLinePointsUpdater, ConnectionMediator connectionMediator)
+        public ConnectionLineViewAdapter(IPointPositionUpdater connectionLinePointsUpdater, ConnectionMediator connectionMediator)
         {
             _connectionLinePointsUpdater = connectionLinePointsUpdater;
             _connectionMediator = connectionMediator;
         }
-
         void IInitializable.Initialize()
         {
             _connectionMediator.OnConnectionMediate += UpdateLinePoints;
@@ -28,8 +27,8 @@ namespace ConnectionSystem.Select.Adapters
 
         private void UpdateLinePoints(Entity.Entity entity)
         {
-            _connectionLinePointsUpdater.UpdateLineEndPointSelected(entity);
-            _connectionLinePointsUpdater.UpdateLineStartPointSelected(entity);
+            _connectionLinePointsUpdater.UpdateLineEndPoint(entity);
+            _connectionLinePointsUpdater.UpdateLineStartPoint(entity);
         }
     }
 }

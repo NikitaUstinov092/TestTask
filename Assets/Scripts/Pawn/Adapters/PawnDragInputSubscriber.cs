@@ -5,31 +5,9 @@ using MoveSystem.Components;
 
 namespace Pawn.Adapters
 {
-    public class PawnDragInputSubscriber: InputSubscriberBase
+    public class PawnDragInputSubscriber: PawnInputSubscriber
     {
         private readonly TransformDragger _transformDragger = new TransformDragger();
-        
-        protected override void OnEntityAdded(Entity.Entity entity)
-        {
-            if (!entity.TryGet(out InputComponent inputComponent)
-                || !entity.HasComponent<MoveComponent>()) 
-                return;
-
-            var input = inputComponent.GetInput();
-
-            Subscribe(input);
-        }
-
-        protected override void OnEntityRemoved(Entity.Entity entity)
-        {
-            if (!entity.TryGet(out InputComponent inputComponent)
-                || !entity.HasComponent<MoveComponent>())
-                return;
-
-            var input = inputComponent.GetInput();
-
-            Unsubscribe(input);
-        }
         public override void Subscribe(IMouseInput<Entity.Entity> input)
         {
             input.OnBeginDragData += OnBeginDragData;

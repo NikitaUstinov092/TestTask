@@ -17,7 +17,7 @@ public class ConnectionSystemsScriptableObjectInstaller : ScriptableObjectInstal
     }
     private void BindLineViewInstallers()
     {
-        Container.Bind<ConnectionLinePointsUpdater>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionLinePointsUpdater>().AsSingle();
     }
     private void BindJoinableFilterInstallers()
     {
