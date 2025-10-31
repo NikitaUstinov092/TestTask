@@ -13,13 +13,13 @@ namespace ConnectionSystem.MousePoint
         public void SetStartPoint()
         {
             if(_mousePoint.PointExists()) 
-                _transformDragger.BeginDrag(_mousePoint.GetPoint());
+                _transformDragger.SetupDragOffsetScreen(_mousePoint.GetPoint());
         }
         
         public void MovePoint()
         {
             if(_mousePoint.PointExists()) 
-                _transformDragger.UpdateDrag(_mousePoint.GetPoint());
+                _transformDragger.UpdatePosition(_mousePoint.GetPoint());
         }
     }
 }

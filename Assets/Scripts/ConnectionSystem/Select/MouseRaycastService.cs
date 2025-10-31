@@ -19,7 +19,7 @@ namespace ConnectionSystem.Select.Services
         
         public Entity.Entity PerformRaycast()
         {
-            if (_camera == null)
+            if (!_camera)
             {
                 return null;
             }
@@ -30,7 +30,7 @@ namespace ConnectionSystem.Select.Services
                 return null;
             
             var entity = hit.collider.GetComponent<Entity.Entity>();
-            return entity != null ? entity : null;
+            return entity ? entity : null;
         }
     }
 }

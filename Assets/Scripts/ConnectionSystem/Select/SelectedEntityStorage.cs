@@ -2,10 +2,9 @@
 
 namespace ConnectionSystem.Select.Adapters
 {
-    public class SelectedEntityStorage: ISelectionHandler, ISelectionService
+    public class SelectedEntityStorage: ISelectionHandler
     {
         public event Action<Entity.Entity> OnEntitySelected;
-        public event Action<Entity.Entity> OnSelectionClearRequest;
         public event Action OnEntityDeSelected;
         
         private Entity.Entity _selectedEntity;
@@ -31,9 +30,5 @@ namespace ConnectionSystem.Select.Adapters
         event Action<Entity.Entity> OnEntitySelected;
         event Action OnEntityDeSelected;
     }
-
-    public interface ISelectionService
-    {
-        Entity.Entity GetSelected();
-    }  
+    
 }

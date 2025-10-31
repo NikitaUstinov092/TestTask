@@ -5,22 +5,22 @@ namespace ConnectionSystem.Select.Adapters
 {
     public class ConnectionSelectResolverAdapter: IInitializable, IDisposable
     {
-        private readonly RayCastInputMediator _connectionSelectResolver;
+        private readonly RayCastInputValidator _connectionSelectResolver;
         private readonly ConnectionMediator _connectionMediator;
         
         [Inject]
-        public ConnectionSelectResolverAdapter(RayCastInputMediator connectionSelectResolver, ConnectionMediator connectionMediator)
+        public ConnectionSelectResolverAdapter(RayCastInputValidator connectionSelectResolver, ConnectionMediator connectionMediator)
         {
             _connectionSelectResolver = connectionSelectResolver;
             _connectionMediator = connectionMediator;
         }
         void IInitializable.Initialize()
         {
-            _connectionSelectResolver.OnConnectionResolved += _connectionMediator.MediateConnection;
+            _connectionSelectResolver.OnConnectionValid += _connectionMediator.MediateConnection;
         }
         void IDisposable.Dispose()
         {
-            _connectionSelectResolver.OnConnectionResolved -= _connectionMediator.MediateConnection;
+            _connectionSelectResolver.OnConnectionValid -= _connectionMediator.MediateConnection;
         }
     }
 }

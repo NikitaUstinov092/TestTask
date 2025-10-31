@@ -5,24 +5,19 @@ namespace Custom
     public class TransformDragger
     {
         private Vector3 _dragOffsetScreen;
-        private Camera _camera;
+        private Camera _camera = Camera.main;
 
-        public TransformDragger()
+        public void SetupDragOffsetScreen(Transform transformToDrag)
         {
-            _camera = Camera.main;
+            _dragOffsetScreen = Input.mousePosition - WorldToScreen(transformToDrag.position);
         }
 
-        public void BeginDrag(Transform transformToDrag)
-        {
-            _dragOffsetScreen = UnityEngine.Input.mousePosition - WorldToScreen(transformToDrag.position);
-        }
-
-        public void UpdateDrag(Transform transformToDrag)
+        public void UpdatePosition(Transform transformToDrag)
         {
             if (!_camera) 
                 throw new System.Exception("Камера не найдена");
 
-            var pointerWorldPosition = _camera.ScreenToWorldPoint(UnityEngine.Input.mousePosition - _dragOffsetScreen);
+            var pointerWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition - _dragOffsetScreen);
             transformToDrag.position = new Vector3(pointerWorldPosition.x, transformToDrag.position.y, pointerWorldPosition.z);
         }
 

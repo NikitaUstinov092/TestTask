@@ -4,16 +4,17 @@ using Zenject;
 
 namespace ConnectionSystem.Select.Adapters
 {
-    public class RayCastInputMediator: IInitializable, IDisposable
+    public class RayCastInputValidator: IInitializable, IDisposable
     {
-        public event Action<Entity.Entity, Entity.Entity> OnConnectionResolved;
+        public event Action<Entity.Entity, Entity.Entity> OnConnectionValid;
         
         private readonly RayCastInput _rayCastInput;
         private readonly SelectedEntityStorage _selectedEntityStorage;
         private readonly IJoinableEntityChecker _joinableEntityChecker;
         
         [Inject]
-        public RayCastInputMediator(RayCastInput rayCastInput, SelectedEntityStorage selectedEntityStorage, IJoinableEntityChecker joinableEntityChecker)
+        public RayCastInputValidator(RayCastInput rayCastInput, SelectedEntityStorage selectedEntityStorage,
+            IJoinableEntityChecker joinableEntityChecker)
         {
             _rayCastInput = rayCastInput;
             _selectedEntityStorage = selectedEntityStorage;
@@ -46,13 +47,13 @@ namespace ConnectionSystem.Select.Adapters
             if(!_joinableEntityChecker.HasEntity(entity) && _selectedEntityStorage.HasSelected())
                 _selectedEntityStorage.ClearSelection();
 
-            if (_joinableEntityChecker.HasEntity(entity) && _selectedEntityStorage.HasSelected())
-            {
-                var selected = _selectedEntityStorage.GetSelected();
-                OnConnectionResolved?.Invoke(selected, entity);
-                _selectedEntityStorage.ClearSelection();
-            }
-               
+            if (!_joinableEntityChecker.HasEntity(entity) || !_selectedEntityStorage.HasSelected()) 
+                return;
+            
+            var selected = _selectedEntityStorage.GetSelected();
+            OnConnectionValid?.Invoke(selected, entity);
+            _selectedEntityStorage.ClearSelection();
+
         }
 
        

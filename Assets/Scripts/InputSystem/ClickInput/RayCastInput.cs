@@ -26,17 +26,12 @@ namespace ConnectionSystem.Select
             if (!Input.GetMouseButtonUp(0) || !_isMouseDown)
                 return;
             
-            // Проверяем, был ли это драг (мышка сместилась достаточно далеко)
             var mouseMoveDistance = Vector3.Distance(_mouseDownPosition, Input.mousePosition);
             _isMouseDown = false;
         
             if (mouseMoveDistance > DragThreshold)
-            {
-                // Это был драг - игнорируем клик
                 return;
-            }
-        
-            // Это был клик - вызываем событие
+            
             OnClick?.Invoke(_mouseRaycastService.PerformRaycast());
         }
     }
