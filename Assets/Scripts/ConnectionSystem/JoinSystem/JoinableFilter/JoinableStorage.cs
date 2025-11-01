@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ConnectionSystem.EntityFilter
@@ -8,18 +9,17 @@ namespace ConnectionSystem.EntityFilter
         public event Action<Entity.Entity[]> OnUpdated;
         public event Action<Entity.Entity[]> OnClearRequest;
         
-        private Entity.Entity[] _entities = Array.Empty<Entity.Entity>(); 
+        private List<Entity.Entity> _entities = new (); 
 
         public void UpdateEntities(Entity.Entity[] entities)
         {
-            _entities = entities;
-            OnUpdated?.Invoke(_entities);
+            _entities = entities.ToList();
+            OnUpdated?.Invoke(_entities.ToArray());
         }
-        
         public void Clear()
         {
-            OnClearRequest?.Invoke(_entities);
-            _entities = Array.Empty<Entity.Entity>();
+            OnClearRequest?.Invoke(_entities.ToArray());
+            _entities.Clear();
         }
         
         bool IJoinableEntityChecker.HasEntity(Entity.Entity entity) => _entities.Contains(entity);

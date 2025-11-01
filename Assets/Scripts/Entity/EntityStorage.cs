@@ -37,7 +37,6 @@ namespace Entity
     {
         void AddEntity(Entity entity);
         void RemoveEntity(Entity entity);
-        bool HasEntity(Entity entity);
         IEnumerable<Entity> GetAllEntities();
     }
     
@@ -45,7 +44,6 @@ namespace Entity
     {
         public event Action<Entity> OnEntityAdded;
         public event Action<Entity> OnEntityRemoved;
-        public event Action<List<Entity>> OnListChanged;
     }
 }
 

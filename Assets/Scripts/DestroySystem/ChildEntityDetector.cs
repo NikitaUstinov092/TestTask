@@ -1,4 +1,5 @@
 ﻿using System;
+using Entity;
 using Zenject;
 
 namespace Custom
@@ -7,12 +8,14 @@ namespace Custom
     {
         private readonly IEntityDestroyerRequestObserver _entityDestroyObserver;
         private readonly EntityConnectionSourceObserver _connectionSourceObserver;
+        private readonly IEntityDestroyer _entityDestroyer;
         
         [Inject]
-        public ChildEntityDetector(IEntityDestroyerRequestObserver entityDestroyObserver, EntityConnectionSourceObserver connectionSourceObserver)
+        public ChildEntityDetector(IEntityDestroyerRequestObserver entityDestroyObserver, EntityConnectionSourceObserver connectionSourceObserver, IEntityDestroyer entityDestroyer)
         {
             _entityDestroyObserver = entityDestroyObserver;
             _connectionSourceObserver = connectionSourceObserver;
+            _entityDestroyer = entityDestroyer;
         }
         void IInitializable.Initialize()
         {
@@ -26,9 +29,13 @@ namespace Custom
         {
            if(!entity.TryGet(out ChildEntitiesComponent childEntitiesComponent))
                return;
-           
+
            foreach (var child in childEntitiesComponent.ChildEntities)
+           {
                _connectionSourceObserver.DetectConnectionBufferComponent(child);
+               _entityDestroyer.DestroyEntity(child);
+           }
+              
         }
     }
 }

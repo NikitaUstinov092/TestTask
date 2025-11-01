@@ -8,12 +8,14 @@ namespace Custom
     {
         private readonly ConnectionEntityDetector _connectionEntityDetector;
         private readonly ConnectionsListCleaner _cleaner;
+        private readonly IEntityDestroyer _entityDestroyer;
         
         [Inject]
-        public DetectedConnectionObserver(ConnectionEntityDetector connectionEntityDetector)
+        public DetectedConnectionObserver(ConnectionEntityDetector connectionEntityDetector, IEntityDestroyer entityDestroyer)
         {
             _connectionEntityDetector = connectionEntityDetector;
             _cleaner = new ();
+            _entityDestroyer = entityDestroyer;
         }
 
         void IInitializable.Initialize()
@@ -34,6 +36,8 @@ namespace Custom
             
             _cleaner.CleanFromLists(entity, creator);
             _cleaner.CleanFromLists(entity, connected);
+            
+            _entityDestroyer.DestroyEntity(entity);
         }
     }
 }
