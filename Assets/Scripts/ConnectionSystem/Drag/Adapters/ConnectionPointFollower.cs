@@ -9,11 +9,13 @@ namespace ConnectionSystem.Drag.Adapters
     {
         [Inject]
         private IMousePointService _mousePointService;
-        public override void Subscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Subscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnDragEventData += OnDragEventData; 
         }
-        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnDragEventData -= OnDragEventData; 
         }

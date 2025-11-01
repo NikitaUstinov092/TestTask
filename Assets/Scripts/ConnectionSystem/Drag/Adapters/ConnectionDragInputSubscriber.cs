@@ -15,12 +15,14 @@ namespace ConnectionSystem.Connection
             _connectionSpawnWrapper = connectionSpawnWrapper;
             _connectionDragResolver = connectionDragResolver;
         }
-        public override void Subscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Subscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData += _connectionSpawnWrapper.CreateAndInstallConnection;
             input.OnEndDragEventData += _connectionDragResolver.ResolveConnection;
         }
-        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData -= _connectionSpawnWrapper.CreateAndInstallConnection;
             input.OnEndDragEventData -= _connectionDragResolver.ResolveConnection;

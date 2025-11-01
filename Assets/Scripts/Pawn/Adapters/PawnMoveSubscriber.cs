@@ -1,30 +1,30 @@
 ﻿using Custom;
 using InputSystem;
-using InputSystem.Components;
-using MoveSystem.Components;
 
 namespace Pawn.Adapters
 {
-    public class PawnDragDragSubscriber: PawnDragSubscriber
+    public class PawnMoveSubscriber: PawnDragSubscriber
     {
-        private readonly TransformDragger _transformDragger = new TransformDragger();
-        public override void Subscribe(IDragHandler<Entity.Entity> input)
+        private readonly TransformMover _transformMover = new TransformMover();
+
+        protected override void Subscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData += OnBeginDragEventData;
             input.OnDragEventData += OnDragEventData;
         }
-        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData -= OnBeginDragEventData;
             input.OnEndDragEventData -= OnDragEventData;
         }
         private void OnBeginDragEventData(Entity.Entity entity)
         {
-            _transformDragger.SetupDragOffsetScreen(entity.transform);
+            _transformMover.SetupOffsetScreen(entity.transform);
         }
         private void OnDragEventData(Entity.Entity entity)
         {
-            _transformDragger.UpdatePosition(entity.transform);
+            _transformMover.UpdatePosition(entity.transform);
         }
     }
 }

@@ -5,11 +5,11 @@ namespace ConnectionSystem.Select.Adapters
 {
     public class ConnectionSelectResolverAdapter: IInitializable, IDisposable
     {
-        private readonly RayCastInputValidator _connectionSelectResolver;
+        private readonly MouseClickValidator _connectionSelectResolver;
         private readonly ConnectionMediator _connectionMediator;
         
         [Inject]
-        public ConnectionSelectResolverAdapter(RayCastInputValidator connectionSelectResolver, ConnectionMediator connectionMediator)
+        public ConnectionSelectResolverAdapter(MouseClickValidator connectionSelectResolver, ConnectionMediator connectionMediator)
         {
             _connectionSelectResolver = connectionSelectResolver;
             _connectionMediator = connectionMediator;

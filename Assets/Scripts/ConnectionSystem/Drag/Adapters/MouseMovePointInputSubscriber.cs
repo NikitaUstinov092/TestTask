@@ -7,13 +7,14 @@ namespace ConnectionSystem.MousePoint
     {
         [Inject]
         private readonly MousePointMover _mousePointMover;
-        
-        public override void Subscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Subscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEvent += _mousePointMover.SetStartPoint;
             input.OnDragEvent += _mousePointMover.MovePoint;
         }
-        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEvent -= _mousePointMover.SetStartPoint;
             input.OnDragEvent -= _mousePointMover.MovePoint;

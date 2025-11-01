@@ -8,13 +8,15 @@ namespace ConnectionSystem.ConnectionLineView
     {
         [Inject]
         private IPointPositionUpdater _connectionLinePointsUpdater;
-        public override void Subscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Subscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData += OnBeginDragEventData; 
             input.OnDragEventData += OnDragEventData; 
             input.OnEndDragEventData += OnEndDragEventData; 
         }
-        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData -= OnBeginDragEventData; 
             input.OnDragEventData -= OnDragEventData; 

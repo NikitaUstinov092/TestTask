@@ -20,9 +20,13 @@ namespace ConnectionSystem.Select.Adapters
         {
             if(!_selectedEntity)
                 return;
-            
-            _selectedEntity = null;
+            SetSelectedNull();
             OnEntityDeSelected?.Invoke();
+        }
+
+        public void SetSelectedNull()
+        {
+            _selectedEntity = null;
         }
     }
     public interface ISelectionHandler  

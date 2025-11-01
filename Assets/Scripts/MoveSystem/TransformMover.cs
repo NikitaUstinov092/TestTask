@@ -2,14 +2,14 @@
 
 namespace Custom
 {
-    public class TransformDragger
+    public class TransformMover
     {
-        private Vector3 _dragOffsetScreen;
+        private Vector3 _offsetScreen;
         private readonly Camera _camera = Camera.main;
 
-        public void SetupDragOffsetScreen(Transform transformToDrag)
+        public void SetupOffsetScreen(Transform transformToDrag)
         {
-            _dragOffsetScreen = Input.mousePosition - WorldToScreen(transformToDrag.position);
+            _offsetScreen = Input.mousePosition - WorldToScreen(transformToDrag.position);
         }
 
         public void UpdatePosition(Transform transformToDrag)
@@ -17,7 +17,7 @@ namespace Custom
             if (!_camera) 
                 throw new System.Exception("Камера не найдена");
 
-            var pointerWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition - _dragOffsetScreen);
+            var pointerWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition - _offsetScreen);
             transformToDrag.position = new Vector3(pointerWorldPosition.x, transformToDrag.position.y, pointerWorldPosition.z);
         }
 

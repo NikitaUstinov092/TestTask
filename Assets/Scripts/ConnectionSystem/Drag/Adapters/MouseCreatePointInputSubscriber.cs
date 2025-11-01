@@ -7,13 +7,14 @@ namespace ConnectionSystem.MousePoint
     {
         [Inject]
         private readonly MousePointLifecycle _mousePointLifecycle;
-  
-        public override void Subscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Subscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData += _mousePointLifecycle.CreateAndInstallPoint;
             input.OnEndDragEvent += _mousePointLifecycle.DestroyPoint;
         }
-        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData -= _mousePointLifecycle.CreateAndInstallPoint;
             input.OnEndDragEvent -= _mousePointLifecycle.DestroyPoint;

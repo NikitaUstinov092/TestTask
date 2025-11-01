@@ -21,17 +21,13 @@ namespace Pawn
                if(child.TryGet(out OutgoingConnectionComponent outgoingConnectionComponent))
                {
                    foreach (var outgoingConnection in outgoingConnectionComponent.OutgoingConnections)
-                   {
                        UpdateOutGoingConnection(outgoingConnection);
-                   }
                }
                
                if(child.TryGet(out IncomingConnectionComponent incomingConnectionComponent))
                {
                    foreach (var incomingConnection in incomingConnectionComponent.IncomingConnections)
-                   {
                        UpdateIncomingConnection(incomingConnection);
-                   }
                }
            }
         }

@@ -8,18 +8,18 @@ namespace ConnectionSystem.MousePoint
         [Inject]
         private MousePointStorage _mousePoint;
         
-        private TransformDragger _transformDragger = new();
+        private TransformMover _transformMover = new();
         
         public void SetStartPoint()
         {
             if(_mousePoint.PointExists()) 
-                _transformDragger.SetupDragOffsetScreen(_mousePoint.GetPoint());
+                _transformMover.SetupOffsetScreen(_mousePoint.GetPoint());
         }
         
         public void MovePoint()
         {
             if(_mousePoint.PointExists()) 
-                _transformDragger.UpdatePosition(_mousePoint.GetPoint());
+                _transformMover.UpdatePosition(_mousePoint.GetPoint());
         }
     }
 }

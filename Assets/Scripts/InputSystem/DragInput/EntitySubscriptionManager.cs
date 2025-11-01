@@ -30,12 +30,13 @@ namespace InputSystem
         {
             
         }
-        public virtual void Subscribe(IDragHandler<Entity.Entity> input)
+
+        protected virtual void Subscribe(IDragHandler<Entity.Entity> input)
         {
             
         }
 
-        public virtual void Unsubscribe(IDragHandler<Entity.Entity> input)
+        protected virtual void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
            
         }

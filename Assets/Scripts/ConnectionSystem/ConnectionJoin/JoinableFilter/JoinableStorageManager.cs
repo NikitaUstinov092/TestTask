@@ -20,6 +20,7 @@ namespace ConnectionSystem.EntityFilter
 
         public void UpdateFilter(Entity.Entity entity)
         {
+            _joinableStorage.Clear();
             var filteredEntities = _filter.GetFilteredEntities(entity).ToArray();
             _joinableStorage.UpdateEntities(filteredEntities);
         }

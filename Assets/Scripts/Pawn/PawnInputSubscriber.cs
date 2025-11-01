@@ -8,11 +8,11 @@ namespace Pawn
     {
         protected override void OnEntityAdded(Entity.Entity entity)
         {
-            if (!entity.TryGet(out DragComponent inputComponent)
+            if (!entity.TryGet(out DragComponent dragComponent)
                 || !entity.HasComponent<MoveComponent>()) 
                 return;
 
-            var input = inputComponent.GetInput();
+            var input = dragComponent.GetInput();
 
             Subscribe(input);
         }

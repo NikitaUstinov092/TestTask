@@ -7,12 +7,14 @@ namespace ConnectionSystem.EntityFilter
     {
         [Inject]
         private JoinableStorageManager _joinableStorageManager;
-        public override void Subscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Subscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData += _joinableStorageManager.UpdateFilter;
             input.OnEndDragEvent += _joinableStorageManager.ClearStorage;
         }
-        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
+
+        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData -= _joinableStorageManager.UpdateFilter;
             input.OnEndDragEvent -= _joinableStorageManager.ClearStorage;

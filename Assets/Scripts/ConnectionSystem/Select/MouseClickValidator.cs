@@ -4,7 +4,7 @@ using Zenject;
 
 namespace ConnectionSystem.Select.Adapters
 {
-    public class RayCastInputValidator: IInitializable, IDisposable
+    public class MouseClickValidator: IInitializable, IDisposable
     {
         public event Action<Entity.Entity, Entity.Entity> OnConnectionValid;
         
@@ -13,7 +13,7 @@ namespace ConnectionSystem.Select.Adapters
         private readonly IJoinableEntityChecker _joinableEntityChecker;
         
         [Inject]
-        public RayCastInputValidator(MouseClickHandler mouseClickHandler, SelectedEntityStorage selectedEntityStorage,
+        public MouseClickValidator(MouseClickHandler mouseClickHandler, SelectedEntityStorage selectedEntityStorage,
             IJoinableEntityChecker joinableEntityChecker)
         {
             _mouseClickHandler = mouseClickHandler;
@@ -27,7 +27,7 @@ namespace ConnectionSystem.Select.Adapters
 
         void IDisposable.Dispose()
         {
-            _mouseClickHandler.OnClick += OnClick;
+            _mouseClickHandler.OnClick -= OnClick;
         }
 
         private void OnClick(Entity.Entity entity)
@@ -35,7 +35,7 @@ namespace ConnectionSystem.Select.Adapters
             if(!entity && !_selectedEntityStorage.HasSelected())
                 return;
             
-            if (entity && entity.HasComponent<SelectableComponent>()  && !_selectedEntityStorage.HasSelected())
+            if (entity && entity.HasComponent<SelectableComponent>() && !_selectedEntityStorage.HasSelected()) 
             {
                 _selectedEntityStorage.SetSelected(entity);
                 return;
@@ -52,8 +52,8 @@ namespace ConnectionSystem.Select.Adapters
             
             var selected = _selectedEntityStorage.GetSelected();
             OnConnectionValid?.Invoke(selected, entity);
+           
             _selectedEntityStorage.ClearSelection();
-
         }
 
        
