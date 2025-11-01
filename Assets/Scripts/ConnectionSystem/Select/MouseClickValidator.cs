@@ -8,29 +8,29 @@ namespace ConnectionSystem.Select.Adapters
     {
         public event Action<Entity.Entity, Entity.Entity> OnConnectionValid;
         
-        private readonly MouseClickHandler _mouseClickHandler;
+        private readonly MouseDownHandler _mouseDownHandler;
         private readonly SelectedEntityStorage _selectedEntityStorage;
         private readonly IJoinableEntityChecker _joinableEntityChecker;
         
         [Inject]
-        public MouseClickValidator(MouseClickHandler mouseClickHandler, SelectedEntityStorage selectedEntityStorage,
+        public MouseClickValidator(MouseDownHandler mouseDownHandler, SelectedEntityStorage selectedEntityStorage,
             IJoinableEntityChecker joinableEntityChecker)
         {
-            _mouseClickHandler = mouseClickHandler;
+            _mouseDownHandler = mouseDownHandler;
             _selectedEntityStorage = selectedEntityStorage;
             _joinableEntityChecker = joinableEntityChecker;
         }
         void IInitializable.Initialize()
         {
-            _mouseClickHandler.OnClick += OnClick;
+            _mouseDownHandler.OnClick += OnDown;
         }
 
         void IDisposable.Dispose()
         {
-            _mouseClickHandler.OnClick -= OnClick;
+            _mouseDownHandler.OnClick -= OnDown;
         }
 
-        private void OnClick(Entity.Entity entity)
+        private void OnDown(Entity.Entity entity)
         {
             if(!entity && !_selectedEntityStorage.HasSelected())
                 return;

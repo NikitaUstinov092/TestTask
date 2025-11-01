@@ -18,7 +18,7 @@ public class ConnectionSelectSystemScriptableObjectInstaller : ScriptableObjectI
         Container.Bind<ConnectionMediator>().AsCached();
         Container.BindInterfacesTo<ConnectionLineViewAdapter>().AsCached();
         Container.BindInterfacesTo<JoinableFilterSelectSubscriber>().AsCached();
-        Container.BindInterfacesAndSelfTo<MouseClickHandler>().AsCached();
+        Container.BindInterfacesAndSelfTo<MouseDownHandler>().AsCached();
         Container.BindInterfacesAndSelfTo<MouseClickValidator>().AsCached();
         Container.BindInterfacesAndSelfTo<SelectedEntityCleanerAdapter>().AsCached();
     }
