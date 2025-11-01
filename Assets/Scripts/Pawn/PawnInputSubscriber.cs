@@ -4,11 +4,11 @@ using MoveSystem.Components;
 
 namespace Pawn
 {
-    public class PawnInputSubscriber: InputSubscriberBase
+    public class PawnDragSubscriber: EntitySubscriptionManager
     {
         protected override void OnEntityAdded(Entity.Entity entity)
         {
-            if (!entity.TryGet(out InputComponent inputComponent)
+            if (!entity.TryGet(out DragComponent inputComponent)
                 || !entity.HasComponent<MoveComponent>()) 
                 return;
 
@@ -19,7 +19,7 @@ namespace Pawn
 
         protected override void OnEntityRemoved(Entity.Entity entity)
         {
-            if (!entity.TryGet(out InputComponent inputComponent)
+            if (!entity.TryGet(out DragComponent inputComponent)
                 || !entity.HasComponent<MoveComponent>())
                 return;
 

@@ -3,19 +3,19 @@ using Zenject;
 
 namespace ConnectionSystem.MousePoint
 {
-    public class MouseCreatePointInputSubscriber: ConnectionInputSubscriber
+    public class MouseCreatePointDragSubscriber: ConnectionDragSubscriber
     {
         [Inject]
         private readonly MousePointLifecycle _mousePointLifecycle;
   
-        public override void Subscribe(IMouseInput<Entity.Entity> input)
+        public override void Subscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnBeginDragData += _mousePointLifecycle.CreateAndInstallPoint;
+            input.OnBeginDragEventData += _mousePointLifecycle.CreateAndInstallPoint;
             input.OnEndDragEvent += _mousePointLifecycle.DestroyPoint;
         }
-        public override void Unsubscribe(IMouseInput<Entity.Entity> input)
+        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnBeginDragData -= _mousePointLifecycle.CreateAndInstallPoint;
+            input.OnBeginDragEventData -= _mousePointLifecycle.CreateAndInstallPoint;
             input.OnEndDragEvent -= _mousePointLifecycle.DestroyPoint;
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ConnectionSystem.Connection
 {
-    public class ConnectionPointSetuper
+    public class ConnectionPointPositionSetuper
     {
         public void SetUpStartPoint(Entity.Entity entity, Transform point)
         {
@@ -16,13 +16,13 @@ namespace ConnectionSystem.Connection
         }
     }
 
-    public class ConnectionPointSetupWrapper
+    public class ConnectionPointPositionSetupWrapper
     {
-        private readonly ConnectionPointSetuper _connectionPointSetuper = new();
+        private readonly ConnectionPointPositionSetuper _connectionPointPositionSetuper = new();
 
         public void SetupEndPoint(Entity.Entity _, Entity.Entity entityToConnect, Entity.Entity connection)
         {
-            _connectionPointSetuper.SetUpEndPoint(connection, entityToConnect.transform);
+            _connectionPointPositionSetuper.SetUpEndPoint(connection, entityToConnect.transform);
         }
     }
 }

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace InputSystem
 {
-    public class InputSubscriberBase: IInitializable, IDisposable
+    public class EntitySubscriptionManager: IInitializable, IDisposable
     {
         [Inject] 
         private readonly IEntityStorageObserver _storage;
@@ -30,12 +30,12 @@ namespace InputSystem
         {
             
         }
-        public virtual void Subscribe(IMouseInput<Entity.Entity> input)
+        public virtual void Subscribe(IDragHandler<Entity.Entity> input)
         {
             
         }
 
-        public virtual void Unsubscribe(IMouseInput<Entity.Entity> input)
+        public virtual void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
            
         }

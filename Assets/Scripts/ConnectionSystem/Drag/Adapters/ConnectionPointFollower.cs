@@ -5,20 +5,20 @@ using Zenject;
 
 namespace ConnectionSystem.Drag.Adapters
 {
-    public class ConnectionPointFollower: ConnectionInputSubscriber
+    public class ConnectionPointFollower: ConnectionDragSubscriber
     {
         [Inject]
         private IMousePointService _mousePointService;
-        public override void Subscribe(IMouseInput<Entity.Entity> input)
+        public override void Subscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnDragData += OnDragData; 
+            input.OnDragEventData += OnDragEventData; 
         }
-        public override void Unsubscribe(IMouseInput<Entity.Entity> input)
+        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnDragData -= OnDragData; 
+            input.OnDragEventData -= OnDragEventData; 
         }
 
-        private void OnDragData(Entity.Entity entity)
+        private void OnDragEventData(Entity.Entity entity)
         {
             if(!entity.TryGet(out ConnectionBufferComponent bufferConnection))
                 return;

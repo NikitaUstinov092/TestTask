@@ -10,7 +10,7 @@ namespace ConnectionSystem
         private readonly ConnectionDragResolver _dragResolver;
         private readonly IConnectionBuilder _connectionBuilder;
         private readonly IEntityDestroyer _entityDestroyer;
-        private readonly ConnectionPointSetupWrapper _pointSetupWrapper;
+        private readonly ConnectionPointPositionSetupWrapper _pointPositionSetupWrapper;
         
         [Inject]
         public DragAttachmentSystemAdapter(ConnectionDragResolver dragResolver, 
@@ -20,20 +20,20 @@ namespace ConnectionSystem
             _dragResolver = dragResolver;
             _connectionBuilder = connectionBuilder;
             _entityDestroyer = entityDestroyer;
-            _pointSetupWrapper = new();
+            _pointPositionSetupWrapper = new();
         }
         
         void IInitializable.Initialize()
         {
             _dragResolver.OnConnectionResolved += _connectionBuilder.BuildConnection;
-            _dragResolver.OnConnectionResolved += _pointSetupWrapper.SetupEndPoint;
+            _dragResolver.OnConnectionResolved += _pointPositionSetupWrapper.SetupEndPoint;
             _dragResolver.OnDiscard += _entityDestroyer.DestroyEntity;
         }
 
         void IDisposable.Dispose()
         {
             _dragResolver.OnConnectionResolved -= _connectionBuilder.BuildConnection;
-            _dragResolver.OnConnectionResolved -= _pointSetupWrapper.SetupEndPoint;
+            _dragResolver.OnConnectionResolved -= _pointPositionSetupWrapper.SetupEndPoint;
             _dragResolver.OnDiscard -= _entityDestroyer.DestroyEntity;
         }
     }

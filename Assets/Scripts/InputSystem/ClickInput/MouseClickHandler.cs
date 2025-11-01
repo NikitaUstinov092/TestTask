@@ -5,25 +5,28 @@ using Zenject;
 
 namespace ConnectionSystem.Select
 {
-    public class RayCastInput: ITickable
+    public class MouseClickHandler: ITickable
     {
         public event Action<Entity.Entity> OnClick;
-    
+        
+        private const float DragThreshold = 10f;
+        private const int MouseIndex = 0;
+        
         private readonly MouseRaycastService _mouseRaycastService = new MouseRaycastService(Camera.main);
         private Vector3 _mouseDownPosition;
-        private const float DragThreshold = 10f;
+       
         private bool _isMouseDown;
     
         void ITickable.Tick()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(MouseIndex))
             {
                 _mouseDownPosition = Input.mousePosition;
                 _isMouseDown = true;
                 return;
             }
         
-            if (!Input.GetMouseButtonUp(0) || !_isMouseDown)
+            if (!Input.GetMouseButtonUp(MouseIndex) || !_isMouseDown)
                 return;
             
             var mouseMoveDistance = Vector3.Distance(_mouseDownPosition, Input.mousePosition);

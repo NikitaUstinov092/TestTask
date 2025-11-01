@@ -4,40 +4,41 @@ using Zenject;
 
 namespace ConnectionSystem.ConnectionLineView
 {
-    public class ConnectionLineViewDragSubscriber: ConnectionInputSubscriber
+    public class ConnectionLineViewDragSubscriber: ConnectionDragSubscriber
     {
         [Inject]
         private IPointPositionUpdater _connectionLinePointsUpdater;
-        public override void Subscribe(IMouseInput<Entity.Entity> input)
+        public override void Subscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnBeginDragData += OnBeginDragData; 
-            input.OnDragData += OnDragData; 
-            input.OnEndDragData += OnEndDragData; 
+            input.OnBeginDragEventData += OnBeginDragEventData; 
+            input.OnDragEventData += OnDragEventData; 
+            input.OnEndDragEventData += OnEndDragEventData; 
         }
-        public override void Unsubscribe(IMouseInput<Entity.Entity> input)
+        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnBeginDragData -= OnBeginDragData; 
-            input.OnDragData -= OnDragData; 
-            input.OnEndDragData -= OnEndDragData; 
+            input.OnBeginDragEventData -= OnBeginDragEventData; 
+            input.OnDragEventData -= OnDragEventData; 
+            input.OnEndDragEventData -= OnEndDragEventData; 
         }
-        private void OnBeginDragData(Entity.Entity entity)
+        private void OnBeginDragEventData(Entity.Entity entity)
         {
             if(!entity.TryGet(out ConnectionBufferComponent connectionBufferComponent))
                 return;
             
             _connectionLinePointsUpdater.UpdateLineStartPoint(connectionBufferComponent.ConnectionBufferEntity);
         }
-        private void OnDragData(Entity.Entity entity)
+        private void OnDragEventData(Entity.Entity entity)
         {
             if(!entity.TryGet(out ConnectionBufferComponent connectionBufferComponent))
                 return;
             
             _connectionLinePointsUpdater.UpdateLineEndPoint(connectionBufferComponent.ConnectionBufferEntity);
         }
-        private void OnEndDragData(Entity.Entity entity)
+        private void OnEndDragEventData(Entity.Entity entity)
         {
            if(!entity.TryGet(out ConnectionBufferComponent connectionBufferComponent))
                return;
+           
            _connectionLinePointsUpdater.UpdateLineEndPoint(connectionBufferComponent.ConnectionBufferEntity);
         }
 

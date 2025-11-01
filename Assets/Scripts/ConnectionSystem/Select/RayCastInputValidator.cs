@@ -8,26 +8,26 @@ namespace ConnectionSystem.Select.Adapters
     {
         public event Action<Entity.Entity, Entity.Entity> OnConnectionValid;
         
-        private readonly RayCastInput _rayCastInput;
+        private readonly MouseClickHandler _mouseClickHandler;
         private readonly SelectedEntityStorage _selectedEntityStorage;
         private readonly IJoinableEntityChecker _joinableEntityChecker;
         
         [Inject]
-        public RayCastInputValidator(RayCastInput rayCastInput, SelectedEntityStorage selectedEntityStorage,
+        public RayCastInputValidator(MouseClickHandler mouseClickHandler, SelectedEntityStorage selectedEntityStorage,
             IJoinableEntityChecker joinableEntityChecker)
         {
-            _rayCastInput = rayCastInput;
+            _mouseClickHandler = mouseClickHandler;
             _selectedEntityStorage = selectedEntityStorage;
             _joinableEntityChecker = joinableEntityChecker;
         }
         void IInitializable.Initialize()
         {
-            _rayCastInput.OnClick += OnClick;
+            _mouseClickHandler.OnClick += OnClick;
         }
 
         void IDisposable.Dispose()
         {
-            _rayCastInput.OnClick += OnClick;
+            _mouseClickHandler.OnClick += OnClick;
         }
 
         private void OnClick(Entity.Entity entity)

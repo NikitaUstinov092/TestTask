@@ -8,7 +8,8 @@ public class PawnSystemInstaller : ScriptableObjectInstaller<PawnSystemInstaller
 {
     public override void InstallBindings()
     {
-        Container.BindInterfacesTo<PawnDragInputSubscriber>().AsCached();
+        Container.Bind<ConfigService>().FromComponentInHierarchy().AsSingle(); // TO DO Убрать отсюда
+        Container.BindInterfacesTo<PawnDragDragSubscriber>().AsCached();
         Container.Bind<UpdateChildPointsManager>().AsCached();
         Container.BindInterfacesTo<PawnConnectionPointsUpdater>().AsCached();
     }

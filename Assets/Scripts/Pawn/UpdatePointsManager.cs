@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using ConnectionSystem.Connection;
 using ConnectionSystem.Connection.Components;
 using ConnectionSystem.ConnectionLineView;
 using Zenject;
@@ -9,6 +9,8 @@ namespace Pawn
     {
         [Inject]
         private readonly IPointPositionUpdater _pointPositionUpdater;
+
+        private readonly ConnectionPointPositionSetuper _pointPositionSetuper = new();
         public void UpdatePoints(Entity.Entity entity)
         {
            if(!entity.TryGet(out ChildEntitiesComponent childEntitiesComponent))
@@ -32,23 +34,19 @@ namespace Pawn
                    }
                }
            }
-              
         }
-
-        //TO DO Вынести в отдельный класс
+        
         private void UpdateOutGoingConnection(Entity.Entity entity)
         {
             var creator = entity.Get<EntityRelationsComponent>().CreatorEntity.transform;
-            var startPoint = entity.Get<ConnectionPointsComponent>().StartPoint;
-            startPoint.position = creator.position;
+            _pointPositionSetuper.SetUpStartPoint(entity, creator);
             _pointPositionUpdater.UpdateLineStartPoint(entity);
         }
         
         private void UpdateIncomingConnection(Entity.Entity entity)
         {
             var connector = entity.Get<EntityRelationsComponent>().ConnectedEntity.transform;
-            var endPoint = entity.Get<ConnectionPointsComponent>().EndPoint;
-            endPoint.position = connector.position;
+            _pointPositionSetuper.SetUpEndPoint(entity, connector);
             _pointPositionUpdater.UpdateLineEndPoint(entity);
         }
     }

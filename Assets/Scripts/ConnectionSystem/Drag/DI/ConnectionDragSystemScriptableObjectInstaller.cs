@@ -24,23 +24,23 @@ namespace ConnectionSystem.DI
         {
             Container.Bind<ConnectionDragResolver>().AsSingle();
             Container.Bind<ConnectionSpawnWrapper>().AsSingle();
-            Container.BindInterfacesTo<ConnectionDragInputSubscriber>().AsCached();
+            Container.BindInterfacesTo<ConnectionDragDragSubscriber>().AsCached();
             Container.BindInterfacesTo<DragAttachmentSystemAdapter>().AsCached();
             Container.BindInterfacesTo<ConnectionLineViewDragSubscriber>().AsCached();
         }
         private void BindMousePointInstallers()
         {
             Container.BindInterfacesAndSelfTo<MousePointStorage>().AsSingle();
-            Container.BindInterfacesTo<MouseCreatePointInputSubscriber>().AsCached();
-            Container.BindInterfacesTo<MouseMovePointInputSubscriber>().AsCached();
+            Container.BindInterfacesTo<MouseCreatePointDragSubscriber>().AsCached();
+            Container.BindInterfacesTo<MouseMovePointDragSubscriber>().AsCached();
             Container.BindInterfacesTo<ConnectionPointFollower>().AsCached();
             Container.Bind<MousePointLifecycle>().AsSingle();
             Container.Bind<MousePointMover>().AsSingle();
         }
         private void BindInitializableExecutionOrders()
         {
-            Container.BindInitializableExecutionOrder<ConnectionDragInputSubscriber>(10);
-            Container.BindInitializableExecutionOrder<MouseMovePointInputSubscriber>(15);
+            Container.BindInitializableExecutionOrder<ConnectionDragDragSubscriber>(10);
+            Container.BindInitializableExecutionOrder<MouseMovePointDragSubscriber>(15);
         }
         
     }

@@ -5,7 +5,7 @@ namespace Custom
     public class TransformDragger
     {
         private Vector3 _dragOffsetScreen;
-        private Camera _camera = Camera.main;
+        private readonly Camera _camera = Camera.main;
 
         public void SetupDragOffsetScreen(Transform transformToDrag)
         {

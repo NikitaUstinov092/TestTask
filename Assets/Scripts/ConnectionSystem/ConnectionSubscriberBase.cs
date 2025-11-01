@@ -5,11 +5,11 @@ using InputSystem.Components;
 
 namespace ConnectionSystem
 {
-    public class ConnectionInputSubscriber : InputSubscriberBase
+    public class ConnectionDragSubscriber : EntitySubscriptionManager
     {
         protected override void OnEntityAdded(Entity.Entity entity)
         {
-            if (!entity.TryGet(out InputComponent inputComponent)
+            if (!entity.TryGet(out DragComponent inputComponent)
                 || !entity.HasComponent<IncomingConnectionComponent>()) 
                 return;
 
@@ -20,7 +20,7 @@ namespace ConnectionSystem
 
         protected override void OnEntityRemoved(Entity.Entity entity)
         {
-            if (!entity.TryGet(out InputComponent inputComponent)
+            if (!entity.TryGet(out DragComponent inputComponent)
                 || !entity.HasComponent<IncomingConnectionComponent>())
                 return;
 

@@ -13,7 +13,7 @@ namespace ConnectionSystem.Select.Adapters
         
         private readonly IConnectionBuilder _connectionBuilder;
         private readonly ConnectionSpawner _connectionSpawner;
-        private readonly ConnectionPointSetuper _connectionPointSetuper;
+        private readonly ConnectionPointPositionSetuper _connectionPointPositionSetuper;
         private readonly IEntityStorage _entityStorage;
 
         [Inject]
@@ -22,7 +22,7 @@ namespace ConnectionSystem.Select.Adapters
         {
             _connectionBuilder = connectionBuilder;
             _connectionSpawner = new ConnectionSpawner(connectionPrefabService);
-            _connectionPointSetuper = new();
+            _connectionPointPositionSetuper = new();
             _entityStorage = entityStorage;
         }
         
@@ -32,8 +32,8 @@ namespace ConnectionSystem.Select.Adapters
             _entityStorage.AddEntity(connection);
             
             _connectionBuilder.BuildConnection(fromEntity, toEntity, connection);
-            _connectionPointSetuper.SetUpStartPoint(connection, fromEntity.transform);
-            _connectionPointSetuper.SetUpEndPoint(connection, toEntity.transform);
+            _connectionPointPositionSetuper.SetUpStartPoint(connection, fromEntity.transform);
+            _connectionPointPositionSetuper.SetUpEndPoint(connection, toEntity.transform);
            
             OnConnectionMediate?.Invoke(connection);
         }

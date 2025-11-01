@@ -3,19 +3,19 @@ using Zenject;
 
 namespace Pawn.Adapters
 {
-    public class PawnConnectionPointsUpdater: PawnInputSubscriber
+    public class PawnConnectionPointsUpdater: PawnDragSubscriber
     {
         [Inject]
         private UpdateChildPointsManager _updateChildPointsManager;
-        public override void Subscribe(IMouseInput<Entity.Entity> input)
+        public override void Subscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnDragData += _updateChildPointsManager.UpdatePoints;
-            input.OnEndDragData += _updateChildPointsManager.UpdatePoints;
+            input.OnDragEventData += _updateChildPointsManager.UpdatePoints;
+            input.OnEndDragEventData += _updateChildPointsManager.UpdatePoints;
         }
-        public override void Unsubscribe(IMouseInput<Entity.Entity> input)
+        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnDragData -= _updateChildPointsManager.UpdatePoints;
-            input.OnEndDragData -= _updateChildPointsManager.UpdatePoints;
+            input.OnDragEventData -= _updateChildPointsManager.UpdatePoints;
+            input.OnEndDragEventData -= _updateChildPointsManager.UpdatePoints;
         }
     }
 }

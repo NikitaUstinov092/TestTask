@@ -3,18 +3,18 @@ using Zenject;
 
 namespace ConnectionSystem.EntityFilter
 {
-    public class JoinableFilterDragSubscriber: ConnectionInputSubscriber
+    public class JoinableFilterDragSubscriber: ConnectionDragSubscriber
     {
         [Inject]
         private JoinableStorageManager _joinableStorageManager;
-        public override void Subscribe(IMouseInput<Entity.Entity> input)
+        public override void Subscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnBeginDragData += _joinableStorageManager.UpdateFilter;
+            input.OnBeginDragEventData += _joinableStorageManager.UpdateFilter;
             input.OnEndDragEvent += _joinableStorageManager.ClearStorage;
         }
-        public override void Unsubscribe(IMouseInput<Entity.Entity> input)
+        public override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnBeginDragData -= _joinableStorageManager.UpdateFilter;
+            input.OnBeginDragEventData -= _joinableStorageManager.UpdateFilter;
             input.OnEndDragEvent -= _joinableStorageManager.ClearStorage;
         }
     }
