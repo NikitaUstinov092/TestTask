@@ -24,7 +24,6 @@ namespace AreaStatusSystem
                 return null;
             
             var entity = hitInfo.collider.GetComponent<Entity.Entity>();
-            Debug.Log(entity.name);
             return entity;
         }
     }

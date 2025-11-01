@@ -15,11 +15,11 @@ namespace ConnectionSystem.Select.Adapters
             _selectedEntity = entity;
             OnEntitySelected?.Invoke(entity);
         }
-
         public void ClearSelection()
         {
             if(!_selectedEntity)
                 return;
+            
             SetSelectedNull();
             OnEntityDeSelected?.Invoke();
         }
