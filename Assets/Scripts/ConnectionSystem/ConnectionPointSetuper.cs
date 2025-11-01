@@ -18,7 +18,7 @@ namespace ConnectionSystem.Connection
 
     public class ConnectionPointPositionSetupWrapper
     {
-        private readonly ConnectionPointPositionSetuper _connectionPointPositionSetuper = new();
+        private readonly ConnectionPointPositionSetuper _connectionPointPositionSetuper = new();  
 
         public void SetupEndPoint(Entity.Entity _, Entity.Entity entityToConnect, Entity.Entity connection)
         {

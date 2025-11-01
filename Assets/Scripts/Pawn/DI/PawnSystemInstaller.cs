@@ -14,5 +14,6 @@ public class PawnSystemInstaller : ScriptableObjectInstaller<PawnSystemInstaller
         Container.Bind<UpdateChildPointsManager>().AsCached();
         Container.BindInterfacesTo<PawnConnectionPointsUpdater>().AsCached();
         Container.BindInterfacesTo<PawnHighLightController>().AsCached();
+        Container.BindInterfacesTo<PawnDestroyAdapter>().AsCached();
     }
 }

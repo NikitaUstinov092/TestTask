@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ConnectionSystem.Connection.Components;
 using Entity;
 using Zenject;
@@ -14,95 +15,83 @@ public class EntityDestroyer : IEntityDestroyer
 
     public void DestroyEntity(Entity.Entity entity)
     {
-        if (!entity)
-            return;
-
-        var entitiesToDestroy = CollectEntitiesForDestruction(entity);
-        ExecuteBatchDestruction(entitiesToDestroy);
-    }
-
-    private List<Entity.Entity> CollectEntitiesForDestruction(Entity.Entity root)
-    {
-        var result = new List<Entity.Entity>();
-        var queue = new Queue<Entity.Entity>();
-        var visited = new HashSet<Entity.Entity>();
-
-        queue.Enqueue(root);
-        visited.Add(root);
-
-        while (queue.Count > 0)
+        if (entity.TryGet(out ChildEntitiesComponent childEntitiesComponent))
         {
-            var current = queue.Dequeue();
-            result.Add(current);
-
-            // Добавляем детей
-            AddChildrenToQueue(current, queue, visited);
+            var connectionSourcesEntity = childEntitiesComponent.ChildEntities;
             
-            // Добавляем соединения
-            AddConnectionsToQueue(current, queue, visited);
+            foreach (var source in connectionSourcesEntity)
+                DestroySourceOfConnection(source);
         }
-
-        return result;
+        RemoveFromStorageAndDestroy(entity);
     }
-
-    private void AddChildrenToQueue(Entity.Entity entity, Queue<Entity.Entity> queue, HashSet<Entity.Entity> visited)
+    private void DestroySourceOfConnection(Entity.Entity sourceEntity)
     {
-        if (!entity.TryGet<ChildEntitiesComponent>(out var childComponent))
-            return;
-        foreach (var child in childComponent.ChildEntities)
-        {
-            if (child && visited.Add(child))
-            {
-                queue.Enqueue(child);
-            }
-        }
-    }
+        var incomingConnectionEntities = CollectEntitiesOutgoingConnection(sourceEntity);
+        var outGoingConnectionEntities = CollectEntitiesIncomingConnection(sourceEntity);
 
-    private void AddConnectionsToQueue(Entity.Entity entity, Queue<Entity.Entity> queue, HashSet<Entity.Entity> visited)
-    {
-        // Добавляем исходящие соединения
-        if (entity.TryGet(out OutgoingConnectionComponent outgoing))
-        {
-            foreach (var connection in outgoing.OutgoingConnections)
-            {
-                if (connection && visited.Add(connection))
-                {
-                    queue.Enqueue(connection);
-                }
-            }
-        }
-
-        // Добавляем входящие соединения
-        if (entity.TryGet(out IncomingConnectionComponent incoming))
-        {
-            foreach (var connection in incoming.IncomingConnections)
-            {
-                if (connection && visited.Add(connection))
-                {
-                    queue.Enqueue(connection);
-                }
-            }
-        }
-    }
-
-    private void ExecuteBatchDestruction(List<Entity.Entity> entities)
-    {
-        // Удаляем в обратном порядке (сначала листья, потом корни)
-        // Это важно для иерархических структур
-        for (var i = entities.Count - 1; i >= 0; i--)
-        {
-            var entity = entities[i];
-            ExecuteSingleEntityDestruction(entity);
-        }
-    }
-
-    private void ExecuteSingleEntityDestruction(Entity.Entity entity)
-    {
-        OnRequestDestroy?.Invoke(entity);
-        _entityStorage.RemoveEntity(entity);
+        foreach (var incoming in incomingConnectionEntities)
+            RemoveCreatorLists(incoming);
         
-        if (entity.gameObject)
-            Object.Destroy(entity.gameObject);
+        foreach (var outgoing in outGoingConnectionEntities)
+            RemoveCreatorLists(outgoing);
+        
+        foreach (var incoming in incomingConnectionEntities)
+            RemoveConnectedEntityLists(incoming);
+        
+        foreach (var outgoing in outGoingConnectionEntities)
+            RemoveConnectedEntityLists(outgoing);
+        
+        foreach (var incoming in incomingConnectionEntities)
+            RemoveFromStorageAndDestroy(incoming);
+        
+        foreach (var outgoing in outGoingConnectionEntities)
+            RemoveFromStorageAndDestroy(outgoing);
+    }
+    
+    private List<Entity.Entity> CollectEntitiesOutgoingConnection(Entity.Entity connectionSource)
+    {
+        return !connectionSource.TryGet(out OutgoingConnectionComponent outgoingConnectionComponent) 
+            ? new List<Entity.Entity>() : outgoingConnectionComponent.OutgoingConnections;
+    }
+
+    private List<Entity.Entity> CollectEntitiesIncomingConnection(Entity.Entity connectionSource)
+    {
+        return !connectionSource.TryGet(out IncomingConnectionComponent incomingConnectionComponent) 
+            ? new List<Entity.Entity>() : incomingConnectionComponent.IncomingConnections;
+    }
+
+    private void RemoveCreatorLists(Entity.Entity entity)
+    {
+        var target = entity.Get<EntityRelationsComponent>().CreatorEntity;
+        
+        var creatorEntityInComingConnectionList = target.Get<IncomingConnectionComponent>().IncomingConnections;
+        var connectedEntityInComingConnectionList = target.Get<OutgoingConnectionComponent>().OutgoingConnections;
+       
+        if (creatorEntityInComingConnectionList.Contains(entity))
+            creatorEntityInComingConnectionList.Remove(entity);
+        
+        if (connectedEntityInComingConnectionList.Contains(entity))
+            connectedEntityInComingConnectionList.Remove(entity);
+    }
+    
+    private void RemoveConnectedEntityLists(Entity.Entity entity)
+    {
+        var target = entity.Get<EntityRelationsComponent>().ConnectedEntity;
+        
+        var creatorEntityInComingConnectionList = target.Get<IncomingConnectionComponent>().IncomingConnections;
+        var connectedEntityInComingConnectionList = target.Get<OutgoingConnectionComponent>().OutgoingConnections;
+       
+        if (creatorEntityInComingConnectionList.Contains(entity))
+            creatorEntityInComingConnectionList.Remove(entity);
+        
+        if (connectedEntityInComingConnectionList.Contains(entity))
+            connectedEntityInComingConnectionList.Remove(entity);
+    }
+
+    private void RemoveFromStorageAndDestroy(Entity.Entity entity)
+    {
+        _entityStorage.RemoveEntity(entity);
+        Object.Destroy(entity.gameObject);
     }
 }
 public interface IEntityDestroyer

@@ -60,6 +60,7 @@ namespace InputSystem
         public event Action<T> OnBeginDragEventData;
         public event Action<T> OnDragEventData;
         public event Action<T> OnEndDragEventData;
+        
         #endregion
 
         #region События без данных

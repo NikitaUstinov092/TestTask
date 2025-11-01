@@ -10,10 +10,12 @@ namespace Custom
         private EntityDestroyer _entityDestroyer;
         void IInitializable.Initialize()
         {
+            return;
             _entityDestroyer.OnRequestDestroy += OnRequestDestroy;
         }
         void IDisposable.Dispose()
         {
+            return;
             _entityDestroyer.OnRequestDestroy -= OnRequestDestroy;
         }
         private void OnRequestDestroy(Entity.Entity entity)
