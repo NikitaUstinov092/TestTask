@@ -13,5 +13,6 @@ public class PawnSystemInstaller : ScriptableObjectInstaller<PawnSystemInstaller
         Container.BindInterfacesTo<PawnAreaStateDragAdapter>().AsCached();
         Container.Bind<UpdateChildPointsManager>().AsCached();
         Container.BindInterfacesTo<PawnConnectionPointsUpdater>().AsCached();
+        Container.BindInterfacesTo<PawnHighLightController>().AsCached();
     }
 }

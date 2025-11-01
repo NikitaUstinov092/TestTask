@@ -5,9 +5,9 @@ using Zenject;
 
 namespace ConnectionSystem.Select
 {
-    public class MouseDownHandler: ILateTickable
+    public class MouseDownEntityHandler: ILateTickable
     {
-        public event Action<Entity.Entity> OnClick;
+        public event Action<Entity.Entity> OnMouseDown;
         
         private const int MouseIndex = 0;
         
@@ -16,7 +16,7 @@ namespace ConnectionSystem.Select
         void ILateTickable.LateTick()
         {
             if (Input.GetMouseButtonDown(MouseIndex))
-                OnClick?.Invoke(_mouseRaycastService.PerformRaycast());
+                OnMouseDown?.Invoke(_mouseRaycastService.PerformRaycast());
         }
     }
 }

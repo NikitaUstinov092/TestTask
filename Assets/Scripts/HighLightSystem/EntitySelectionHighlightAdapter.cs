@@ -2,7 +2,7 @@
 using ConnectionSystem.EntityFilter;
 using Zenject;
 
-namespace HighLightSystem
+namespace HighLightSystem 
 {
     public class EntitySelectionHighlightAdapter: IInitializable, IDisposable
     {
