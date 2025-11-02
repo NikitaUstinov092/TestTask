@@ -1,41 +1,39 @@
 using System;
-using CrazyPawn;
 using Custom;
-using UnityEngine;
+using SpawnSystem;
 using Zenject;
+using Vector3 = UnityEngine.Vector3;
 
-public class PawnSpawner : MonoBehaviour, IInitializable
+public class PawnSpawner : IInitializable
 {
     public event Action<Entity.Entity> OnSpawned;
     
-    [SerializeField] 
-    private MonoBehaviour _prefabContainer;
+    private readonly EntitySpawnFactory _factory;
+    private readonly EntityIdInstaller _entityIdInstaller = new();
+    private readonly CircleRandomPositionGenerator _circleRandomPositionGenerator;
+    private readonly int _spawnCount;
     
-    [SerializeField] 
-    private CrazyPawnSettings _settings;
-    
-    private EntitySpawnFactory _factory;
-
-    public Transform point1, point2, point3;
-    
-    private EntityIdInstaller _entityIdInstaller = new();
+    [Inject]
+    public PawnSpawner(ConfigService configService, PawnPrefabService pawnPrefabService)
+    {
+        _factory = new EntitySpawnFactory(pawnPrefabService);
+        var settings = configService.Settings;
+        _circleRandomPositionGenerator = new CircleRandomPositionGenerator(Vector3.zero, settings.InitialZoneRadius);
+        _spawnCount = settings.InitialPawnCount;
+    }
 
     void IInitializable.Initialize()
     {
-        Spawn(point1.position);
-        Spawn(point2.position);
-        Spawn(point3.position);
+        for (var i = 0; i < _spawnCount; i++)
+            Spawn(_circleRandomPositionGenerator.GetRandomPositionOnCircle());
     }
 
     private void Spawn(Vector3 spawnPosition)
     {
-        var prefab = _prefabContainer.GetComponent<IEntityPrefab>();
-        _factory = new EntitySpawnFactory(prefab);
         var pawn = _factory.CreateEntity(spawnPosition);
         _entityIdInstaller.InstallId(pawn);
         OnSpawned?.Invoke(pawn);
     }
-    
 }
 
 public class EntityIdInstaller
@@ -43,20 +41,23 @@ public class EntityIdInstaller
     private int _currentId;
     public void InstallId(Entity.Entity entity)
     {
-        ++_currentId;
         SetEntityId(entity);
-        if (entity.TryGet(out ChildEntitiesComponent childEntitiesComponent))
-        {
-            var children = childEntitiesComponent.ChildEntities;
-            foreach (var child in children)
-            {
-                SetEntityId(child);
-            }
-        }
+        
+        if (!entity.TryGet(out ChildEntitiesComponent childEntitiesComponent)) 
+            return;
+        
+        var children = childEntitiesComponent.ChildEntities;
+      
+        foreach (var child in children)
+            SetEntityId(child);
     }
 
     private void SetEntityId(Entity.Entity entity)
     {
-        entity.Get<IdComponent>().Id = _currentId;
+        if (!entity.TryGet(out IdComponent idComponent)) 
+            return;
+        
+        ++_currentId;
+        idComponent.Id = _currentId;
     }
 }
