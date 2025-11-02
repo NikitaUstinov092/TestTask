@@ -41,6 +41,7 @@ public class EntityIdInstaller
     private int _currentId;
     public void InstallId(Entity.Entity entity)
     {
+         ++_currentId;
         SetEntityId(entity);
         
         if (!entity.TryGet(out ChildEntitiesComponent childEntitiesComponent)) 
@@ -57,7 +58,7 @@ public class EntityIdInstaller
         if (!entity.TryGet(out IdComponent idComponent)) 
             return;
         
-        ++_currentId;
+    
         idComponent.Id = _currentId;
     }
 }
