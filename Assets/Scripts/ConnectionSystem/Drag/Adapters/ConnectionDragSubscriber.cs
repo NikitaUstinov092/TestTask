@@ -3,13 +3,13 @@ using Zenject;
 
 namespace ConnectionSystem.Connection
 {
-    public class ConnectionDragDragSubscriber: ConnectionDragSubscriber
+    public class ConnectionDragSubscriber: ConnectionSystem.ConnectionDragSubscriber
     {
         private readonly ConnectionSpawnWrapper _connectionSpawnWrapper;
         private readonly ConnectionDragResolver _connectionDragResolver;
     
         [Inject]
-        public ConnectionDragDragSubscriber(ConnectionSpawnWrapper connectionSpawnWrapper, 
+        public ConnectionDragSubscriber(ConnectionSpawnWrapper connectionSpawnWrapper, 
             ConnectionDragResolver connectionDragResolver)
         {
             _connectionSpawnWrapper = connectionSpawnWrapper;

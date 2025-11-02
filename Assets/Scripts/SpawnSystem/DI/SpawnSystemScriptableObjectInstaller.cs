@@ -2,7 +2,7 @@ using SpawnSystem;
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = " SpawnSystemScriptableObjectInstaller", menuName = "Installers/ SpawnSystemScriptableObjectInstaller")]
+[CreateAssetMenu(fileName = "SpawnSystemScriptableObjectInstaller", menuName = "Installers/SpawnSystemScriptableObjectInstaller")]
 public class SpawnSystemScriptableObjectInstaller : ScriptableObjectInstaller<SpawnSystemScriptableObjectInstaller>
 {
     public override void InstallBindings()

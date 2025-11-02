@@ -8,11 +8,11 @@ namespace ConnectionSystem.ConnectionJoin
             Entity.Entity toEntity, 
             Entity.Entity connectionEntity)
         {
-            var fromEntityOutGoingComponent = fromEntity.Get<OutgoingConnectionComponent>();
+            var fromEntityOutgoingComponent = fromEntity.Get<OutgoingConnectionComponent>();
             var toEntityIncomingComponent = toEntity.Get<IncomingConnectionComponent>();
             var connectionEntityRelationComponent = connectionEntity.Get<EntityRelationsComponent>();
             
-            fromEntityOutGoingComponent.OutgoingConnections.Add(connectionEntity);
+            fromEntityOutgoingComponent.OutgoingConnections.Add(connectionEntity);
             toEntityIncomingComponent.IncomingConnections.Add(connectionEntity);
             
             connectionEntityRelationComponent.CreatorEntity = fromEntity;

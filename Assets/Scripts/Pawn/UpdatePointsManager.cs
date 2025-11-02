@@ -21,7 +21,7 @@ namespace Pawn
                if(child.TryGet(out OutgoingConnectionComponent outgoingConnectionComponent))
                {
                    foreach (var outgoingConnection in outgoingConnectionComponent.OutgoingConnections)
-                       UpdateOutGoingConnection(outgoingConnection);
+                       UpdateOutgoingConnection(outgoingConnection);
                }
                
                if(child.TryGet(out IncomingConnectionComponent incomingConnectionComponent))
@@ -32,7 +32,7 @@ namespace Pawn
            }
         }
         
-        private void UpdateOutGoingConnection(Entity.Entity entity)
+        private void UpdateOutgoingConnection(Entity.Entity entity)
         {
             var creator = entity.Get<EntityRelationsComponent>().CreatorEntity.transform;
             _pointPositionSetuper.SetUpStartPoint(entity, creator);

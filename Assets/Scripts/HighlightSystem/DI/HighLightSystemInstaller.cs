@@ -1,4 +1,4 @@
-using HighLightSystem;
+using HighlightSystem;
 using UnityEngine;
 using Zenject;
 

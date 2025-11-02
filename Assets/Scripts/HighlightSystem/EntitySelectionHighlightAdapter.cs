@@ -2,7 +2,7 @@
 using ConnectionSystem.EntityFilter;
 using Zenject;
 
-namespace HighLightSystem 
+namespace HighlightSystem 
 {
     public class EntitySelectionHighlightAdapter: IInitializable, IDisposable
     {
@@ -17,13 +17,13 @@ namespace HighLightSystem
         }
         void IInitializable.Initialize()
         {
-            _joinableEntitiesObserver.OnUpdated += _materialSwitcher.SetHighLightMaterial;
+            _joinableEntitiesObserver.OnUpdated += _materialSwitcher.SetHighlightMaterial;
             _joinableEntitiesObserver.OnClearRequest += _materialSwitcher.SetBaseMaterial;
         }
 
         void IDisposable.Dispose()
         {
-            _joinableEntitiesObserver.OnUpdated -= _materialSwitcher.SetHighLightMaterial;
+            _joinableEntitiesObserver.OnUpdated -= _materialSwitcher.SetHighlightMaterial;
             _joinableEntitiesObserver.OnClearRequest -= _materialSwitcher.SetBaseMaterial;
         }
     }

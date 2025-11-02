@@ -24,7 +24,7 @@ namespace ConnectionSystem.DI
         {
             Container.Bind<ConnectionDragResolver>().AsSingle();
             Container.Bind<ConnectionSpawnWrapper>().AsSingle();
-            Container.BindInterfacesTo<ConnectionDragDragSubscriber>().AsCached();
+            Container.BindInterfacesTo<Connection.ConnectionDragSubscriber>().AsCached();
             Container.BindInterfacesTo<DragAttachmentSystemAdapter>().AsCached();
             Container.BindInterfacesTo<ConnectionLineViewDragSubscriber>().AsCached();
         }
@@ -39,7 +39,7 @@ namespace ConnectionSystem.DI
         }
         private void BindInitializableExecutionOrders()
         {
-            Container.BindInitializableExecutionOrder<ConnectionDragDragSubscriber>(10);
+            Container.BindInitializableExecutionOrder<Connection.ConnectionDragSubscriber>(10);
             Container.BindInitializableExecutionOrder<MouseMovePointDragSubscriber>(15);
         }
         

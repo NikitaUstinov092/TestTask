@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 
-namespace HighLightSystem
+namespace HighlightSystem
 {
     public class EntityMaterialSwitcher
     {
-        private readonly Material _highLightMaterial;
+        private readonly Material _highlightMaterial;
 
-        public EntityMaterialSwitcher(Material highLightMaterial)
+        public EntityMaterialSwitcher(Material highlightMaterial)
         {
-            _highLightMaterial = highLightMaterial;
+            _highlightMaterial = highlightMaterial;
         }
 
-        public void SetHighLightMaterial(params Entity.Entity[] entities)
+        public void SetHighlightMaterial(params Entity.Entity[] entities)
         {
             foreach (var entity in entities)
             {
                 if(!entity.TryGet(out HighlightComponent highLightComponent))
                    continue;
               
-                highLightComponent.MeshRenderer.material = _highLightMaterial;
+                highLightComponent.MeshRenderer.material = _highlightMaterial;
             }
         }
         

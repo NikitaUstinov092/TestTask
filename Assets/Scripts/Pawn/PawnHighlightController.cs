@@ -1,18 +1,18 @@
 ﻿using System;
 using AreaStatusSystem;
-using HighLightSystem;
+using HighlightSystem;
 using Zenject;
 using ZoneStateManagementSystem.Components;
 
 namespace Pawn.Adapters
 {
-    public class PawnHighLightController: IInitializable, IDisposable
+    public class PawnHighlightController: IInitializable, IDisposable
     {
         private readonly IAreaStateNotifier _areaStateNotifier;
         private readonly EntityMaterialSwitcher _entityMaterialSwitcher;
         
         [Inject]
-        public PawnHighLightController(IAreaStateNotifier areaStateNotifier, ConfigService configService)
+        public PawnHighlightController(IAreaStateNotifier areaStateNotifier, ConfigService configService)
         {
             _areaStateNotifier = areaStateNotifier;
             _entityMaterialSwitcher = new EntityMaterialSwitcher(configService.Settings.DeleteMaterial);
@@ -34,8 +34,8 @@ namespace Pawn.Adapters
 
             if (state == AreaState.OutZone)
             {
-                _entityMaterialSwitcher.SetHighLightMaterial(childEntities);
-                _entityMaterialSwitcher.SetHighLightMaterial(entity);
+                _entityMaterialSwitcher.SetHighlightMaterial(childEntities);
+                _entityMaterialSwitcher.SetHighlightMaterial(entity);
             }
             else
             {
