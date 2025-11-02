@@ -1,6 +1,5 @@
 ﻿using Custom;
 using InputSystem;
-using UnityEngine;
 
 namespace Pawn.Adapters
 {
@@ -16,7 +15,7 @@ namespace Pawn.Adapters
         protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
             input.OnBeginDragEventData -= OnBeginDragEventData;
-            input.OnEndDragEventData -= OnDragEventData;
+            input.OnDragEventData -= OnDragEventData;
         }
         private void OnBeginDragEventData(Entity.Entity entity)
         {

@@ -1,29 +1,28 @@
 ﻿using System;
-using Entity;
 using Zenject;
 
 namespace Custom
 {
     public class ChildEntityDetector: IInitializable, IDisposable
     {
-        private readonly IEntityDestroyerRequestObserver _entityDestroyObserver;
-        private readonly EntityConnectionSourceObserver _connectionSourceObserver;
+        private readonly IEntityDestroyerRequestObserver _entityDestroyRequestObserver;
+        private readonly ConnectionBufferDetector _sourceObserver;
         private readonly IEntityDestroyer _entityDestroyer;
         
         [Inject]
-        public ChildEntityDetector(IEntityDestroyerRequestObserver entityDestroyObserver, EntityConnectionSourceObserver connectionSourceObserver, IEntityDestroyer entityDestroyer)
+        public ChildEntityDetector(IEntityDestroyerRequestObserver entityDestroyObserver, ConnectionBufferDetector sourceObserver, IEntityDestroyer entityDestroyer)
         {
-            _entityDestroyObserver = entityDestroyObserver;
-            _connectionSourceObserver = connectionSourceObserver;
+            _entityDestroyRequestObserver = entityDestroyObserver;
+            _sourceObserver = sourceObserver;
             _entityDestroyer = entityDestroyer;
         }
         void IInitializable.Initialize()
         {
-            _entityDestroyObserver.OnRequestDestroy += OnRequestDestroy;
+            _entityDestroyRequestObserver.OnRequestDestroy += OnRequestDestroy;
         }
         void IDisposable.Dispose()
         {
-            _entityDestroyObserver.OnRequestDestroy += OnRequestDestroy;
+            _entityDestroyRequestObserver.OnRequestDestroy -= OnRequestDestroy;
         }
         private void OnRequestDestroy(Entity.Entity entity)
         {
@@ -32,7 +31,7 @@ namespace Custom
 
            foreach (var child in childEntitiesComponent.ChildEntities)
            {
-               _connectionSourceObserver.DetectConnectionBufferComponent(child);
+               _sourceObserver.DetectConnectionBufferComponent(child);
                _entityDestroyer.DestroyEntity(child);
            }
               

@@ -14,7 +14,7 @@ namespace Pawn.Adapters
         }
         protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
         {
-            input.OnEndDragEventData += OnEndDragEvent;
+            input.OnEndDragEventData -= OnEndDragEvent;
         }
         private void OnEndDragEvent(Entity.Entity entity)
         {

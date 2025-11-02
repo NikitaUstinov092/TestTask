@@ -10,16 +10,16 @@ namespace Custom
         public event Action<Entity.Entity> OnConnectionEntityDetected;
         
         [Inject]
-        private readonly ChildConnectionsEntitiesObserver _childConnectionsEntitiesObserver;
+        private readonly ConnectionListsExtractor _connectionListsExtractor;
         void IInitializable.Initialize()
         {
-            _childConnectionsEntitiesObserver.OnIncomingListDetected += DetectConnection;
-            _childConnectionsEntitiesObserver.OnOutgoingListDetected += DetectConnection;
+            _connectionListsExtractor.OnIncomingListDetected += DetectConnection;
+            _connectionListsExtractor.OnOutgoingListDetected += DetectConnection;
         }
         void IDisposable.Dispose()
         {
-            _childConnectionsEntitiesObserver.OnIncomingListDetected -= DetectConnection;
-            _childConnectionsEntitiesObserver.OnOutgoingListDetected -= DetectConnection;
+            _connectionListsExtractor.OnIncomingListDetected -= DetectConnection;
+            _connectionListsExtractor.OnOutgoingListDetected -= DetectConnection;
         }
 
         private void DetectConnection(List<Entity.Entity> entities)

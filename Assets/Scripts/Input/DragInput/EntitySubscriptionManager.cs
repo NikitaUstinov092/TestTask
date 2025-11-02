@@ -9,13 +9,13 @@ namespace InputSystem
         [Inject] 
         private readonly IEntityStorageObserver _storage;
 
-        public void Initialize()
+        void IInitializable.Initialize()
         {
             _storage.OnEntityAdded += OnEntityAdded;
             _storage.OnEntityRemoved += OnEntityRemoved;
         }
 
-        public void Dispose()
+        void IDisposable.Dispose()
         {
             _storage.OnEntityAdded -= OnEntityAdded;
             _storage.OnEntityRemoved -= OnEntityRemoved;

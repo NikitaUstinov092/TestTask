@@ -8,11 +8,11 @@ public class DestroySystemMonoInstaller : ScriptableObjectInstaller<DestroySyste
     public override void InstallBindings()
     {
         Container.BindInterfacesAndSelfTo<EntityDestroyer>().AsSingle();
-        Container.BindInterfacesAndSelfTo<EntityConnectionSourceObserver>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ChildConnectionsEntitiesObserver>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionBufferDetector>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionListsExtractor>().AsSingle();
         Container.BindInterfacesAndSelfTo<ConnectionEntityDetector>().AsSingle();
-        Container.BindInterfacesTo<DetectedConnectionObserver>().AsSingle();
-        Container.BindInterfacesTo<ChildEntityDetector>().AsSingle();
-        Container.BindInitializableExecutionOrder<ChildEntityDetector>(-10);
+        Container.BindInterfacesTo<DetectedConnectionCleanupHandler>().AsSingle();
+        Container.BindInterfacesTo<ChildEntityCleanupHandler>().AsSingle();
+        Container.BindInitializableExecutionOrder<ChildEntityCleanupHandler>(-10);
     }
 }

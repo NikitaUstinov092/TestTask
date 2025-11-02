@@ -4,17 +4,17 @@ using Zenject;
 
 namespace Custom
 {
-    public class DetectedConnectionObserver: IInitializable, IDisposable
+    public class DetectedConnectionCleanupHandler: IInitializable, IDisposable
     {
         private readonly ConnectionEntityDetector _connectionEntityDetector;
-        private readonly ConnectionsListCleaner _cleaner;
+        private readonly ConnectionsListCleaner _connectionsListCleaner;
         private readonly IEntityDestroyer _entityDestroyer;
         
         [Inject]
-        public DetectedConnectionObserver(ConnectionEntityDetector connectionEntityDetector, IEntityDestroyer entityDestroyer)
+        public DetectedConnectionCleanupHandler(ConnectionEntityDetector connectionEntityDetector, IEntityDestroyer entityDestroyer)
         {
             _connectionEntityDetector = connectionEntityDetector;
-            _cleaner = new ();
+            _connectionsListCleaner = new ();
             _entityDestroyer = entityDestroyer;
         }
 
@@ -34,8 +34,8 @@ namespace Custom
             var creator = entityRelationsComponent.CreatorEntity;
             var connected = entityRelationsComponent.ConnectedEntity;
             
-            _cleaner.CleanFromLists(entity, creator);
-            _cleaner.CleanFromLists(entity, connected);
+            _connectionsListCleaner.CleanFromLists(entity, creator);
+            _connectionsListCleaner.CleanFromLists(entity, connected);
             
             _entityDestroyer.DestroyEntity(entity);
         }
