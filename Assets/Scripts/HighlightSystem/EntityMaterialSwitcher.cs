@@ -15,7 +15,7 @@ namespace HighLightSystem
         {
             foreach (var entity in entities)
             {
-                if(!entity.TryGet(out HighLightComponent highLightComponent))
+                if(!entity.TryGet(out HighlightComponent highLightComponent))
                    continue;
               
                 highLightComponent.MeshRenderer.material = _highLightMaterial;
@@ -26,7 +26,10 @@ namespace HighLightSystem
         {
             foreach (var entity in entities)
             {
-                if(!entity.TryGet(out HighLightComponent highLightComponent))
+                if(!entity)
+                    continue;
+                
+                if(!entity.TryGet(out HighlightComponent highLightComponent))
                     continue;
               
                 highLightComponent.MeshRenderer.material = highLightComponent.BaseMaterial;
