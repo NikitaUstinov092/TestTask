@@ -10,7 +10,6 @@ namespace GamePlay.AreaStatusSystem
     {
         private readonly EntityAreaStateController _stateController;
         private readonly VerticalEntityDetector _verticalEntityDetector;
-        private const int LayerValueIndex = 3; 
         
         [Inject]
         public EntityGroundZoneChecker(EntityAreaStateController stateController)
@@ -18,7 +17,7 @@ namespace GamePlay.AreaStatusSystem
             _stateController = stateController;
             var mask = new LayerMask
             {
-                value = LayerValueIndex
+                value = LayerMask.NameToLayer("Ground")
             };
             _verticalEntityDetector = new VerticalEntityDetector( mask);
         }
