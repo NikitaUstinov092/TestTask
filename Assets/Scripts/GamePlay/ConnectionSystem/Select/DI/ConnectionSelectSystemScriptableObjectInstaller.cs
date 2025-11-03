@@ -17,10 +17,11 @@ public class ConnectionSelectSystemScriptableObjectInstaller : ScriptableObjectI
         Container.BindInterfacesTo<ConnectionSelectResolverAdapter>().AsCached();
         Container.Bind<ConnectionMediator>().AsCached();
         Container.BindInterfacesTo<ConnectionLineViewAdapter>().AsCached();
-        Container.BindInterfacesTo<JoinableFilterSelectSubscriber>().AsCached();
+        Container.BindInterfacesTo<JoinableFilterSelectAdapter>().AsCached();
         Container.BindInterfacesAndSelfTo<MouseClickEntityHandler>().AsCached();
+        Container.BindInterfacesAndSelfTo<MouseStartDragHandler>().AsCached();
         Container.BindInterfacesAndSelfTo<MouseClickValidator>().AsCached();
-        Container.BindInterfacesAndSelfTo<SelectedEntityCleanerAdapter>().AsCached();
+        Container.BindInterfacesAndSelfTo<SelectedEntityCleanAdapter>().AsCached();
     }
     
 }

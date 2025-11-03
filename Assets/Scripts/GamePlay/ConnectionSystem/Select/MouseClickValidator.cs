@@ -1,8 +1,9 @@
 ﻿using System;
 using ConnectionSystem.EntityFilter;
+using ConnectionSystem.Select.Adapters;
 using Zenject;
 
-namespace ConnectionSystem.Select.Adapters
+namespace ConnectionSystem.Select
 {
     public class MouseClickValidator: IInitializable, IDisposable
     {
@@ -10,15 +11,15 @@ namespace ConnectionSystem.Select.Adapters
         
         private readonly MouseClickEntityHandler _mouseClickEntityHandler;
         private readonly SelectedEntityStorage _selectedEntityStorage;
-        private readonly IJoinableEntityChecker _joinableEntityChecker;
+        private readonly IJoinableEntityChecker _iIJoinableEntityChecker;
         
         [Inject]
         public MouseClickValidator(MouseClickEntityHandler mouseClickEntityHandler, SelectedEntityStorage selectedEntityStorage,
-            IJoinableEntityChecker joinableEntityChecker)
+            IJoinableEntityChecker iIJoinableEntityChecker)
         {
             _mouseClickEntityHandler = mouseClickEntityHandler;
             _selectedEntityStorage = selectedEntityStorage;
-            _joinableEntityChecker = joinableEntityChecker;
+            _iIJoinableEntityChecker = iIJoinableEntityChecker;
         }
         void IInitializable.Initialize()
         {
@@ -44,10 +45,10 @@ namespace ConnectionSystem.Select.Adapters
             if(!entity && _selectedEntityStorage.HasSelected())
                 _selectedEntityStorage.ClearSelection();
             
-            if(!_joinableEntityChecker.HasEntity(entity) && _selectedEntityStorage.HasSelected())
+            if(!_iIJoinableEntityChecker.HasEntity(entity) && _selectedEntityStorage.HasSelected())
                 _selectedEntityStorage.ClearSelection();
 
-            if (!_joinableEntityChecker.HasEntity(entity) || !_selectedEntityStorage.HasSelected()) 
+            if (!_iIJoinableEntityChecker.HasEntity(entity) || !_selectedEntityStorage.HasSelected()) 
                 return;
             
             var selected = _selectedEntityStorage.GetSelected();

@@ -1,18 +1,19 @@
-﻿using InputSystem;
+﻿using ConnectionSystem.Connection.Components;
+using InputSystem;
 using InputSystem.Components;
-using MoveSystem.Components;
 
-namespace Pawn
+
+namespace ConnectionSystem
 {
-    public class PawnDragSubscriber: EntityStorageSubscriber
+    public class BaseConnectionDragSubscriber : EntityStorageSubscriber
     {
         protected override void OnEntityAdded(Entity.Entity entity)
         {
-            if (!entity.TryGet(out DragComponent dragComponent)
-                || !entity.HasComponent<MoveComponent>()) 
+            if (!entity.TryGet(out DragComponent inputComponent)
+                || !entity.HasComponent<IncomingConnectionComponent>()) 
                 return;
 
-            var input = dragComponent.GetInput();
+            var input = inputComponent.GetInput();
 
             Subscribe(input);
         }
@@ -20,12 +21,13 @@ namespace Pawn
         protected override void OnEntityRemoved(Entity.Entity entity)
         {
             if (!entity.TryGet(out DragComponent inputComponent)
-                || !entity.HasComponent<MoveComponent>())
+                || !entity.HasComponent<IncomingConnectionComponent>())
                 return;
 
             var input = inputComponent.GetInput();
 
             Unsubscribe(input);
         }
+       
     }
 }

@@ -7,7 +7,7 @@ public class AreaStatusSystemInstaller : ScriptableObjectInstaller<AreaStatusSys
 {
     public override void InstallBindings()
     {
-        Container.Bind<EntityAreaStateMediator>().AsSingle();
+        Container.Bind<EntityGroundZoneChecker>().AsSingle();
         Container.BindInterfacesAndSelfTo<EntityAreaStateController>().AsSingle();
     }
 }

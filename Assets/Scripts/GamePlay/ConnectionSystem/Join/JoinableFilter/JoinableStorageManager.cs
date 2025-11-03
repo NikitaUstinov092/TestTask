@@ -1,7 +1,5 @@
 ﻿using System.Linq;
-using ConnectionSystem.EntityFilter.Components;
 using Entity;
-using UnityEngine;
 using Zenject;
 
 namespace ConnectionSystem.EntityFilter
@@ -18,7 +16,7 @@ namespace ConnectionSystem.EntityFilter
             _filter = new JoinableFilter(entityStorage);
         }
 
-        public void UpdateFilter(Entity.Entity entity)
+        public void RefreshCandidatesFor(Entity.Entity entity)
         {
             _joinableStorage.Clear();
             var filteredEntities = _filter.GetFilteredEntities(entity).ToArray();

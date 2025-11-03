@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConnectionSystem.Select.Adapters
+namespace ConnectionSystem.Select
 {
     public class SelectedEntityStorage: ISelectionHandler
     {

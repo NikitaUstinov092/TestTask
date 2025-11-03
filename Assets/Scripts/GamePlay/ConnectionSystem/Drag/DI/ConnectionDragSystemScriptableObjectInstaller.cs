@@ -1,10 +1,7 @@
 using ConnectionSystem.Connection;
-using ConnectionSystem.ConnectionJoin;
 using ConnectionSystem.ConnectionLineView;
 using ConnectionSystem.Drag.Adapters;
-using ConnectionSystem.EntityFilter;
 using ConnectionSystem.MousePoint;
-using ConnectionSystem.Select.Adapters;
 using UnityEngine;
 using Zenject;
 
@@ -15,17 +12,17 @@ namespace ConnectionSystem.DI
     {
         public override void InstallBindings()
         {
-            BindDragConnectioninstallers();
+            BindDragConnectionInstallers();
             BindMousePointInstallers();
-            BindInitializableExecutionOrders();
+            BindExecutionOrders();
         }
         
-        private void BindDragConnectioninstallers()
+        private void BindDragConnectionInstallers()
         {
             Container.Bind<ConnectionDragResolver>().AsSingle();
             Container.Bind<ConnectionSpawnWrapper>().AsSingle();
-            Container.BindInterfacesTo<Connection.ConnectionDragSubscriber>().AsCached();
-            Container.BindInterfacesTo<DragAttachmentSystemAdapter>().AsCached();
+            Container.BindInterfacesTo<ConnectionDragLifeCycleSubscriber>().AsCached();
+            Container.BindInterfacesTo<ConnectionDragAttachmentAdapter>().AsCached();
             Container.BindInterfacesTo<ConnectionLineViewDragSubscriber>().AsCached();
         }
         private void BindMousePointInstallers()
@@ -37,9 +34,10 @@ namespace ConnectionSystem.DI
             Container.Bind<MousePointLifecycle>().AsSingle();
             Container.Bind<MousePointMover>().AsSingle();
         }
-        private void BindInitializableExecutionOrders()
+        private void BindExecutionOrders()
         {
-            Container.BindInitializableExecutionOrder<Connection.ConnectionDragSubscriber>(10);
+            Container.BindInitializableExecutionOrder<ConnectionLineViewDragSubscriber>(20);
+            Container.BindInitializableExecutionOrder<ConnectionDragLifeCycleSubscriber>(10);
             Container.BindInitializableExecutionOrder<MouseMovePointDragSubscriber>(15);
         }
         

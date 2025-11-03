@@ -2,16 +2,16 @@
 
 namespace ConnectionSystem.ConnectionLineView
 {
-    public class ConnectionLinePointsUpdater: IPointPositionUpdater
+    public class ConnectionLinePointsUpdater: IConnectionLinePointUpdater
     {
-        void IPointPositionUpdater.UpdateLineEndPoint(Entity.Entity entity)
+        void IConnectionLinePointUpdater.UpdateLineEndPoint(Entity.Entity entity)
         {
             if (IsNotValid(entity, out var lineRenderComponent, out var connectionPointsComponent)) 
                 return;
 
             UpdateLineEndPointView(lineRenderComponent, connectionPointsComponent);
         }
-        void IPointPositionUpdater.UpdateLineStartPoint(Entity.Entity entity)
+        void IConnectionLinePointUpdater.UpdateLineStartPoint(Entity.Entity entity)
         {
             if (IsNotValid(entity, out var lineRenderComponent, out var connectionPointsComponent)) 
                 return;
@@ -28,6 +28,7 @@ namespace ConnectionSystem.ConnectionLineView
             return true;
         }
         
+        
         private void UpdateStartLinePointView(LineRenderComponent lineRenderComponent, ConnectionPointsComponent connectionPointsComponent)
         {
             lineRenderComponent.LineRenderer.SetPosition(0, connectionPointsComponent.StartPoint.position);
@@ -39,7 +40,7 @@ namespace ConnectionSystem.ConnectionLineView
         }
     }
 
-    public interface IPointPositionUpdater
+    public interface IConnectionLinePointUpdater
     {
         void UpdateLineEndPoint(Entity.Entity entity);
         

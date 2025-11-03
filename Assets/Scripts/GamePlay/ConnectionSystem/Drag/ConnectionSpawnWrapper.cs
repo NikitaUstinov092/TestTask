@@ -1,29 +1,23 @@
 using ConnectionSystem.Connection.Components;
 using ConnectionSystem.MousePoint;
-using Custom;
 using Entity;
-using UnityEngine;
 using Zenject;
 
 namespace ConnectionSystem.Connection
 {
     public class ConnectionSpawnWrapper
     {
-        private readonly IMousePointService _mousePointService;
-        private readonly IEntityPrefab _entityPrefab;
         private readonly IEntityStorage _entityStorage;
         private readonly ConnectionSpawner _connectionSpawner;
-        private readonly ConnectionPointPositionSetuper _connectionPointPositionSetuper;
+        private readonly ConnectionPointPositionSetter _connectionPointPositionSetter;
 
         [Inject]
         public ConnectionSpawnWrapper(IMousePointService mousePointService,
             ConnectionPrefabService entityPrefab, IEntityStorage entityStorage)
         {
-            _mousePointService = mousePointService;
-            _entityPrefab = entityPrefab;
             _entityStorage = entityStorage;
-            _connectionSpawner = new ConnectionSpawner(_entityPrefab);
-            _connectionPointPositionSetuper = new();
+            _connectionSpawner = new ConnectionSpawner(entityPrefab);
+            _connectionPointPositionSetter = new();
         }
         
         public void CreateAndInstallConnection(Entity.Entity sourceEntity)
@@ -32,7 +26,7 @@ namespace ConnectionSystem.Connection
 
             var sourceTransform = sourceEntity.transform;
 
-            _connectionPointPositionSetuper.SetUpStartPoint(connection, sourceTransform);
+            _connectionPointPositionSetter.SetStartPoint(connection, sourceTransform);
             
             SetSpawnerEntitySelf(sourceEntity,connection);
             SetConnectionBuffer(sourceEntity, connection);

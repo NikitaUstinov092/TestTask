@@ -12,25 +12,25 @@ namespace ConnectionSystem.Connection
     public class ConnectionDragResolver
     {
         public event Action<Entity.Entity, Entity.Entity, Entity.Entity> OnConnectionResolved;
-        public event Action<Entity.Entity> OnDiscard;
+        public event Action<Entity.Entity> OnConnectionDiscarded;
 
-        private readonly IJoinableEntityChecker _joinableEntityChecker;
+        private readonly IJoinableEntityChecker _iIJoinableEntityChecker;
         private readonly NearestEntityFilter _entityFilter;
        
         [Inject]
-        public ConnectionDragResolver(IEntityStorage entityStorage, IJoinableEntityChecker joinableEntityChecker)
+        public ConnectionDragResolver(IEntityStorage entityStorage, IJoinableEntityChecker iIJoinableEntityChecker)
         {
             _entityFilter = new NearestEntityFilter(entityStorage);
-            _joinableEntityChecker = joinableEntityChecker;
+            _iIJoinableEntityChecker = iIJoinableEntityChecker;
         }
         public void ResolveConnection(Entity.Entity entity)
         {
             var connectionBuffer  = entity.Get<ConnectionBufferComponent>().ConnectionBufferEntity;
 
             if (!_entityFilter.TryFindNearest(connectionBuffer , out var nearestEntity) 
-                || !_joinableEntityChecker.HasEntity(nearestEntity))
+                || !_iIJoinableEntityChecker.HasEntity(nearestEntity))
             {
-                OnDiscard?.Invoke(connectionBuffer);
+                OnConnectionDiscarded?.Invoke(connectionBuffer);
                 return;
             }
             OnConnectionResolved?.Invoke(entity, nearestEntity, connectionBuffer );

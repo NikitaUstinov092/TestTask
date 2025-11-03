@@ -2,18 +2,17 @@
 using ConnectionSystem.Connection;
 using ConnectionSystem.ConnectionJoin;
 using Entity;
-using UnityEngine;
 using Zenject;
 
 namespace ConnectionSystem.Select.Adapters
 {
     public class ConnectionMediator
     {
-        public event Action<Entity.Entity> OnConnectionMediate;
+        public event Action<Entity.Entity> OnConnectionCreated;
         
         private readonly IConnectionBuilder _connectionBuilder;
         private readonly ConnectionSpawner _connectionSpawner;
-        private readonly ConnectionPointPositionSetuper _connectionPointPositionSetuper;
+        private readonly ConnectionPointPositionSetter _connectionPointPositionSetter;
         private readonly IEntityStorage _entityStorage;
 
         [Inject]
@@ -22,7 +21,7 @@ namespace ConnectionSystem.Select.Adapters
         {
             _connectionBuilder = connectionBuilder;
             _connectionSpawner = new ConnectionSpawner(connectionPrefabService);
-            _connectionPointPositionSetuper = new();
+            _connectionPointPositionSetter = new();
             _entityStorage = entityStorage;
         }
         
@@ -32,10 +31,10 @@ namespace ConnectionSystem.Select.Adapters
             _entityStorage.AddEntity(connection);
             
             _connectionBuilder.BuildConnection(fromEntity, toEntity, connection);
-            _connectionPointPositionSetuper.SetUpStartPoint(connection, fromEntity.transform);
-            _connectionPointPositionSetuper.SetUpEndPoint(connection, toEntity.transform);
+            _connectionPointPositionSetter.SetStartPoint(connection, fromEntity.transform);
+            _connectionPointPositionSetter.SetEndPoint(connection, toEntity.transform);
            
-            OnConnectionMediate?.Invoke(connection);
+            OnConnectionCreated?.Invoke(connection);
         }
         
     }
