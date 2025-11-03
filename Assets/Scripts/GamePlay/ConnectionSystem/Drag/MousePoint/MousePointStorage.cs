@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ConnectionSystem.MousePoint
+namespace GamePlay.ConnectionSystem.Drag.MousePoint
 {
     public class MousePointStorage: IMousePointService
     {

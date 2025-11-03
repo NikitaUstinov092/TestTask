@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using Core.Entity;
 using UnityEngine;
 
-namespace ConnectionSystem.Connection.Components
+namespace GamePlay.ConnectionSystem.Components
 {
     /// <summary>
     /// - “линии, присоединённые ко мне”
     /// </summary>
     public class IncomingConnectionComponent : MonoBehaviour
     {
-        public List<Entity.Entity> IncomingConnections = new();
+        public List<Entity> IncomingConnections = new();
     }
 }

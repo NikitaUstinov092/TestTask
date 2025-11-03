@@ -1,12 +1,16 @@
-using Custom;
+using Core.Entity;
 using UnityEngine;
+using Utils;
 
-public class PawnPrefabService : MonoBehaviour, IEntityPrefab
+namespace Services
 {
-    [SerializeField] 
-    private Entity.Entity _entity;
-    Entity.Entity IEntityPrefab.GetPrefab()
+    public class PawnPrefabService : MonoBehaviour, IEntityPrefab
     {
-        return _entity;
+        [SerializeField] 
+        private Entity _entity;
+        Entity IEntityPrefab.GetPrefab()
+        {
+            return _entity;
+        }
     }
 }

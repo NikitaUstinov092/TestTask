@@ -1,7 +1,9 @@
 ﻿using System;
+using Core.Components;
+using Core.Entity;
 using Zenject;
 
-namespace Custom
+namespace Lifecycle.SpawnAndDestroy.DestroySystem
 {
     public class ChildEntityCleanupHandler: IInitializable, IDisposable
     {
@@ -24,7 +26,7 @@ namespace Custom
         {
             _entityDestroyRequestObserver.OnRequestDestroy -= OnRequestDestroy;
         }
-        private void OnRequestDestroy(Entity.Entity entity)
+        private void OnRequestDestroy(Entity entity)
         {
            if(!entity.TryGet(out ChildEntitiesComponent childEntitiesComponent))
                return;

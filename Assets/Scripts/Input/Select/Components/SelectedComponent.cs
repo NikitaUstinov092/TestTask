@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ConnectionSystem.Select.Adapters
+namespace Input.Select.Components
 {
     public class SelectableComponent: MonoBehaviour
     {

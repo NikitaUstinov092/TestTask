@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using Core.Entity;
+using GamePlay.AreaStatusSystem.Components;
+using UnityEngine;
+using Utils;
 using Zenject;
 
-namespace AreaStatusSystem
+namespace GamePlay.AreaStatusSystem
 {
     public class EntityGroundZoneChecker
     {
@@ -20,7 +23,7 @@ namespace AreaStatusSystem
             _verticalEntityDetector = new VerticalEntityDetector( mask);
         }
 
-        public void CheckEntityGroundStatus(Entity.Entity entity)
+        public void CheckEntityGroundStatus(Entity entity)
         {
            var hitEntity = _verticalEntityDetector.DetectEntityDownwardFromPosition(entity.transform.position);
            if (!hitEntity || !hitEntity.HasComponent<GroundComponent>())

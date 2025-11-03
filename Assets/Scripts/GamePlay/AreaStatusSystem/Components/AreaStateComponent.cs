@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ZoneStateManagementSystem.Components
+namespace GamePlay.AreaStatusSystem.Components
 {
     public class AreaStateComponent: MonoBehaviour
     {

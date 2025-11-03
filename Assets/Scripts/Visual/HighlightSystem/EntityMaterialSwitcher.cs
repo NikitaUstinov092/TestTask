@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Core.Entity;
+using UnityEngine;
 
-namespace HighlightSystem
+namespace Visual.HighlightSystem
 {
     public class EntityMaterialSwitcher
     {
@@ -10,8 +11,7 @@ namespace HighlightSystem
         {
             _highlightMaterial = highlightMaterial;
         }
-
-        public void SetHighlightMaterial(params Entity.Entity[] entities)
+        public void SetHighlightMaterial(params Entity[] entities)
         {
             foreach (var entity in entities)
             {
@@ -21,8 +21,7 @@ namespace HighlightSystem
                 highLightComponent.MeshRenderer.material = _highlightMaterial;
             }
         }
-        
-        public void SetBaseMaterial(params Entity.Entity[] entities)
+        public void SetBaseMaterial(params Entity[] entities)
         {
             foreach (var entity in entities)
             {

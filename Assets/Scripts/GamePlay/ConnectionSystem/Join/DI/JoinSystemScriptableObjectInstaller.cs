@@ -1,27 +1,30 @@
-using ConnectionSystem.ConnectionJoin;
-using ConnectionSystem.EntityFilter;
+using GamePlay.ConnectionSystem.Drag.Subscribers;
+using GamePlay.ConnectionSystem.Join.JoinableFilter;
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "JoinSystemScriptableObjectInstaller", menuName = "Installers/JoinSystemScriptableObjectInstaller")]
-public class JoinSystemScriptableObjectInstaller : ScriptableObjectInstaller<JoinSystemScriptableObjectInstaller>
+namespace GamePlay.ConnectionSystem.Join.DI
 {
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "JoinSystemScriptableObjectInstaller", menuName = "Installers/JoinSystemScriptableObjectInstaller")]
+    public class JoinSystemScriptableObjectInstaller : ScriptableObjectInstaller<JoinSystemScriptableObjectInstaller>
     {
-        BindJoinFilterInstallers();
-        BindExecutionOrders();
-    }
+        public override void InstallBindings()
+        {
+            BindJoinFilterInstallers();
+            BindExecutionOrders();
+        }
     
-    private void BindJoinFilterInstallers()
-    {
-        Container.BindInterfacesAndSelfTo<JoinableStorage>().AsSingle();
-        Container.BindInterfacesTo<JoinableFilterDragSubscriber>().AsCached();
-        Container.Bind<JoinableStorageManager>().AsSingle();
-        Container.BindInterfacesTo<ConnectionBuilder>().AsCached(); 
-    }
+        private void BindJoinFilterInstallers()
+        {
+            Container.BindInterfacesAndSelfTo<JoinableStorage>().AsSingle();
+            Container.BindInterfacesTo<JoinableFilterDragSubscriber>().AsCached();
+            Container.Bind<JoinableStorageManager>().AsSingle();
+            Container.BindInterfacesTo<ConnectionBuilder>().AsCached(); 
+        }
     
-    private void BindExecutionOrders()
-    {
-        Container.BindInitializableExecutionOrder<JoinableFilterDragSubscriber>(30);
+        private void BindExecutionOrders()
+        {
+            Container.BindInitializableExecutionOrder<JoinableFilterDragSubscriber>(30);
+        }
     }
 }

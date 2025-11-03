@@ -1,8 +1,9 @@
 ﻿using System;
-using ConnectionSystem.EntityFilter;
+using GamePlay.ConnectionSystem.Join.JoinableFilter;
+using Services;
 using Zenject;
 
-namespace HighlightSystem 
+namespace Visual.HighlightSystem 
 {
     public class EntitySelectionHighlightAdapter: IInitializable, IDisposable
     {
@@ -20,7 +21,6 @@ namespace HighlightSystem
             _joinableEntitiesObserver.OnUpdated += _materialSwitcher.SetHighlightMaterial;
             _joinableEntitiesObserver.OnClearRequest += _materialSwitcher.SetBaseMaterial;
         }
-
         void IDisposable.Dispose()
         {
             _joinableEntitiesObserver.OnUpdated -= _materialSwitcher.SetHighlightMaterial;

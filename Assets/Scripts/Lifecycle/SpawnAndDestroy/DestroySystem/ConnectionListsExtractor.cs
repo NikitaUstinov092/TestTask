@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConnectionSystem.Connection.Components;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
 using Zenject;
 
-namespace Custom
+namespace Lifecycle.SpawnAndDestroy.DestroySystem
 {
     public class ConnectionListsExtractor: IInitializable, IDisposable
     {
-        public event Action<List<Entity.Entity>> OnIncomingListDetected;
-        public event Action<List<Entity.Entity>> OnOutgoingListDetected;
+        public event Action<List<Entity>> OnIncomingListDetected;
+        public event Action<List<Entity>> OnOutgoingListDetected;
         
         [Inject]
         private ConnectionBufferDetector _connectionBufferDetector;
@@ -21,7 +22,7 @@ namespace Custom
         {
             _connectionBufferDetector.OnConnectionBufferDetected -= OnBufferDetected;
         }
-        private void OnBufferDetected(Entity.Entity entity)
+        private void OnBufferDetected(Entity entity)
         {
             var incomingList = entity.Get<IncomingConnectionComponent>().IncomingConnections;
             var outgoingList = entity.Get<OutgoingConnectionComponent>().OutgoingConnections;

@@ -1,18 +1,20 @@
-using Pawn;
-using Pawn.Adapters;
+using GamePlay.Pawn.Subscribers;
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "PawnSystemInstaller", menuName = "Installers/PawnSystemInstaller")]
-public class PawnSystemInstaller : ScriptableObjectInstaller<PawnSystemInstaller>
+namespace GamePlay.Pawn.DI
 {
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "PawnSystemInstaller", menuName = "Installers/PawnSystemInstaller")]
+    public class PawnSystemInstaller : ScriptableObjectInstaller<PawnSystemInstaller>
     {
-        Container.BindInterfacesTo<PawnMoveSubscriber>().AsCached();
-        Container.BindInterfacesTo<PawnAreaStateDragSubscriber>().AsCached();
-        Container.Bind<UpdateChildPointsManager>().AsCached();
-        Container.BindInterfacesTo<PawnConnectionPointsUpdateSubscriber>().AsCached();
-        Container.BindInterfacesTo<PawnHighlightController>().AsCached();
-        Container.BindInterfacesTo<PawnDestroySubscriber>().AsCached();
+        public override void InstallBindings()
+        {
+            Container.BindInterfacesTo<PawnMoveSubscriber>().AsCached();
+            Container.BindInterfacesTo<PawnAreaStateDragSubscriber>().AsCached();
+            Container.Bind<UpdateChildPointsManager>().AsCached();
+            Container.BindInterfacesTo<PawnConnectionPointsUpdateSubscriber>().AsCached();
+            Container.BindInterfacesTo<PawnHighlightController>().AsCached();
+            Container.BindInterfacesTo<PawnDestroySubscriber>().AsCached();
+        }
     }
 }

@@ -1,16 +1,17 @@
 ﻿using System;
-using ZoneStateManagementSystem.Components;
+using Core.Entity;
+using GamePlay.AreaStatusSystem.Components;
 
-namespace AreaStatusSystem
+namespace GamePlay.AreaStatusSystem
 {
     public class EntityAreaStateController: IAreaStateNotifier
     {
-        public event Action<AreaState, Entity.Entity> OnAreaStateChanged;
+        public event Action<AreaState, Entity> OnAreaStateChanged;
         
         private const AreaState InZoneState = AreaState.InZone;
         private const AreaState OutZoneState = AreaState.OutZone;
         
-        public void SetStateInZone(Entity.Entity entity)
+        public void SetStateInZone(Entity entity)
         {
             if(!entity.TryGet(out AreaStateComponent areaStatusComponent))
                 return;
@@ -23,7 +24,7 @@ namespace AreaStatusSystem
             OnAreaStateChanged?.Invoke(InZoneState, entity);
         }
         
-        public void SetStateOutZone(Entity.Entity entity)
+        public void SetStateOutZone(Entity entity)
         {
             if(!entity.TryGet(out AreaStateComponent areaStatusComponent))
                 return;
@@ -39,6 +40,6 @@ namespace AreaStatusSystem
     
     public interface IAreaStateNotifier
     {
-        event Action<AreaState, Entity.Entity> OnAreaStateChanged;
+        event Action<AreaState, Entity> OnAreaStateChanged;
     }
 }

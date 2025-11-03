@@ -1,22 +1,24 @@
-﻿using InputSystem;
+﻿using Core.Entity;
+using GamePlay.AreaStatusSystem.Components;
+using Input.Drag;
+using Lifecycle.SpawnAndDestroy.DestroySystem;
 using Zenject;
-using ZoneStateManagementSystem.Components;
 
-namespace Pawn.Adapters
+namespace GamePlay.Pawn.Subscribers
 {
     public class PawnDestroySubscriber: PawnDragSubscriber
     {
         [Inject]
         private IEntityDestroyer _destroyer;
-        protected override void Subscribe(IDragHandler<Entity.Entity> input)
+        protected override void Subscribe(IDragHandler<Entity> input)
         {
             input.OnEndDragEventData += OnEndDragEvent;
         }
-        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
+        protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnEndDragEventData -= OnEndDragEvent;
         }
-        private void OnEndDragEvent(Entity.Entity entity)
+        private void OnEndDragEvent(Entity entity)
         {
            var state = entity.Get<AreaStateComponent>().State;
            

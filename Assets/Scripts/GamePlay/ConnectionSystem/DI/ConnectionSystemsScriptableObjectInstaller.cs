@@ -1,12 +1,14 @@
-using ConnectionSystem.ConnectionLineView;
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "ConnectionSystemsScriptableObjectInstaller", menuName = "Installers/ConnectionSystemsScriptableObjectInstaller")]
-public class ConnectionSystemsScriptableObjectInstaller : ScriptableObjectInstaller<ConnectionSystemsScriptableObjectInstaller>
+namespace GamePlay.ConnectionSystem.DI
 {
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "ConnectionSystemsScriptableObjectInstaller", menuName = "Installers/ConnectionSystemsScriptableObjectInstaller")]
+    public class ConnectionSystemsScriptableObjectInstaller : ScriptableObjectInstaller<ConnectionSystemsScriptableObjectInstaller>
     {
-        Container.BindInterfacesAndSelfTo<ConnectionLinePointsUpdater>().AsSingle();
+        public override void InstallBindings()
+        {
+            Container.BindInterfacesAndSelfTo<ConnectionLinePointsUpdater>().AsSingle();
+        }
     }
 }

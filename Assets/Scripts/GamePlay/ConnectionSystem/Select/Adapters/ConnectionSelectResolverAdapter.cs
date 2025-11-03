@@ -1,7 +1,7 @@
 ﻿using System;
 using Zenject;
 
-namespace ConnectionSystem.Select.Adapters
+namespace GamePlay.ConnectionSystem.Select.Adapters
 {
     public class ConnectionSelectResolverAdapter: IInitializable, IDisposable
     {

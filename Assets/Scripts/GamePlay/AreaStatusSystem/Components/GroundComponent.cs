@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class GroundComponent : MonoBehaviour
+namespace GamePlay.AreaStatusSystem.Components
 {
+    public class GroundComponent : MonoBehaviour
+    {
    
+    }
 }

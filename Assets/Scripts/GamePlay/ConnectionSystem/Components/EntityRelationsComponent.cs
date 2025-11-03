@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using Core.Entity;
+using UnityEngine;
 
-namespace ConnectionSystem.Connection.Components
+namespace GamePlay.ConnectionSystem.Components
 {
     public class EntityRelationsComponent: MonoBehaviour
     {
-        public Entity.Entity CreatorEntity;
-        public Entity.Entity ConnectedEntity;
+        public Entity CreatorEntity;
+        public Entity ConnectedEntity;
     }
 }

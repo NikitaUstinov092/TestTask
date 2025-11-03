@@ -1,16 +1,17 @@
 ﻿using System;
+using Core.Entity;
 
-namespace ConnectionSystem.Select
+namespace GamePlay.ConnectionSystem.Select
 {
     public class SelectedEntityStorage: ISelectionHandler
     {
-        public event Action<Entity.Entity> OnEntitySelected;
+        public event Action<Entity> OnEntitySelected;
         public event Action OnEntityDeSelected;
         
-        private Entity.Entity _selectedEntity;
-        public Entity.Entity GetSelected() => _selectedEntity;
+        private Entity _selectedEntity;
+        public Entity GetSelected() => _selectedEntity;
         public bool HasSelected() => _selectedEntity != null;
-        public void SetSelected(Entity.Entity entity)
+        public void SetSelected(Entity entity)
         {
             _selectedEntity = entity;
             OnEntitySelected?.Invoke(entity);
@@ -20,18 +21,14 @@ namespace ConnectionSystem.Select
             if(!_selectedEntity)
                 return;
             
-            SetSelectedNull();
-            OnEntityDeSelected?.Invoke();
-        }
-
-        public void SetSelectedNull()
-        {
             _selectedEntity = null;
+            
+            OnEntityDeSelected?.Invoke();
         }
     }
     public interface ISelectionHandler  
     {
-        event Action<Entity.Entity> OnEntitySelected;
+        event Action<Entity> OnEntitySelected;
         event Action OnEntityDeSelected;
     }
     

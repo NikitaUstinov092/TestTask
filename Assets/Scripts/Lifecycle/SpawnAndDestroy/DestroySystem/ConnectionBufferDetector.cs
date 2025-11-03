@@ -1,13 +1,14 @@
 ﻿using System;
-using ConnectionSystem.Connection.Components;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
 
-namespace Custom
+namespace Lifecycle.SpawnAndDestroy.DestroySystem
 {
     public class ConnectionBufferDetector
     {
-        public event Action<Entity.Entity> OnConnectionBufferDetected;
+        public event Action<Entity> OnConnectionBufferDetected;
         
-        public void DetectConnectionBufferComponent(Entity.Entity entity)
+        public void DetectConnectionBufferComponent(Entity entity)
         {
             if(entity.HasComponent<ConnectionBufferComponent>()) 
                 OnConnectionBufferDetected?.Invoke(entity);

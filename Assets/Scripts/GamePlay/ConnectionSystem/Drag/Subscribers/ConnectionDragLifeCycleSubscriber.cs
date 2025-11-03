@@ -1,7 +1,8 @@
-using InputSystem;
+using Core.Entity;
+using Input.Drag;
 using Zenject;
 
-namespace ConnectionSystem.Connection
+namespace GamePlay.ConnectionSystem.Drag.Subscribers
 {
     public class ConnectionDragLifeCycleSubscriber: BaseConnectionDragSubscriber
     {
@@ -16,13 +17,13 @@ namespace ConnectionSystem.Connection
             _connectionDragResolver = connectionDragResolver;
         }
 
-        protected override void Subscribe(IDragHandler<Entity.Entity> input)
+        protected override void Subscribe(IDragHandler<Entity> input)
         {
             input.OnBeginDragEventData += _connectionSpawnWrapper.CreateAndInstallConnection;
             input.OnEndDragEventData += _connectionDragResolver.ResolveConnection;
         }
 
-        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
+        protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnBeginDragEventData -= _connectionSpawnWrapper.CreateAndInstallConnection;
             input.OnEndDragEventData -= _connectionDragResolver.ResolveConnection;

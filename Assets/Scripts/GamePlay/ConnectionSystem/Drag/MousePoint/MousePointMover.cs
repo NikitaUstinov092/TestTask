@@ -1,7 +1,7 @@
-﻿using Custom;
+﻿using Lifecycle.MoveSystem;
 using Zenject;
 
-namespace ConnectionSystem.MousePoint
+namespace GamePlay.ConnectionSystem.Drag.MousePoint
 {
     public class MousePointMover
     {

@@ -1,7 +1,8 @@
 ﻿using System;
+using Input.Select;
 using Zenject;
 
-namespace ConnectionSystem.Select.Adapters
+namespace GamePlay.ConnectionSystem.Select.Adapters
 {
     public class SelectedEntityCleanAdapter: IInitializable, IDisposable
     {

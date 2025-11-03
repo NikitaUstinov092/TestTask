@@ -1,8 +1,8 @@
 ﻿using System;
-using ConnectionSystem.EntityFilter;
+using GamePlay.ConnectionSystem.Join.JoinableFilter;
 using Zenject;
 
-namespace ConnectionSystem.Select.Adapters
+namespace GamePlay.ConnectionSystem.Select.Adapters
 {
     public class JoinableFilterSelectAdapter: IInitializable, IDisposable
     {

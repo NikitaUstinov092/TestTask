@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Custom
+namespace Lifecycle.MoveSystem
 {
     public class TransformMover
     {
@@ -9,7 +9,7 @@ namespace Custom
 
         public void SetupOffsetScreen(Transform transformToDrag)
         {
-            _offsetScreen = Input.mousePosition - WorldToScreen(transformToDrag.position);
+            _offsetScreen = UnityEngine.Input.mousePosition - WorldToScreen(transformToDrag.position);
         }
 
         public void UpdatePosition(Transform transformToDrag)
@@ -17,7 +17,7 @@ namespace Custom
             if (!_camera) 
                 throw new System.Exception("Камера не найдена");
 
-            var pointerWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition - _offsetScreen);
+            var pointerWorldPosition = _camera.ScreenToWorldPoint(UnityEngine.Input.mousePosition - _offsetScreen);
             transformToDrag.position = new Vector3(pointerWorldPosition.x, transformToDrag.position.y, pointerWorldPosition.z);
         }
 

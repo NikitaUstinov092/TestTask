@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class LineRenderComponent : MonoBehaviour
-{ 
-    public LineRenderer LineRenderer;
+namespace GamePlay.ConnectionSystem.Components
+{
+    public class LineRenderComponent : MonoBehaviour
+    { 
+        public LineRenderer LineRenderer;
+    }
 }

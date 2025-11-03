@@ -1,12 +1,13 @@
-﻿using ConnectionSystem.Connection.Components;
+﻿using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
 
-namespace ConnectionSystem.ConnectionJoin
+namespace GamePlay.ConnectionSystem.Join
 {
     public class ConnectionBuilder: IConnectionBuilder
     {
-        public void BuildConnection(Entity.Entity fromEntity, 
-            Entity.Entity toEntity, 
-            Entity.Entity connectionEntity)
+        public void BuildConnection(Entity fromEntity, 
+            Entity toEntity, 
+            Entity connectionEntity)
         {
             var fromEntityOutgoingComponent = fromEntity.Get<OutgoingConnectionComponent>();
             var toEntityIncomingComponent = toEntity.Get<IncomingConnectionComponent>();
@@ -22,8 +23,8 @@ namespace ConnectionSystem.ConnectionJoin
 
     public interface IConnectionBuilder
     {
-        void BuildConnection(Entity.Entity fromEntity,
-            Entity.Entity toEntity,
-            Entity.Entity connectionEntity);
+        void BuildConnection(Entity fromEntity,
+            Entity toEntity,
+            Entity connectionEntity);
     }
 }

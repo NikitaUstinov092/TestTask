@@ -1,12 +1,13 @@
-﻿using InputSystem;
-using InputSystem.Components;
-using MoveSystem.Components;
+﻿using Core.Entity;
+using Input.Drag;
+using Input.Drag.Components;
+using Lifecycle.MoveSystem.Components;
 
-namespace Pawn
+namespace GamePlay.Pawn
 {
     public class PawnDragSubscriber: EntityStorageSubscriber
     {
-        protected override void OnEntityAdded(Entity.Entity entity)
+        protected override void OnEntityAdded(Entity entity)
         {
             if (!entity.TryGet(out DragComponent dragComponent)
                 || !entity.HasComponent<MoveComponent>()) 
@@ -17,7 +18,7 @@ namespace Pawn
             Subscribe(input);
         }
 
-        protected override void OnEntityRemoved(Entity.Entity entity)
+        protected override void OnEntityRemoved(Entity entity)
         {
             if (!entity.TryGet(out DragComponent inputComponent)
                 || !entity.HasComponent<MoveComponent>())

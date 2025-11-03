@@ -1,13 +1,15 @@
 ﻿using System;
-using ConnectionSystem.EntityFilter;
-using ConnectionSystem.Select.Adapters;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Join.JoinableFilter;
+using Input.Select;
+using Input.Select.Components;
 using Zenject;
 
-namespace ConnectionSystem.Select
+namespace GamePlay.ConnectionSystem.Select
 {
     public class MouseClickValidator: IInitializable, IDisposable
     {
-        public event Action<Entity.Entity, Entity.Entity> OnConnectionValid;
+        public event Action<Entity, Entity> OnConnectionValid;
         
         private readonly MouseClickEntityHandler _mouseClickEntityHandler;
         private readonly SelectedEntityStorage _selectedEntityStorage;
@@ -31,7 +33,7 @@ namespace ConnectionSystem.Select
             _mouseClickEntityHandler.OnMouseClick -= OnClickEntity;
         }
 
-        private void OnClickEntity(Entity.Entity entity)
+        private void OnClickEntity(Entity entity)
         {
             if(!entity && !_selectedEntityStorage.HasSelected())
                 return;

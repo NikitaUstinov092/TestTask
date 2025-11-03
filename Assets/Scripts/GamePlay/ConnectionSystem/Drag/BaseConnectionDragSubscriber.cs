@@ -1,13 +1,13 @@
-﻿using ConnectionSystem.Connection.Components;
-using InputSystem;
-using InputSystem.Components;
+﻿using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
+using Input.Drag;
+using Input.Drag.Components;
 
-
-namespace ConnectionSystem
+namespace GamePlay.ConnectionSystem.Drag
 {
     public class BaseConnectionDragSubscriber : EntityStorageSubscriber
     {
-        protected override void OnEntityAdded(Entity.Entity entity)
+        protected override void OnEntityAdded(Entity entity)
         {
             if (!entity.TryGet(out DragComponent inputComponent)
                 || !entity.HasComponent<IncomingConnectionComponent>()) 
@@ -18,7 +18,7 @@ namespace ConnectionSystem
             Subscribe(input);
         }
 
-        protected override void OnEntityRemoved(Entity.Entity entity)
+        protected override void OnEntityRemoved(Entity entity)
         {
             if (!entity.TryGet(out DragComponent inputComponent)
                 || !entity.HasComponent<IncomingConnectionComponent>())

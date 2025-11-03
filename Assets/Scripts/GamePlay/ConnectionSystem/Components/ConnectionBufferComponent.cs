@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Core.Entity;
+using UnityEngine;
 
-namespace ConnectionSystem.Connection.Components
+namespace GamePlay.ConnectionSystem.Components
 {
     public class ConnectionBufferComponent: MonoBehaviour
     {
-        public Entity.Entity ConnectionBufferEntity;
+        public Entity ConnectionBufferEntity;
     }
 }

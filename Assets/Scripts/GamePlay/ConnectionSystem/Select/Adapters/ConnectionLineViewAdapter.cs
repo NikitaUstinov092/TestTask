@@ -1,8 +1,8 @@
 ﻿using System;
-using ConnectionSystem.ConnectionLineView;
+using Core.Entity;
 using Zenject;
 
-namespace ConnectionSystem.Select.Adapters
+namespace GamePlay.ConnectionSystem.Select.Adapters
 {
     public class ConnectionLineViewAdapter: IInitializable, IDisposable
     {
@@ -25,7 +25,7 @@ namespace ConnectionSystem.Select.Adapters
             _connectionMediator.OnConnectionCreated -= RefreshLinePoints;
         }
 
-        private void RefreshLinePoints(Entity.Entity entity)
+        private void RefreshLinePoints(Entity entity)
         {
             _connectionLinePointsUpdater.UpdateLineEndPoint(entity);
             _connectionLinePointsUpdater.UpdateLineStartPoint(entity);

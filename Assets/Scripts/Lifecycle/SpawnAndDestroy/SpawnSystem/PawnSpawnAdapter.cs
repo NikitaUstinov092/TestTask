@@ -1,8 +1,9 @@
 ﻿using System;
-using Entity;
+using Core.Components;
+using Core.Entity;
 using Zenject;
 
-namespace SpawnSystem
+namespace Lifecycle.SpawnAndDestroy.SpawnSystem
 {
     public class PawnSpawnAdapter: IInitializable, IDisposable
     {
@@ -15,18 +16,15 @@ namespace SpawnSystem
             _pawnSpawner = pawnSpawner;
             _entityStorage = entityStorage;
         }
-        
         void IInitializable.Initialize()
         {
             _pawnSpawner.OnSpawned += OnSpawned;
         }
-
         void IDisposable.Dispose()
         {
             _pawnSpawner.OnSpawned -= OnSpawned;
         }
-
-        private void OnSpawned(Entity.Entity entity)
+        private void OnSpawned(Entity entity)
         {
             AddEntity(entity);
             
@@ -38,8 +36,7 @@ namespace SpawnSystem
             foreach (var child in children)
                 AddEntity(child);
         }
-
-        private void AddEntity(Entity.Entity entity)
+        private void AddEntity(Entity entity)
         {
             _entityStorage.AddEntity(entity);
         }

@@ -1,14 +1,14 @@
 ﻿using System;
-using ConnectionSystem.Connection;
-using ConnectionSystem.ConnectionJoin;
-using Entity;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Join;
+using Services;
 using Zenject;
 
-namespace ConnectionSystem.Select.Adapters
+namespace GamePlay.ConnectionSystem.Select
 {
     public class ConnectionMediator
     {
-        public event Action<Entity.Entity> OnConnectionCreated;
+        public event Action<Entity> OnConnectionCreated;
         
         private readonly IConnectionBuilder _connectionBuilder;
         private readonly ConnectionSpawner _connectionSpawner;
@@ -25,7 +25,7 @@ namespace ConnectionSystem.Select.Adapters
             _entityStorage = entityStorage;
         }
         
-        public void MediateConnection(Entity.Entity fromEntity, Entity.Entity toEntity)
+        public void MediateConnection(Entity fromEntity, Entity toEntity)
         {
             var connection = _connectionSpawner.CreateConnection();
             _entityStorage.AddEntity(connection);

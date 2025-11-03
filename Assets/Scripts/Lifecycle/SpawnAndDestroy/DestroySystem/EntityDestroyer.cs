@@ -1,29 +1,32 @@
 ﻿using System;
-using Entity;
+using Core.Entity;
 using Zenject;
 using Object = UnityEngine.Object;
 
-public class EntityDestroyer : IEntityDestroyer, IEntityDestroyerRequestObserver
+namespace Lifecycle.SpawnAndDestroy.DestroySystem
 {
-    public event Action<Entity.Entity> OnRequestDestroy;
-    
-    [Inject]  
-    private readonly IEntityStorage _entityStorage;
-
-    public void DestroyEntity(Entity.Entity entity)
+    public class EntityDestroyer : IEntityDestroyer, IEntityDestroyerRequestObserver
     {
-        OnRequestDestroy?.Invoke(entity);
-        _entityStorage.RemoveEntity(entity);
-        Object.Destroy(entity.gameObject);
-    }
+        public event Action<Entity> OnRequestDestroy;
     
-}
-public interface IEntityDestroyer
-{
-    void DestroyEntity(Entity.Entity entity);
-}
+        [Inject]  
+        private readonly IEntityStorage _entityStorage;
 
-public interface IEntityDestroyerRequestObserver
-{
-    event Action<Entity.Entity> OnRequestDestroy;
+        public void DestroyEntity(Entity entity)
+        {
+            OnRequestDestroy?.Invoke(entity);
+            _entityStorage.RemoveEntity(entity);
+            Object.Destroy(entity.gameObject);
+        }
+    
+    }
+    public interface IEntityDestroyer
+    {
+        void DestroyEntity(Entity entity);
+    }
+
+    public interface IEntityDestroyerRequestObserver
+    {
+        event Action<Entity> OnRequestDestroy;
+    }
 }

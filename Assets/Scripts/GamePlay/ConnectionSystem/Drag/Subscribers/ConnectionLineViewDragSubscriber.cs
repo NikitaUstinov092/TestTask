@@ -1,42 +1,43 @@
-﻿using ConnectionSystem.Connection.Components;
-using InputSystem;
+﻿using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
+using Input.Drag;
 using Zenject;
 
-namespace ConnectionSystem.ConnectionLineView
+namespace GamePlay.ConnectionSystem.Drag.Subscribers
 {
     public class ConnectionLineViewDragSubscriber: BaseConnectionDragSubscriber
     {
         [Inject]
         private IConnectionLinePointUpdater _connectionLinePointsUpdater;
 
-        protected override void Subscribe(IDragHandler<Entity.Entity> input)
+        protected override void Subscribe(IDragHandler<Entity> input)
         {
             input.OnBeginDragEventData += OnBeginDragEventData; 
             input.OnDragEventData += OnDragEventData; 
             input.OnEndDragEventData += OnEndDragEventData; 
         }
 
-        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
+        protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnBeginDragEventData -= OnBeginDragEventData; 
             input.OnDragEventData -= OnDragEventData; 
             input.OnEndDragEventData -= OnEndDragEventData; 
         }
-        private void OnBeginDragEventData(Entity.Entity entity)
+        private void OnBeginDragEventData(Entity entity)
         {
             if(!entity.TryGet(out ConnectionBufferComponent connectionBufferComponent))
                 return;
             
             _connectionLinePointsUpdater.UpdateLineStartPoint(connectionBufferComponent.ConnectionBufferEntity);
         }
-        private void OnDragEventData(Entity.Entity entity)
+        private void OnDragEventData(Entity entity)
         {
             if(!entity.TryGet(out ConnectionBufferComponent connectionBufferComponent))
                 return;
             
             _connectionLinePointsUpdater.UpdateLineEndPoint(connectionBufferComponent.ConnectionBufferEntity);
         }
-        private void OnEndDragEventData(Entity.Entity entity)
+        private void OnEndDragEventData(Entity entity)
         {
            if(!entity.TryGet(out ConnectionBufferComponent connectionBufferComponent))
                return;

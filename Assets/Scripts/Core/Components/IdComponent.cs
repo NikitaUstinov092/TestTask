@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class IdComponent : MonoBehaviour
+namespace Core.Components
 {
-   public int Id;
+   public class IdComponent : MonoBehaviour
+   {
+      public int Id;
+   }
 }

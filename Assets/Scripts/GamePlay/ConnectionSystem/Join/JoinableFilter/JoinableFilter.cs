@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ConnectionSystem.Connection.Components;
-using Entity;
+using Core.Components;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
 
-namespace ConnectionSystem.EntityFilter
+namespace GamePlay.ConnectionSystem.Join.JoinableFilter
 {
     public class JoinableFilter
     {
@@ -12,7 +13,7 @@ namespace ConnectionSystem.EntityFilter
         {
             _entityStorage = entityStorage;
         }
-        public IEnumerable<Entity.Entity> GetFilteredEntities(Entity.Entity entity)
+        public IEnumerable<Entity> GetFilteredEntities(Entity entity)
         {
             return _entityStorage.GetAllEntities().Where(e => 
                 e.TryGet(out IdComponent idComponent) 
@@ -22,7 +23,7 @@ namespace ConnectionSystem.EntityFilter
                 && !HasCreatorEntityRelation(e, entity));
         }
 
-        private bool HasCreatorEntityRelation(Entity.Entity connected, Entity.Entity creator)
+        private bool HasCreatorEntityRelation(Entity connected, Entity creator)
         { 
             foreach (var connectedEntity in connected.Get<IncomingConnectionComponent>().IncomingConnections)
             {

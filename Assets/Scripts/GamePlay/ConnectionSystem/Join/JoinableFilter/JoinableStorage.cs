@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Entity;
 
-namespace ConnectionSystem.EntityFilter
+namespace GamePlay.ConnectionSystem.Join.JoinableFilter
 {
     public class JoinableStorage: IJoinableEntitiesObserver, IJoinableEntityChecker
     {
-        public event Action<Entity.Entity[]> OnUpdated;
-        public event Action<Entity.Entity[]> OnClearRequest;
+        public event Action<Entity[]> OnUpdated;
+        public event Action<Entity[]> OnClearRequest;
         
-        private List<Entity.Entity> _entities = new (); 
+        private List<Entity> _entities = new (); 
 
-        public void UpdateEntities(Entity.Entity[] entities)
+        public void UpdateEntities(Entity[] entities)
         {
             _entities = entities.ToList();
             OnUpdated?.Invoke(_entities.ToArray());
@@ -22,17 +23,17 @@ namespace ConnectionSystem.EntityFilter
             _entities.Clear();
         }
         
-        bool IJoinableEntityChecker.HasEntity(Entity.Entity entity) => _entities.Contains(entity);
+        bool IJoinableEntityChecker.HasEntity(Entity entity) => _entities.Contains(entity);
     }
 
     public interface IJoinableEntitiesObserver
     {
-        event Action<Entity.Entity[]> OnUpdated;
-        event Action<Entity.Entity[]> OnClearRequest;
+        event Action<Entity[]> OnUpdated;
+        event Action<Entity[]> OnClearRequest;
     }
 
     public interface IJoinableEntityChecker
     {
-        bool HasEntity(Entity.Entity entity);
+        bool HasEntity(Entity entity);
     }
 }

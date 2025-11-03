@@ -1,10 +1,11 @@
-﻿using ConnectionSystem.Connection.Components;
+﻿using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
 
-namespace Custom
+namespace Lifecycle.SpawnAndDestroy.DestroySystem
 {
     public class ConnectionsListCleaner
     {
-        public void CleanFromLists(Entity.Entity deleted, Entity.Entity listContainer)
+        public void CleanFromLists(Entity deleted, Entity listContainer)
         {
            var outgoingList = listContainer.Get<OutgoingConnectionComponent>().OutgoingConnections;
            var incomingList = listContainer.Get<IncomingConnectionComponent>().IncomingConnections;

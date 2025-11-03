@@ -1,16 +1,17 @@
-﻿using AreaStatusSystem;
-using InputSystem;
-using InputSystem.Components;
+﻿using Core.Entity;
+using GamePlay.AreaStatusSystem;
+using GamePlay.AreaStatusSystem.Components;
+using Input.Drag;
+using Input.Drag.Components;
 using Zenject;
-using ZoneStateManagementSystem.Components;
 
-namespace Pawn.Adapters
+namespace GamePlay.Pawn.Subscribers
 {
     public class PawnAreaStateDragSubscriber: PawnDragSubscriber
     {
         [Inject]
         private readonly EntityGroundZoneChecker _entityGroundZoneChecker;
-        protected override void OnEntityAdded(Entity.Entity entity)
+        protected override void OnEntityAdded(Entity entity)
         {
             if (!entity.TryGet(out DragComponent dragComponent)
                 || !entity.HasComponent<AreaStateComponent>()) 
@@ -21,7 +22,7 @@ namespace Pawn.Adapters
             Subscribe(input);
         }
 
-        protected override void OnEntityRemoved(Entity.Entity entity)
+        protected override void OnEntityRemoved(Entity entity)
         {
             if (!entity.TryGet(out DragComponent dragComponent)
                 || !entity.HasComponent<AreaStateComponent>()) 
@@ -31,11 +32,11 @@ namespace Pawn.Adapters
 
             Unsubscribe(input);
         }
-        protected override void Subscribe(IDragHandler<Entity.Entity> input)
+        protected override void Subscribe(IDragHandler<Entity> input)
         {
             input.OnDragEventData += _entityGroundZoneChecker.CheckEntityGroundStatus;
         }
-        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
+        protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnDragEventData -= _entityGroundZoneChecker.CheckEntityGroundStatus;
         }

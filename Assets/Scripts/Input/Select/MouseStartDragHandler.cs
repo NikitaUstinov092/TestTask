@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace ConnectionSystem.Select
+namespace Input.Select
 {
     public class MouseStartDragHandler: ITickable
     {
@@ -21,15 +21,15 @@ namespace ConnectionSystem.Select
         }
         void ITickable.Tick()
         {
-            if (Input.GetMouseButtonDown(MouseIndex))
+            if (UnityEngine.Input.GetMouseButtonDown(MouseIndex))
             {
                 _isMouseDown = true;
                 _dragStarted = false;
-                _mouseDownPos = Input.mousePosition;
+                _mouseDownPos = UnityEngine.Input.mousePosition;
                 return;
             }
 
-            if (Input.GetMouseButtonUp(MouseIndex))
+            if (UnityEngine.Input.GetMouseButtonUp(MouseIndex))
             {
                 _isMouseDown = false;
                 _dragStarted = false;
@@ -39,7 +39,7 @@ namespace ConnectionSystem.Select
             if (!_isMouseDown || _dragStarted)
                 return;
 
-            var delta = Input.mousePosition - _mouseDownPos;
+            var delta = UnityEngine.Input.mousePosition - _mouseDownPos;
            
             if (!(delta.sqrMagnitude >= _startThresholdSqr)) 
                 return;

@@ -1,7 +1,8 @@
 ﻿using System;
+using Core.Entity;
 using UnityEngine;
 
-namespace ConnectionSystem.Select.Services
+namespace Utils
 {
     public class MouseRaycastService
     {
@@ -12,18 +13,17 @@ namespace ConnectionSystem.Select.Services
             _camera = camera ?? throw new ArgumentNullException(nameof(camera));
             _maxDistance = maxDistance;
         }
-        
-        public Entity.Entity PerformRaycast()
+        public Entity PerformRaycast()
         {
             if (!_camera)
                 return null;
             
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            var ray = _camera.ScreenPointToRay(UnityEngine.Input.mousePosition);
 
             if (!Physics.Raycast(ray, out var hit, _maxDistance)) 
                 return null;
             
-            var entity = hit.collider.GetComponent<Entity.Entity>();
+            var entity = hit.collider.GetComponent<Entity>();
             return entity ? entity : null;
         }
     }

@@ -1,7 +1,9 @@
-﻿using Custom;
+﻿using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
 using UnityEngine;
+using Utils;
 
-namespace ConnectionSystem
+namespace GamePlay.ConnectionSystem
 {
     public class ConnectionSpawner
     {
@@ -13,7 +15,7 @@ namespace ConnectionSystem
         {
             _connectionFactory = new EntitySpawnFactory(entityPrefab);
         }
-        public Entity.Entity CreateConnection()
+        public Entity CreateConnection()
         {
             var connection = _connectionFactory.CreateEntity(Vector3.zero);
             connection.Get<LineRenderComponent>().LineRenderer.positionCount = LinePositionsCount;

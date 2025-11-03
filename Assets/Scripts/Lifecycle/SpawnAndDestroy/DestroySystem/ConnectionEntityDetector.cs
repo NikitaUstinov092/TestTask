@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConnectionSystem.Connection.Components;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
 using Zenject;
 
-namespace Custom
+namespace Lifecycle.SpawnAndDestroy.DestroySystem
 {
     public class ConnectionEntityDetector: IInitializable, IDisposable
     {
-        public event Action<Entity.Entity> OnConnectionEntityDetected;
+        public event Action<Entity> OnConnectionEntityDetected;
         
         [Inject]
         private readonly ConnectionListsExtractor _connectionListsExtractor;
@@ -22,9 +23,9 @@ namespace Custom
             _connectionListsExtractor.OnOutgoingListDetected -= DetectConnection;
         }
 
-        private void DetectConnection(List<Entity.Entity> entities)
+        private void DetectConnection(List<Entity> entities)
         {
-            var entitiesCopy = new List<Entity.Entity>(entities);
+            var entitiesCopy = new List<Entity>(entities);
             
             foreach (var entity in entitiesCopy)
             {

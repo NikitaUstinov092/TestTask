@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ConnectionSystem.Connection.Components
+namespace GamePlay.ConnectionSystem.Components
 {
    public class ConnectionPointsComponent : MonoBehaviour
    {

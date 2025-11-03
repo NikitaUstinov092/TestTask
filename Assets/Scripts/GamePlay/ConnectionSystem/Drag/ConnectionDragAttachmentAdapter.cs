@@ -1,9 +1,9 @@
 ﻿using System;
-using ConnectionSystem.Connection;
-using ConnectionSystem.ConnectionJoin;
+using GamePlay.ConnectionSystem.Join;
+using Lifecycle.SpawnAndDestroy.DestroySystem;
 using Zenject;
 
-namespace ConnectionSystem
+namespace GamePlay.ConnectionSystem.Drag
 {
     public class ConnectionDragAttachmentAdapter: IInitializable, IDisposable
     {

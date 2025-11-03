@@ -1,12 +1,14 @@
-using Entity;
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "EntityStorageScriptableObjectInstaller", menuName = "Installers/EntityStorageScriptableObjectInstaller")]
-public class EntityStorageScriptableObjectInstaller : ScriptableObjectInstaller<EntityStorageScriptableObjectInstaller>
+namespace Core.Entity.DI
 {
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "EntityStorageScriptableObjectInstaller", menuName = "Installers/EntityStorageScriptableObjectInstaller")]
+    public class EntityStorageScriptableObjectInstaller : ScriptableObjectInstaller<EntityStorageScriptableObjectInstaller>
     {
-        Container.BindInterfacesTo<EntityStorage>().AsSingle();
+        public override void InstallBindings()
+        {
+            Container.BindInterfacesTo<EntityStorage>().AsSingle();
+        }
     }
 }

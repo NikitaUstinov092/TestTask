@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Core.Entity;
+using UnityEngine;
 
-namespace Custom
+namespace Utils
 {
    public class EntitySpawnFactory
    {
@@ -10,18 +11,18 @@ namespace Custom
        {
            _prefabStorage = prefabStorage;
        }
-       public Entity.Entity CreateEntity(Vector3 position)
+       public Entity CreateEntity(Vector3 position)
        {
            var result = 
                Object.Instantiate(_prefabStorage.GetPrefab(),
                    position, Quaternion.identity);
            
-           return result.GetComponent<Entity.Entity>();
+           return result.GetComponent<Entity>();
        }
    }
    
    public interface IEntityPrefab
    {
-       Entity.Entity GetPrefab();
+       Entity GetPrefab();
    }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
-using Entity;
+using Core.Entity;
 using Zenject;
 
-namespace InputSystem
+namespace Input.Drag
 {
     public class EntityStorageSubscriber: IInitializable, IDisposable
     {
@@ -21,22 +21,22 @@ namespace InputSystem
             _storage.OnEntityRemoved -= OnEntityRemoved;
         }
 
-        protected virtual void OnEntityAdded(Entity.Entity entity)
+        protected virtual void OnEntityAdded(Entity entity)
         {
             
         }
 
-        protected virtual void OnEntityRemoved(Entity.Entity entity)
+        protected virtual void OnEntityRemoved(Entity entity)
         {
             
         }
 
-        protected virtual void Subscribe(IDragHandler<Entity.Entity> input)
+        protected virtual void Subscribe(IDragHandler<Entity> input)
         {
             
         }
 
-        protected virtual void Unsubscribe(IDragHandler<Entity.Entity> input)
+        protected virtual void Unsubscribe(IDragHandler<Entity> input)
         {
            
         }

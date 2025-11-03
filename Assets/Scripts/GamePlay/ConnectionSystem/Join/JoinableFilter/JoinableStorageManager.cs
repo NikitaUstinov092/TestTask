@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using Entity;
+using Core.Entity;
 using Zenject;
 
-namespace ConnectionSystem.EntityFilter
+namespace GamePlay.ConnectionSystem.Join.JoinableFilter
 {
     public class JoinableStorageManager
     {
@@ -16,7 +16,7 @@ namespace ConnectionSystem.EntityFilter
             _filter = new JoinableFilter(entityStorage);
         }
 
-        public void RefreshCandidatesFor(Entity.Entity entity)
+        public void RefreshCandidatesFor(Entity entity)
         {
             _joinableStorage.Clear();
             var filteredEntities = _filter.GetFilteredEntities(entity).ToArray();

@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Core.Entity;
+using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 
-namespace ConnectionSystem.MousePoint
+namespace GamePlay.ConnectionSystem.Drag.MousePoint
 {
     public class MousePointLifecycle
     {
@@ -11,7 +12,7 @@ namespace ConnectionSystem.MousePoint
 
         private readonly MousePointFactory _mousePointFactory = new();
        
-        public void CreateAndInstallPoint(Entity.Entity entity)
+        public void CreateAndInstallPoint(Entity entity)
         {
             var mousePoint = _mousePointFactory.CreatePoint(entity.transform);
             _mousePointStorage.SetPoint(mousePoint);

@@ -1,13 +1,16 @@
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "ServicesScriptableObjectInstaller", menuName = "Installers/ServicesScriptableObjectInstaller")]
-public class ServicesScriptableObjectInstaller : ScriptableObjectInstaller<ServicesScriptableObjectInstaller>
+namespace Services.DI
 {
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "ServicesScriptableObjectInstaller", menuName = "Installers/ServicesScriptableObjectInstaller")]
+    public class ServicesScriptableObjectInstaller : ScriptableObjectInstaller<ServicesScriptableObjectInstaller>
     {
-        Container.Bind<ConfigService>().FromComponentInHierarchy().AsSingle(); 
-        Container.Bind<PawnPrefabService>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<ConnectionPrefabService>().FromComponentsInHierarchy().AsSingle();
+        public override void InstallBindings()
+        {
+            Container.Bind<ConfigService>().FromComponentInHierarchy().AsSingle(); 
+            Container.Bind<PawnPrefabService>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<ConnectionPrefabService>().FromComponentsInHierarchy().AsSingle();
+        }
     }
 }

@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Linq;
-using ConnectionSystem.Connection.Components;
-using ConnectionSystem.EntityFilter;
-using ConnectionSystem.EntityFilter.Components;
-using Entity;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
+using GamePlay.ConnectionSystem.Join.JoinableFilter;
+using GamePlay.ConnectionSystem.Join.JoinableFilter.Components;
 using UnityEngine;
 using Zenject;
 
-namespace ConnectionSystem.Connection
+namespace GamePlay.ConnectionSystem.Drag
 {
     public class ConnectionDragResolver
     {
-        public event Action<Entity.Entity, Entity.Entity, Entity.Entity> OnConnectionResolved;
-        public event Action<Entity.Entity> OnConnectionDiscarded;
+        public event Action<Entity, Entity, Entity> OnConnectionResolved;
+        public event Action<Entity> OnConnectionDiscarded;
 
-        private readonly IJoinableEntityChecker _iIJoinableEntityChecker;
+        private readonly IJoinableEntityChecker _joinableEntityChecker;
         private readonly NearestEntityFilter _entityFilter;
        
         [Inject]
-        public ConnectionDragResolver(IEntityStorage entityStorage, IJoinableEntityChecker iIJoinableEntityChecker)
+        public ConnectionDragResolver(IEntityStorage entityStorage, IJoinableEntityChecker joinableEntityChecker)
         {
             _entityFilter = new NearestEntityFilter(entityStorage);
-            _iIJoinableEntityChecker = iIJoinableEntityChecker;
+            _joinableEntityChecker = joinableEntityChecker;
         }
-        public void ResolveConnection(Entity.Entity entity)
+        public void ResolveConnection(Entity entity)
         {
             var connectionBuffer  = entity.Get<ConnectionBufferComponent>().ConnectionBufferEntity;
 
             if (!_entityFilter.TryFindNearest(connectionBuffer , out var nearestEntity) 
-                || !_iIJoinableEntityChecker.HasEntity(nearestEntity))
+                || !_joinableEntityChecker.HasEntity(nearestEntity))
             {
                 OnConnectionDiscarded?.Invoke(connectionBuffer);
                 return;
@@ -46,7 +46,7 @@ namespace ConnectionSystem.Connection
         {
             _entityStorage = entityStorage;
         }
-        public bool TryFindNearest(Entity.Entity source, out Entity.Entity nearest)
+        public bool TryFindNearest(Entity source, out Entity nearest)
         {
             nearest = _entityStorage.GetAllEntities().FirstOrDefault(e => e != source 
                                                                           && e.HasComponent<JoinComponent>() 

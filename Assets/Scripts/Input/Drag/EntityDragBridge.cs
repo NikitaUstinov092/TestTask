@@ -1,13 +1,14 @@
+using Core.Entity;
 using UnityEngine;
 
-namespace InputSystem
+namespace Input.Drag
 {
-    [RequireComponent(typeof(Entity.Entity))]
-    public class EntityDragBridge : DragHandler<Entity.Entity>
+    [RequireComponent(typeof(Entity))]
+    public class EntityDragBridge : DragHandler<Entity>
     {
         private void Awake()
         {
-            InitializeTarget(GetComponent<Entity.Entity>());
+            InitializeTarget(GetComponent<Entity>());
         }
         
     }

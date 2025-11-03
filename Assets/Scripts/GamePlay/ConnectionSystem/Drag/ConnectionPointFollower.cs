@@ -1,26 +1,27 @@
-﻿using ConnectionSystem.Connection.Components;
-using ConnectionSystem.MousePoint;
-using InputSystem;
+﻿using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
+using GamePlay.ConnectionSystem.Drag.MousePoint;
+using Input.Drag;
 using Zenject;
 
-namespace ConnectionSystem.Drag.Adapters
+namespace GamePlay.ConnectionSystem.Drag
 {
     public class ConnectionPointFollower: BaseConnectionDragSubscriber
     {
         [Inject]
         private IMousePointService _mousePointService;
 
-        protected override void Subscribe(IDragHandler<Entity.Entity> input)
+        protected override void Subscribe(IDragHandler<Entity> input)
         {
             input.OnDragEventData += UpdateEndPointToMouse; 
         }
 
-        protected override void Unsubscribe(IDragHandler<Entity.Entity> input)
+        protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnDragEventData -= UpdateEndPointToMouse; 
         }
 
-        private void UpdateEndPointToMouse(Entity.Entity entity)
+        private void UpdateEndPointToMouse(Entity entity)
         {
             if(!entity.TryGet(out ConnectionBufferComponent bufferConnection))
                 return;

@@ -1,26 +1,27 @@
 ﻿using System;
-using ConnectionSystem.Select.Services;
+using Core.Entity;
 using UnityEngine;
+using Utils;
 using Zenject;
 
-namespace ConnectionSystem.Select
+namespace Input.Select
 {
     public class MouseClickEntityHandler : ILateTickable
     {
-        public event Action<Entity.Entity> OnMouseClick;
+        public event Action<Entity> OnMouseClick;
         
         private const int MouseIndex = 0;
         
         private readonly MouseRaycastService _mouseRaycastService = new MouseRaycastService(Camera.main);
-        private Entity.Entity _mouseDownEntity;
+        private Entity _mouseDownEntity;
         private bool _isMouseDown;
         
         void ILateTickable.LateTick()
         {
-            if (Input.GetMouseButtonDown(MouseIndex))
+            if (UnityEngine.Input.GetMouseButtonDown(MouseIndex))
                 HandleMouseDown();
             
-            if (Input.GetMouseButtonUp(MouseIndex) && _isMouseDown)
+            if (UnityEngine.Input.GetMouseButtonUp(MouseIndex) && _isMouseDown)
                 HandleMouseUp();
         }
         
@@ -34,7 +35,7 @@ namespace ConnectionSystem.Select
         {
             var mouseUpEntity = _mouseRaycastService.PerformRaycast();
             
-            Entity.Entity resultEntity = null;
+            Entity resultEntity = null;
             
             if (_mouseDownEntity && mouseUpEntity && _mouseDownEntity == mouseUpEntity)
                 resultEntity = _mouseDownEntity;

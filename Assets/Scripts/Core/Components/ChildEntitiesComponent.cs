@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class ChildEntitiesComponent : MonoBehaviour
+namespace Core.Components
 {
-   public Entity.Entity[] ChildEntities;
+   public class ChildEntitiesComponent : MonoBehaviour
+   {
+      public Entity.Entity[] ChildEntities;
+   }
 }

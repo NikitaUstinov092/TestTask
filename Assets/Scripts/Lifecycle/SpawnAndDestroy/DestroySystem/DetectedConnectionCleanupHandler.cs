@@ -1,8 +1,9 @@
 ﻿using System;
-using ConnectionSystem.Connection.Components;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
 using Zenject;
 
-namespace Custom
+namespace Lifecycle.SpawnAndDestroy.DestroySystem
 {
     public class DetectedConnectionCleanupHandler: IInitializable, IDisposable
     {
@@ -28,7 +29,7 @@ namespace Custom
             _connectionEntityDetector.OnConnectionEntityDetected -= OnConnectionEntityDetected;
         }
         
-        private void OnConnectionEntityDetected(Entity.Entity entity)
+        private void OnConnectionEntityDetected(Entity entity)
         {
             var entityRelationsComponent = entity.Get<EntityRelationsComponent>();
             var creator = entityRelationsComponent.CreatorEntity;

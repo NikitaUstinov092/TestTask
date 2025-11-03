@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SpawnSystem
+namespace Lifecycle.SpawnAndDestroy.SpawnSystem
 {
     public class CircleRandomPositionGenerator
     {

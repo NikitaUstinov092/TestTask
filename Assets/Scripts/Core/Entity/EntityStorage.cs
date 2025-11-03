@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
 
-namespace Entity
+namespace Core.Entity
 {
     public class EntityStorage: IEntityStorage, IEntityStorageObserver
     {
         public event Action<Entity> OnEntityAdded;
         public event Action<Entity> OnEntityRemoved;
-        public event Action<List<Entity>> OnListChanged;
       
         private readonly List<Entity> _entities = new ();
-        public bool HasEntity(Entity entity) => _entities.Contains(entity);
         IEnumerable<Entity> IEntityStorage.GetAllEntities() => _entities;
 
         public void AddEntity(Entity entity)
@@ -20,7 +18,6 @@ namespace Entity
             
             _entities.Add(entity);
             OnEntityAdded?.Invoke(entity);
-            OnListChanged?.Invoke(_entities);
         }
         public void RemoveEntity(Entity entity)
         {
@@ -29,7 +26,6 @@ namespace Entity
             
             _entities.Remove(entity);
             OnEntityRemoved?.Invoke(entity);
-            OnListChanged?.Invoke(_entities);
         }
     }
 

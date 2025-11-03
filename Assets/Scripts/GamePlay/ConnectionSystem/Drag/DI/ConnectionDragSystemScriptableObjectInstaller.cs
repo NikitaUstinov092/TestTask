@@ -1,11 +1,9 @@
-using ConnectionSystem.Connection;
-using ConnectionSystem.ConnectionLineView;
-using ConnectionSystem.Drag.Adapters;
-using ConnectionSystem.MousePoint;
+using GamePlay.ConnectionSystem.Drag.MousePoint;
+using GamePlay.ConnectionSystem.Drag.Subscribers;
 using UnityEngine;
 using Zenject;
 
-namespace ConnectionSystem.DI
+namespace GamePlay.ConnectionSystem.Drag.DI
 {
     [CreateAssetMenu(fileName = "ConnectionDragSystemScriptableObjectInstaller", menuName = "Installers/ConnectionDragSystemScriptableObjectInstaller")]
     public class ConnectionDragSystemScriptableObjectInstaller : ScriptableObjectInstaller<ConnectionDragSystemScriptableObjectInstaller>
@@ -16,7 +14,6 @@ namespace ConnectionSystem.DI
             BindMousePointInstallers();
             BindExecutionOrders();
         }
-        
         private void BindDragConnectionInstallers()
         {
             Container.Bind<ConnectionDragResolver>().AsSingle();

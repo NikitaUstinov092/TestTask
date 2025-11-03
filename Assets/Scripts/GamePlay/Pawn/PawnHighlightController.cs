@@ -1,10 +1,13 @@
 ﻿using System;
-using AreaStatusSystem;
-using HighlightSystem;
+using Core.Components;
+using Core.Entity;
+using GamePlay.AreaStatusSystem;
+using GamePlay.AreaStatusSystem.Components;
+using Services;
+using Visual.HighlightSystem;
 using Zenject;
-using ZoneStateManagementSystem.Components;
 
-namespace Pawn.Adapters
+namespace GamePlay.Pawn
 {
     public class PawnHighlightController: IInitializable, IDisposable
     {
@@ -28,7 +31,7 @@ namespace Pawn.Adapters
             _areaStateNotifier.OnAreaStateChanged -= ChangeMaterial;
         }
         
-        private void ChangeMaterial(AreaState state, Entity.Entity entity)
+        private void ChangeMaterial(AreaState state, Entity entity)
         {
             var childEntities = entity.Get<ChildEntitiesComponent>().ChildEntities;
 

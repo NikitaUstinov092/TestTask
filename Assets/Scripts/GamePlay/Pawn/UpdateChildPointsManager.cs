@@ -1,17 +1,23 @@
-﻿using ConnectionSystem.Connection;
-using ConnectionSystem.Connection.Components;
-using ConnectionSystem.ConnectionLineView;
+﻿using Core.Components;
+using Core.Entity;
+using GamePlay.ConnectionSystem;
+using GamePlay.ConnectionSystem.Components;
 using Zenject;
 
-namespace Pawn
+namespace GamePlay.Pawn
 {
     public class UpdateChildPointsManager
     {
-        [Inject]
         private readonly IConnectionLinePointUpdater _pointPositionUpdater;
-
-        private readonly ConnectionPointPositionSetter _pointPositionSetter = new();
-        public void UpdatePoints(Entity.Entity entity)
+        private readonly ConnectionPointPositionSetter _pointPositionSetter;
+       
+        [Inject] 
+        public UpdateChildPointsManager(IConnectionLinePointUpdater pointPositionUpdater)
+        {
+            _pointPositionUpdater = pointPositionUpdater;
+            _pointPositionSetter = new();
+        }
+        public void UpdatePoints(Entity entity)
         {
            if(!entity.TryGet(out ChildEntitiesComponent childEntitiesComponent))
                return;
@@ -32,14 +38,14 @@ namespace Pawn
            }
         }
         
-        private void UpdateOutgoingConnection(Entity.Entity entity)
+        private void UpdateOutgoingConnection(Entity entity)
         {
             var creator = entity.Get<EntityRelationsComponent>().CreatorEntity.transform;
             _pointPositionSetter.SetStartPoint(entity, creator);
             _pointPositionUpdater.UpdateLineStartPoint(entity);
         }
         
-        private void UpdateIncomingConnection(Entity.Entity entity)
+        private void UpdateIncomingConnection(Entity entity)
         {
             var connector = entity.Get<EntityRelationsComponent>().ConnectedEntity.transform;
             _pointPositionSetter.SetEndPoint(entity, connector);

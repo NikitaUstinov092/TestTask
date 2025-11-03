@@ -1,9 +1,10 @@
-using ConnectionSystem.Connection.Components;
-using ConnectionSystem.MousePoint;
-using Entity;
+using Core.Entity;
+using GamePlay.ConnectionSystem.Components;
+using GamePlay.ConnectionSystem.Drag.MousePoint;
+using Services;
 using Zenject;
 
-namespace ConnectionSystem.Connection
+namespace GamePlay.ConnectionSystem.Drag
 {
     public class ConnectionSpawnWrapper
     {
@@ -20,7 +21,7 @@ namespace ConnectionSystem.Connection
             _connectionPointPositionSetter = new();
         }
         
-        public void CreateAndInstallConnection(Entity.Entity sourceEntity)
+        public void CreateAndInstallConnection(Entity sourceEntity)
         {
             var connection = _connectionSpawner.CreateConnection();
 
@@ -33,13 +34,13 @@ namespace ConnectionSystem.Connection
             _entityStorage.AddEntity(connection);
         }
 
-        private void SetConnectionBuffer(Entity.Entity sourceEntity, Entity.Entity connection)
+        private void SetConnectionBuffer(Entity sourceEntity, Entity connection)
         {
             var incomingConnectionComponent = sourceEntity.Get<ConnectionBufferComponent>();
             incomingConnectionComponent.ConnectionBufferEntity = connection;
         }
 
-        private void SetSpawnerEntitySelf(Entity.Entity sourceEntity, Entity.Entity connection)
+        private void SetSpawnerEntitySelf(Entity sourceEntity, Entity connection)
         {
             var entityRelationsComponent = connection.Get<EntityRelationsComponent>();
             entityRelationsComponent.CreatorEntity = sourceEntity;
