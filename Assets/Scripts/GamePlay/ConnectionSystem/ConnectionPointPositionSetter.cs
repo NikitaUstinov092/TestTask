@@ -10,7 +10,6 @@ namespace GamePlay.ConnectionSystem
         {
             entity.Get<ConnectionPointsComponent>().StartPoint.position = point.position;
         }
-        
         public void SetEndPoint(Entity entity, Transform point)
         {
             entity.Get<ConnectionPointsComponent>().EndPoint.position = point.position;

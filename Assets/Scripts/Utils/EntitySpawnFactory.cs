@@ -6,7 +6,6 @@ namespace Utils
    public class EntitySpawnFactory
    {
        private readonly IEntityPrefab _prefabStorage;
-       
        public EntitySpawnFactory(IEntityPrefab prefabStorage)
        {
            _prefabStorage = prefabStorage;

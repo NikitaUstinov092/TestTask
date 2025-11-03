@@ -15,7 +15,6 @@ namespace GamePlay.ConnectionSystem.Drag.Subscribers
             input.OnBeginDragEventData += _mousePointLifecycle.CreateAndInstallPoint;
             input.OnEndDragEvent += _mousePointLifecycle.DestroyPoint;
         }
-
         protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnBeginDragEventData -= _mousePointLifecycle.CreateAndInstallPoint;

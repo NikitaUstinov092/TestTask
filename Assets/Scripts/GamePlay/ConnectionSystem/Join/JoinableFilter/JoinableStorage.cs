@@ -11,7 +11,6 @@ namespace GamePlay.ConnectionSystem.Join.JoinableFilter
         public event Action<Entity[]> OnClearRequest;
         
         private List<Entity> _entities = new (); 
-
         public void UpdateEntities(Entity[] entities)
         {
             _entities = entities.ToList();
@@ -22,7 +21,6 @@ namespace GamePlay.ConnectionSystem.Join.JoinableFilter
             OnClearRequest?.Invoke(_entities.ToArray());
             _entities.Clear();
         }
-        
         bool IJoinableEntityChecker.HasEntity(Entity entity) => _entities.Contains(entity);
     }
 

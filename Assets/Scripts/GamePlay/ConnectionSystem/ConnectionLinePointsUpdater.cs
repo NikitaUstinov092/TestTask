@@ -19,7 +19,6 @@ namespace GamePlay.ConnectionSystem
             
             UpdateStartLinePointView(lineRenderComponent, connectionPointsComponent); 
         }
-        
         private static bool IsNotValid(Entity entity, out LineRenderComponent lineRenderComponent,
             out ConnectionPointsComponent connectionPointsComponent)
         {
@@ -28,12 +27,10 @@ namespace GamePlay.ConnectionSystem
             connectionPointsComponent = null;
             return true;
         }
-        
         private void UpdateStartLinePointView(LineRenderComponent lineRenderComponent, ConnectionPointsComponent connectionPointsComponent)
         {
             lineRenderComponent.LineRenderer.SetPosition(0, connectionPointsComponent.StartPoint.position);
         }
-        
         private void UpdateLineEndPointView(LineRenderComponent lineRenderComponent, ConnectionPointsComponent connectionPointsComponent)
         {
             lineRenderComponent.LineRenderer.SetPosition(1, connectionPointsComponent.EndPoint.position);

@@ -22,7 +22,6 @@ namespace GamePlay.ConnectionSystem.Join.JoinableFilter
                 && !incomingConnectionComponent.IncomingConnections.Contains(entity)
                 && !HasCreatorEntityRelation(e, entity));
         }
-
         private bool HasCreatorEntityRelation(Entity connected, Entity creator)
         { 
             foreach (var connectedEntity in connected.Get<IncomingConnectionComponent>().IncomingConnections)

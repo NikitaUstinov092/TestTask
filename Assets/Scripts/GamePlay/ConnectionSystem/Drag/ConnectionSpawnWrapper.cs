@@ -20,7 +20,6 @@ namespace GamePlay.ConnectionSystem.Drag
             _connectionSpawner = new ConnectionSpawner(entityPrefab);
             _connectionPointPositionSetter = new();
         }
-        
         public void CreateAndInstallConnection(Entity sourceEntity)
         {
             var connection = _connectionSpawner.CreateConnection();
@@ -33,13 +32,11 @@ namespace GamePlay.ConnectionSystem.Drag
             SetConnectionBuffer(sourceEntity, connection);
             _entityStorage.AddEntity(connection);
         }
-
         private void SetConnectionBuffer(Entity sourceEntity, Entity connection)
         {
             var incomingConnectionComponent = sourceEntity.Get<ConnectionBufferComponent>();
             incomingConnectionComponent.ConnectionBufferEntity = connection;
         }
-
         private void SetSpawnerEntitySelf(Entity sourceEntity, Entity connection)
         {
             var entityRelationsComponent = connection.Get<EntityRelationsComponent>();

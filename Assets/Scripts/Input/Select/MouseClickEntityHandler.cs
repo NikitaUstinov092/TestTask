@@ -24,13 +24,11 @@ namespace Input.Select
             if (UnityEngine.Input.GetMouseButtonUp(MouseIndex) && _isMouseDown)
                 HandleMouseUp();
         }
-        
         private void HandleMouseDown()
         {
             _mouseDownEntity = _mouseRaycastService.PerformRaycast();
             _isMouseDown = true;
         }
-        
         private void HandleMouseUp()
         {
             var mouseUpEntity = _mouseRaycastService.PerformRaycast();

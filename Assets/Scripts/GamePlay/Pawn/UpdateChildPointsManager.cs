@@ -37,14 +37,12 @@ namespace GamePlay.Pawn
                }
            }
         }
-        
         private void UpdateOutgoingConnection(Entity entity)
         {
             var creator = entity.Get<EntityRelationsComponent>().CreatorEntity.transform;
             _pointPositionSetter.SetStartPoint(entity, creator);
             _pointPositionUpdater.UpdateLineStartPoint(entity);
         }
-        
         private void UpdateIncomingConnection(Entity entity)
         {
             var connector = entity.Get<EntityRelationsComponent>().ConnectedEntity.transform;

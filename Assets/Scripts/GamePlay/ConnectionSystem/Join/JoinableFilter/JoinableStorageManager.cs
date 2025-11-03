@@ -15,14 +15,12 @@ namespace GamePlay.ConnectionSystem.Join.JoinableFilter
             _joinableStorage = joinableStorage;
             _filter = new JoinableFilter(entityStorage);
         }
-
         public void RefreshCandidatesFor(Entity entity)
         {
             _joinableStorage.Clear();
             var filteredEntities = _filter.GetFilteredEntities(entity).ToArray();
             _joinableStorage.UpdateEntities(filteredEntities);
         }
-
         public void ClearStorage()
         {
             _joinableStorage.Clear();

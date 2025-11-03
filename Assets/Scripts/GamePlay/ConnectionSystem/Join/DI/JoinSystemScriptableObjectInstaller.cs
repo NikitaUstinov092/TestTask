@@ -13,7 +13,6 @@ namespace GamePlay.ConnectionSystem.Join.DI
             BindJoinFilterInstallers();
             BindExecutionOrders();
         }
-    
         private void BindJoinFilterInstallers()
         {
             Container.BindInterfacesAndSelfTo<JoinableStorage>().AsSingle();
@@ -21,7 +20,6 @@ namespace GamePlay.ConnectionSystem.Join.DI
             Container.Bind<JoinableStorageManager>().AsSingle();
             Container.BindInterfacesTo<ConnectionBuilder>().AsCached(); 
         }
-    
         private void BindExecutionOrders()
         {
             Container.BindInitializableExecutionOrder<JoinableFilterDragSubscriber>(30);

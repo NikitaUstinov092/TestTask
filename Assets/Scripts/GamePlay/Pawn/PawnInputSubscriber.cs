@@ -17,7 +17,6 @@ namespace GamePlay.Pawn
 
             Subscribe(input);
         }
-
         protected override void OnEntityRemoved(Entity entity)
         {
             if (!entity.TryGet(out DragComponent inputComponent)

@@ -15,7 +15,6 @@ namespace GamePlay.ConnectionSystem.Select.DI
         private void BindSelectConnectionInstallers()
         {
             Container.BindInterfacesAndSelfTo<SelectedEntityStorage>().AsSingle();
-       
             Container.BindInterfacesTo<ConnectionSelectResolverAdapter>().AsCached();
             Container.Bind<ConnectionMediator>().AsCached();
             Container.BindInterfacesTo<ConnectionLineViewAdapter>().AsCached();

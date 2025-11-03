@@ -25,7 +25,6 @@ namespace Input.Drag
         {
             _type = type;
         }
-        
         public virtual void OnBeginDrag(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left)
@@ -42,7 +41,6 @@ namespace Input.Drag
             OnDragEventData?.Invoke(_type);
             OnDragEvent?.Invoke();
         }
-        
         public virtual void OnEndDrag(PointerEventData eventData)
         { 
             if (eventData.button != PointerEventData.InputButton.Left)

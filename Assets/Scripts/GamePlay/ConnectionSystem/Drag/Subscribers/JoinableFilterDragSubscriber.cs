@@ -15,7 +15,6 @@ namespace GamePlay.ConnectionSystem.Drag.Subscribers
             input.OnBeginDragEventData += _joinableStorageManager.RefreshCandidatesFor;
             input.OnEndDragEvent += _joinableStorageManager.ClearStorage;
         }
-
         protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnBeginDragEventData -= _joinableStorageManager.RefreshCandidatesFor;

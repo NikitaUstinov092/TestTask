@@ -59,8 +59,7 @@ namespace Lifecycle.SpawnAndDestroy.SpawnSystem
         {
             if (!entity.TryGet(out IdComponent idComponent)) 
                 return;
-        
-    
+            
             idComponent.Id = _currentId;
         }
     }

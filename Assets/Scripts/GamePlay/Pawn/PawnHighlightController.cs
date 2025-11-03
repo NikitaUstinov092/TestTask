@@ -20,17 +20,14 @@ namespace GamePlay.Pawn
             _areaStateNotifier = areaStateNotifier;
             _entityMaterialSwitcher = new EntityMaterialSwitcher(configService.Settings.DeleteMaterial);
         }
-
         void IInitializable.Initialize()
         {
             _areaStateNotifier.OnAreaStateChanged += ChangeMaterial;
         }
-        
         void IDisposable.Dispose()
         {
             _areaStateNotifier.OnAreaStateChanged -= ChangeMaterial;
         }
-        
         private void ChangeMaterial(AreaState state, Entity entity)
         {
             var childEntities = entity.Get<ChildEntitiesComponent>().ChildEntities;

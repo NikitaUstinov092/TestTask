@@ -15,12 +15,10 @@ namespace GamePlay.ConnectionSystem.Select.Adapters
             _mouseStartDragHandler = mouseStartDragHandler;
             _entityStorage = entityStorage;
         }
-
         void IInitializable.Initialize()
         {
             _mouseStartDragHandler.OnBeginDrag += _entityStorage.ClearSelection;
         }
-
         void IDisposable.Dispose()
         {
             _mouseStartDragHandler.OnBeginDrag -= _entityStorage.ClearSelection;

@@ -19,12 +19,10 @@ namespace GamePlay.ConnectionSystem.Select.Adapters
         {
             _connectionMediator.OnConnectionCreated += RefreshLinePoints;
         }
-
         void IDisposable.Dispose()
         {
             _connectionMediator.OnConnectionCreated -= RefreshLinePoints;
         }
-
         private void RefreshLinePoints(Entity entity)
         {
             _connectionLinePointsUpdater.UpdateLineEndPoint(entity);

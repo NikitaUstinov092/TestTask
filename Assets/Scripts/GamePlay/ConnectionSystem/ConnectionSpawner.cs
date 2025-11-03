@@ -8,9 +8,7 @@ namespace GamePlay.ConnectionSystem
     public class ConnectionSpawner
     {
         private const int LinePositionsCount = 2;
-        
         private readonly EntitySpawnFactory _connectionFactory;
-        
         public ConnectionSpawner(IEntityPrefab entityPrefab)
         {
             _connectionFactory = new EntitySpawnFactory(entityPrefab);

@@ -22,7 +22,6 @@ namespace Lifecycle.SpawnAndDestroy.DestroySystem
             _connectionListsExtractor.OnIncomingListDetected -= DetectConnection;
             _connectionListsExtractor.OnOutgoingListDetected -= DetectConnection;
         }
-
         private void DetectConnection(List<Entity> entities)
         {
             var entitiesCopy = new List<Entity>(entities);

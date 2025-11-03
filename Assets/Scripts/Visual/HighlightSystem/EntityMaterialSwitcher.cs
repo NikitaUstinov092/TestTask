@@ -6,7 +6,6 @@ namespace Visual.HighlightSystem
     public class EntityMaterialSwitcher
     {
         private readonly Material _highlightMaterial;
-
         public EntityMaterialSwitcher(Material highlightMaterial)
         {
             _highlightMaterial = highlightMaterial;

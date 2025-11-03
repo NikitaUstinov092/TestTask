@@ -22,14 +22,12 @@ namespace GamePlay.ConnectionSystem.Drag
             _entityDestroyer = entityDestroyer;
             _endPointSetterFacade = new();
         }
-        
         void IInitializable.Initialize()
         {
             _dragResolver.OnConnectionResolved += _connectionBuilder.BuildConnection;
             _dragResolver.OnConnectionResolved += _endPointSetterFacade.SetupEndPoint;
             _dragResolver.OnConnectionDiscarded += _entityDestroyer.DestroyEntity;
         }
-
         void IDisposable.Dispose()
         {
             _dragResolver.OnConnectionResolved -= _connectionBuilder.BuildConnection;

@@ -7,7 +7,6 @@ namespace Input.Drag.Components
    {
       [field:SerializeField]
       private EntityDragBridge _dragBridge;
-   
       public IDragHandler<Entity> GetInput() => _dragBridge;
    }
 }

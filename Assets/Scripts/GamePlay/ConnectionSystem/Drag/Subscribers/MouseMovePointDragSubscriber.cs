@@ -15,7 +15,6 @@ namespace GamePlay.ConnectionSystem.Drag.Subscribers
             input.OnBeginDragEvent += _mousePointMover.SetStartPoint;
             input.OnDragEvent += _mousePointMover.MovePoint;
         }
-
         protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnBeginDragEvent -= _mousePointMover.SetStartPoint;

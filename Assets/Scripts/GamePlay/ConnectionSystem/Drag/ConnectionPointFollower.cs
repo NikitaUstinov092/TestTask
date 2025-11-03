@@ -15,12 +15,10 @@ namespace GamePlay.ConnectionSystem.Drag
         {
             input.OnDragEventData += UpdateEndPointToMouse; 
         }
-
         protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnDragEventData -= UpdateEndPointToMouse; 
         }
-
         private void UpdateEndPointToMouse(Entity entity)
         {
             if(!entity.TryGet(out ConnectionBufferComponent bufferConnection))

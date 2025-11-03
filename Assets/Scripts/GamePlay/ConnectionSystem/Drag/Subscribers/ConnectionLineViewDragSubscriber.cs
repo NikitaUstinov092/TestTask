@@ -16,7 +16,6 @@ namespace GamePlay.ConnectionSystem.Drag.Subscribers
             input.OnDragEventData += OnDragEventData; 
             input.OnEndDragEventData += OnEndDragEventData; 
         }
-
         protected override void Unsubscribe(IDragHandler<Entity> input)
         {
             input.OnBeginDragEventData -= OnBeginDragEventData; 

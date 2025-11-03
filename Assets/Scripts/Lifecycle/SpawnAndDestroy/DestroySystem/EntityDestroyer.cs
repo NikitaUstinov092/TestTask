@@ -11,20 +11,17 @@ namespace Lifecycle.SpawnAndDestroy.DestroySystem
     
         [Inject]  
         private readonly IEntityStorage _entityStorage;
-
         public void DestroyEntity(Entity entity)
         {
             OnRequestDestroy?.Invoke(entity);
             _entityStorage.RemoveEntity(entity);
             Object.Destroy(entity.gameObject);
         }
-    
     }
     public interface IEntityDestroyer
     {
         void DestroyEntity(Entity entity);
     }
-
     public interface IEntityDestroyerRequestObserver
     {
         event Action<Entity> OnRequestDestroy;

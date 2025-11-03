@@ -15,13 +15,11 @@ namespace Lifecycle.SpawnAndDestroy.SpawnSystem
             _center = startPosition;
             _radius = circleRadius;
         }
-        
         public Vector3 GetRandomPositionOnCircle()
         {
             var randomAngle = Random.Range(MinAngle, MaxAngle);
             return GetPositionAtAngle(randomAngle);
         }
-        
         private Vector3 GetPositionAtAngle(float angleInDegrees)
         {
             var angleInRadians = angleInDegrees * Mathf.Deg2Rad;

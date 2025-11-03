@@ -11,7 +11,6 @@ namespace Lifecycle.MoveSystem
         {
             _offsetScreen = UnityEngine.Input.mousePosition - WorldToScreen(transformToDrag.position);
         }
-
         public void UpdatePosition(Transform transformToDrag)
         {
             if (!_camera) 
@@ -20,7 +19,6 @@ namespace Lifecycle.MoveSystem
             var pointerWorldPosition = _camera.ScreenToWorldPoint(UnityEngine.Input.mousePosition - _offsetScreen);
             transformToDrag.position = new Vector3(pointerWorldPosition.x, transformToDrag.position.y, pointerWorldPosition.z);
         }
-
         private Vector3 WorldToScreen(Vector3 worldPosition)
         {
             if (_camera != null)

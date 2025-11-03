@@ -24,7 +24,6 @@ namespace GamePlay.ConnectionSystem.Select
             _connectionPointPositionSetter = new();
             _entityStorage = entityStorage;
         }
-        
         public void MediateConnection(Entity fromEntity, Entity toEntity)
         {
             var connection = _connectionSpawner.CreateConnection();
